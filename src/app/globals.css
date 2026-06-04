@@ -1,0 +1,642 @@
+@import "tailwindcss";
+
+@variant dark (html:not(.light-mode) &);
+
+:root {
+  --background: #050505; /* Deep premium black */
+  --foreground: #ffffff; /* Modern crisp white */
+  --primary: #22d3ee;    /* Brand Cyan (from the framer-motion component) */
+  --primary-hover: #0891b2;
+  --secondary: #a855f7;  /* Brand Purple (from the framer-motion component) */
+  --accent-purple: #a855f7; 
+  --accent-emerald: #10b981; 
+  --accent-peach: #fb923c;   
+  --accent-pink: #ec4899;    
+  
+  /* Brand specific color variables */
+  --brand-blue: #22d3ee;
+  --brand-orange: #fb923c;
+  --brand-green: #10b981;
+
+  /* Theme-responsive Custom Cursor Variables */
+  --cursor-bg: rgba(255, 255, 255, 0.03);
+  --cursor-border: rgba(255, 255, 255, 0.1);
+  --cursor-glow: rgba(255, 255, 255, 0.02);
+
+  /* Theme specific tokens - Matches the framer-motion hero */
+  --card-bg: #121212;
+  --card-bg-hover: #161616;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-border-hover: rgba(255, 255, 255, 0.15);
+  --text-muted: rgba(255, 255, 255, 0.65); /* Standard crisp white/65 muted text */
+  --text-title: #ffffff;
+  --glow-opacity: 0.08;
+  --panel-bg: rgba(5, 5, 5, 0.85);
+
+  /* Component-specific theme variables */
+  --logo-subtext: #60a5fa;
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --radial-glow-1: rgba(34, 211, 238, 0.12);
+  --radial-glow-2: rgba(168, 85, 247, 0.12);
+  --linear-glow: rgba(255, 255, 255, 0.02);
+  --industry-card-bg: #121212;
+  --industry-card-hover: #161616;
+  --solution-card-bg: #121212;
+  --solution-card-hover: #161616;
+  --services-card-bg: #121212;
+  --services-grid-bg: #121212;
+  --services-grid-hover: #161616;
+  --contact-input-bg: #050914;
+  --contact-card-bg-1: #121212;
+  --contact-card-bg-2: #121212;
+  --portfolio-frame-bg: #050505;
+  --bento-card-bg: #121212;
+  --bento-active-bg: #161616;
+  --vision-card-bg: #121212;
+  --nav-hover-bg: rgba(255, 255, 255, 0.04);
+}
+
+.light-mode {
+  --background: #f8fafc; /* Clean slate-50 */
+  --foreground: #0f172a; /* slate-900 */
+  --primary: #f59e0b;    /* Keep brand orange */
+  --primary-hover: #d97706;
+  --secondary: #1d70b8;  /* Keep brand blue */
+  
+  /* Brand specific color variables */
+  --brand-blue: #1d70b8;
+  --brand-orange: #f59e0b;
+  --brand-green: #10b981;
+
+  /* Theme-responsive Custom Cursor Variables */
+  --cursor-bg: rgba(15, 23, 42, 0.04);
+  --cursor-border: rgba(15, 23, 42, 0.15);
+  --cursor-glow: rgba(15, 23, 42, 0.02);
+
+  /* Redefine for light mode */
+  --card-bg: #ffffff; /* Solid White for high contrast pop against slate-50 bg */
+  --card-bg-hover: #ffffff;
+  --card-border: rgba(15, 23, 42, 0.15); /* Significantly more visible border (slate-200 level) */
+  --card-border-hover: rgba(29, 112, 184, 0.45); /* High-contrast hovered brand blue border */
+  --text-muted: #475569; /* slate-600 */
+  --text-title: #0f172a; /* slate-900 */
+  --glow-opacity: 0.05;
+  --panel-bg: rgba(248, 250, 252, 0.9);
+
+  /* Component-specific theme variables */
+  --logo-subtext: #1d70b8;
+  --grid-line: rgba(15, 23, 42, 0.04);
+  --radial-glow-1: rgba(29, 112, 184, 0.06);
+  --radial-glow-2: rgba(168, 85, 247, 0.05);
+  --linear-glow: rgba(15, 23, 42, 0.01);
+  --industry-card-bg: #ffffff;
+  --industry-card-hover: #f8fafc;
+  --solution-card-bg: #ffffff;
+  --solution-card-hover: #f8fafc;
+  --services-card-bg: #ffffff;
+  --services-grid-bg: #f8fafc;
+  --services-grid-hover: #f1f5f9;
+  --contact-input-bg: #ffffff;
+  --contact-card-bg-1: #f8fafc;
+  --contact-card-bg-2: #ffffff;
+  --portfolio-frame-bg: #ffffff;
+  --bento-card-bg: #ffffff;
+  --bento-active-bg: #ffffff;
+  --vision-card-bg: #ffffff;
+  --nav-hover-bg: rgba(15, 23, 42, 0.04);
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  
+  /* Custom themed hooks */
+  --color-card-bg: var(--card-bg);
+  --color-card-bg-hover: var(--card-bg-hover);
+  --color-card-border: var(--card-border);
+  --color-card-border-hover: var(--card-border-hover);
+  --color-text-muted: var(--text-muted);
+  --color-text-title: var(--text-title);
+  --color-panel-bg: var(--panel-bg);
+
+  /* Custom component theme hooks */
+  --color-logo-subtext: var(--logo-subtext);
+  --color-industry-card-bg: var(--industry-card-bg);
+  --color-industry-card-hover: var(--industry-card-hover);
+  --color-solution-card-bg: var(--solution-card-bg);
+  --color-solution-card-hover: var(--solution-card-hover);
+  --color-services-card-bg: var(--services-card-bg);
+  --color-services-grid-bg: var(--services-grid-bg);
+  --color-services-grid-hover: var(--services-grid-hover);
+  --color-contact-input-bg: var(--contact-input-bg);
+  --color-contact-card-bg-1: var(--contact-card-bg-1);
+  --color-contact-card-bg-2: var(--contact-card-bg-2);
+  --color-portfolio-frame-bg: var(--portfolio-frame-bg);
+  --color-bento-card-bg: var(--bento-card-bg);
+  --color-vision-card-bg: var(--vision-card-bg);
+  --color-nav-hover-bg: var(--nav-hover-bg);
+
+  /* Custom accent and brand colors registered so Tailwind generates utility classes */
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-peach: var(--accent-peach);
+  --color-accent-pink: var(--accent-pink);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-green: var(--brand-green);
+
+  --font-sans: var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  /* Custom Animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-spin-slow: spin-slow 20s linear infinite;
+  --animate-scroll-left: scroll-left 40s linear infinite;
+  --animate-scroll-right: scroll-right 40s linear infinite;
+  --animate-glow-sweep: glow-sweep 8s ease infinite;
+}
+
+/* Custom Animation Keyframes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(1deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-fade {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in-fade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Global Reset & Body Styles */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px; /* Offset for the fixed header */
+  background-color: var(--background);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Liquid Glassmorphism Class Utilities */
+.liquid-glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.liquid-glass-glowing {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-glass-glowing:hover {
+  background: var(--card-bg-hover);
+  border: 1px solid var(--card-border-hover);
+  box-shadow: 0 8px 32px 0 rgba(249, 115, 22, 0.08);
+}
+
+/* Smooth Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(249, 115, 22, 0.2);
+  border-radius: 9999px;
+  border: 2px solid var(--background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(249, 115, 22, 0.5);
+}
+
+/* Text Selection Style */
+::selection {
+  background: rgba(249, 115, 22, 0.3);
+  color: #ffffff;
+}
+
+/* Hide Default Cursor (Custom Sphere Cursor handles it) */
+@media (pointer: fine) {
+  .custom-cursor-active a,
+  .custom-cursor-active button,
+  .custom-cursor-active [role="button"],
+  .custom-cursor-active input,
+  .custom-cursor-active select,
+  .custom-cursor-active textarea {
+    cursor: none !important;
+  }
+}
+
+/* Custom Brand Cursor Dynamic Color Cycle (Blue -> Orange -> Green) */
+@keyframes dot-cycle {
+  0%, 100% {
+    background-color: var(--brand-blue);
+    box-shadow: 0 0 10px rgba(29, 112, 184, 0.8);
+  }
+  33% {
+    background-color: var(--brand-orange);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.8);
+  }
+  66% {
+    background-color: var(--brand-green);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+  }
+}
+
+@keyframes cursor-cycle {
+  0%, 100% {
+    border-color: rgba(29, 112, 184, 0.65);
+    background-color: rgba(29, 112, 184, 0.05);
+    box-shadow: 0 0 15px rgba(29, 112, 184, 0.35);
+  }
+  33% {
+    border-color: rgba(245, 158, 11, 0.65);
+    background-color: rgba(245, 158, 11, 0.05);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
+  }
+  66% {
+    border-color: rgba(16, 185, 129, 0.65);
+    background-color: rgba(16, 185, 129, 0.05);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
+  }
+}
+
+@keyframes cursor-cycle-hover {
+  0%, 100% {
+    border-color: rgba(29, 112, 184, 0.95);
+    background-color: rgba(29, 112, 184, 0.18);
+    box-shadow: 0 0 25px rgba(29, 112, 184, 0.65), inset 0 0 10px rgba(29, 112, 184, 0.25);
+  }
+  33% {
+    border-color: rgba(245, 158, 11, 0.95);
+    background-color: rgba(245, 158, 11, 0.18);
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.65), inset 0 0 10px rgba(245, 158, 11, 0.25);
+  }
+  66% {
+    border-color: rgba(16, 185, 129, 0.95);
+    background-color: rgba(16, 185, 129, 0.18);
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.65), inset 0 0 10px rgba(16, 185, 129, 0.25);
+  }
+}
+
+.brand-cursor-dot {
+  animation: dot-cycle 9s linear infinite;
+  transition: transform 0.05s ease-out;
+}
+
+.brand-cursor-sphere {
+  width: 32px;
+  height: 32px;
+  animation: cursor-cycle 9s linear infinite;
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+              height 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.08s ease-out !important;
+}
+
+.brand-cursor-sphere.brand-cursor-hover {
+  width: 60px;
+  height: 60px;
+  animation: cursor-cycle-hover 9s linear infinite;
+}
+
+/* ==========================================
+   PREMIUM LIGHT MODE THEME SYSTEM OVERRIDES
+   ========================================== */
+.light-mode {
+  color-scheme: light;
+}
+
+.light-mode section:not(.always-dark),
+.light-mode .bg-\[\#050505\]:not(.always-dark) {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  border-color: var(--card-border) !important;
+}
+
+.light-mode .bg-black:not(.always-dark) {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* Text elements responsive contrast (excluding always-dark nodes) */
+.light-mode h1:not(.always-dark *),
+.light-mode h2:not(.always-dark *),
+.light-mode h3:not(.always-dark *),
+.light-mode h4:not(.always-dark *),
+.light-mode .text-white:not(.always-dark *):not(.text-white-force):not(button):not(a):not(.btn),
+.light-mode .text-text-title:not(.always-dark *) {
+  color: var(--text-title) !important;
+}
+
+.text-white-force,
+.light-mode .text-white-force {
+  color: #ffffff !important;
+}
+
+.light-mode p:not(.always-dark *),
+.light-mode .text-white\/70:not(.always-dark *),
+.light-mode .text-white\/65:not(.always-dark *),
+.light-mode .text-white\/60:not(.always-dark *),
+.light-mode .text-zinc-300:not(.always-dark *),
+.light-mode .text-zinc-400:not(.always-dark *),
+.light-mode .text-slate-300:not(.always-dark *),
+.light-mode .text-text-muted:not(.always-dark *) {
+  color: var(--text-muted) !important;
+}
+
+/* Revert/enforce always-dark elements background and text styles */
+.always-dark,
+.light-mode .always-dark {
+  color: #ffffff !important;
+}
+
+.light-mode .always-dark h1,
+.light-mode .always-dark h2,
+.light-mode .always-dark h3,
+.light-mode .always-dark h4,
+.light-mode .always-dark .text-white,
+.light-mode .always-dark .text-text-title {
+  color: #ffffff !important;
+}
+
+.light-mode .always-dark p,
+.light-mode .always-dark .text-white\/70,
+.light-mode .always-dark .text-white\/65,
+.light-mode .always-dark .text-white\/60,
+.light-mode .always-dark .text-zinc-300,
+.light-mode .always-dark .text-zinc-400,
+.light-mode .always-dark .text-slate-300,
+.light-mode .always-dark .text-blue-100\/90,
+.light-mode .always-dark .text-blue-200\/90,
+.light-mode .always-dark .text-text-muted {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Input boxes background and borders fixes (slate-100 defaults and overrides) */
+.bg-slate-100\/90 {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bg-slate-100\/80 {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bg-slate-100\/50 {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bg-slate-100\/40 {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.border-slate-200 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.border-slate-100 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.light-mode .bg-slate-100\/90 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+.light-mode .bg-slate-100\/80 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+.light-mode .bg-slate-100\/50 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+.light-mode .bg-slate-100\/40 {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+.light-mode .border-slate-200 {
+  border-color: #e2e8f0 !important;
+}
+
+.light-mode .border-slate-100 {
+  border-color: #e2e8f0 !important;
+}
+
+.light-mode p,
+.light-mode .text-white\/70,
+.light-mode .text-white\/65,
+.light-mode .text-white\/60,
+.light-mode .text-zinc-300,
+.light-mode .text-zinc-400,
+.light-mode .text-slate-300,
+.light-mode .text-text-muted {
+  color: var(--text-muted) !important;
+}
+
+.light-mode .text-white\/50,
+.light-mode .text-white\/45,
+.light-mode .text-white\/40,
+.light-mode .text-zinc-500 {
+  color: rgba(15, 23, 42, 0.5) !important;
+}
+
+.light-mode .text-white\/30 {
+  color: rgba(15, 23, 42, 0.3) !important;
+}
+
+.light-mode .border-white\/10 {
+  border-color: var(--card-border) !important;
+}
+
+.light-mode .border-white\/5 {
+  border-color: var(--card-border) !important;
+}
+
+/* Component Cards (IndustriesGrid, SolutionsGrid, Bento) */
+.light-mode .bg-\[\#16161a\] {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+.light-mode .hover\:bg-\[\#1c1c22\]:hover {
+  background-color: var(--card-bg-hover) !important;
+  border-color: var(--card-border-hover) !important;
+}
+
+.light-mode .bg-\[\#111111\] {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+.light-mode .bg-black\/40 {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+.light-mode .bg-black\/40 h2,
+.light-mode .bg-black\/40 p {
+  color: #0f172a !important;
+}
+
+.light-mode .bg-\[\#141414\] {
+  background-color: var(--background) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* ServicesSection specific cards */
+.light-mode .bg-\[\#0d0d0d\]\/80 {
+  background-color: rgba(248, 250, 252, 0.85) !important;
+  border-color: var(--card-border) !important;
+}
+
+.light-mode .bg-\[\#0d0d0d\] {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+.light-mode .hover\:bg-\[\#121212\]:hover {
+  background-color: var(--card-bg-hover) !important;
+  border-color: var(--card-border-hover) !important;
+}
+
+.light-mode .bg-\[\#0c0c0c\] {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* Soften heavy shadows in light mode to provide a premium slate aesthetic */
+.light-mode .shadow-\[0_30px_120px_rgba\(0\,0\,0\,0\.6\)\] {
+  box-shadow: 0 30px 100px rgba(15, 23, 42, 0.07) !important;
+}
+
+.light-mode .shadow-\[0_20px_60px_rgba\(0\,0\,0\,0\.35\)\] {
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.05) !important;
+}
+
+.light-mode .shadow-\[0_22px_70px_rgba\(0\,0\,0\,0\.28\)\] {
+  box-shadow: 0 22px 70px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* 
+  Accent contrast corrections in Light Mode:
+  Maps neon bright cyan, fuchsia, sky-blue, and violet to rich high-contrast dark equivalents
+*/
+.light-mode .text-cyan-300,
+.light-mode .text-cyan-400 {
+  color: #1d70b8 !important; /* Premium brand-blue */
+}
+
+.light-mode .hover\:text-cyan-200:hover {
+  color: #135188 !important; /* Deep sapphire blue hover */
+}
+
+.light-mode .text-fuchsia-300,
+.light-mode .text-fuchsia-400,
+.light-mode .text-violet-300,
+.light-mode .text-violet-400 {
+  color: #7c3aed !important; /* Premium rich violet/purple */
+}
+
+.light-mode .text-sky-300,
+.light-mode .text-sky-400 {
+  color: #0284c7 !important; /* Sky-600 */
+}
+
+/* Button & badges borders and backgrounds in CapabilitiesBento */
+.light-mode .border-cyan-400\/20 {
+  border-color: rgba(29, 112, 184, 0.25) !important;
+}
+
+.light-mode .bg-cyan-400\/10 {
+  background-color: rgba(29, 112, 184, 0.08) !important;
+}
+
+.light-mode .hover\:bg-cyan-400\/20:hover {
+  background-color: rgba(29, 112, 184, 0.16) !important;
+}
+
+
+
+
+
