@@ -6,7 +6,6 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const PARTNERS_LIST = [
   { src: "/partner-logo-1.png", alt: "Collabera" },
-  { src: "/partner-logo-2.png", alt: "Tata Group" },
   { src: "/partner-logo-3.png", alt: "H&H Insurance" },
   { src: "/partner-logo-4.png", alt: "CSI" },
   { src: "/partner-logo-5.png", alt: "RKS" },
