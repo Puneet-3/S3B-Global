@@ -927,6 +927,27 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
   );
 }
 
+const TESTIMONIALS_LIST = [
+  {
+    quote:
+      "Collaborating with S3B Global has transformed our growth path. They crafted a strategic, highly professional digital platform and database. Their data-driven approach, clear communication, and commitment to our success have been a game-changer for our team.",
+    name: "Amie Tremblay",
+    role: "Founder, BuzzBound",
+  },
+  {
+    quote:
+      "S3B Global has been key to driving our digital transformation, turning complex challenges into scalable solutions with ease. Their innovation, professionalism, and responsiveness make them an invaluable technology partner.",
+    name: "Satya Katakam",
+    role: "Founder & CEO, iPivot",
+  },
+  {
+    quote:
+      "Partnering with S3B Global has significantly boosted our operational efficiency through their deep domain expertise and technical precision. Their result-driven approach and clear communication made them a trusted extension of our team.",
+    name: "Sourabh Yadav",
+    role: "Regional Head, Rocksensor",
+  },
+];
+
 // Service content mapping matching approved specifications
 const SERVICES_DATA: Record<string, {
   badge: string;
@@ -946,6 +967,17 @@ const SERVICES_DATA: Record<string, {
     icon: React.ComponentType<any>;
     items: string[];
   }[];
+  accelerator?: {
+    title: string;
+    desc: string;
+    buttonText: string;
+    buttonHref: string;
+  };
+  showTestimonials?: boolean;
+  ctaOverride?: {
+    title: string;
+    desc: string;
+  };
 }> = {
   "ai-transformation": {
     badge: "SERVICE",
@@ -1175,12 +1207,12 @@ const SERVICES_DATA: Record<string, {
   "digital-product-experience": {
     badge: "SERVICE",
     title: "Digital Product Experience",
-    tagline: "Designing intuitive products that users love and businesses rely on.",
+    tagline: "Designing intelligent digital experiences that users embrace and businesses depend on.",
     themeColor: "text-[#10b981]",
     lightColor: "text-[#10b981] bg-[#10b981]/10 border-[#10b981]/25",
     overviewHeader: "Crafting Engaging Digital Journeys",
     paragraphs: [
-      "Great software is defined by how easily people can use it. We bridge the gap between complex technical requirements and human psychology. By grounding our design process in user research and business strategy, we build web and mobile interfaces that drive adoption, retention, and competitive advantage."
+      "Today's best products don't just work; they anticipate, adapt, and delight. By combining AI-driven insights, user psychology, and modern design thinking, we create seamless digital experiences that accelerate growth, improve retention, and deliver measurable business impact."
     ],
     statusMetrics: [
       { label: "ENGAGEMENT RATE", val: "+45% YOY" },
@@ -1191,61 +1223,57 @@ const SERVICES_DATA: Record<string, {
     capabilities: [
       {
         num: "01",
-        title: "Product Strategy & Roadmapping",
-        desc: "Define what to build and why. We align user needs with your business goals to create a prioritized product roadmap, ensuring development resources are spent on features that actually move the needle."
+        title: "Product Strategy & Intelligent Road mapping",
+        desc: "Move beyond feature lists and build with purpose. We combine user insights, market intelligence, and business objectives to create strategic roadmaps that prioritize what matters most, accelerating growth, reducing waste, and maximizing product impact."
       },
       {
         num: "02",
-        title: "UX/UI Design",
-        desc: "Create interfaces that are as functional as they are beautiful. We design accessible, intuitive experiences across web, mobile, and complex enterprise software that minimize friction and maximize engagement."
+        title: "AI-Driven UX/UI Design",
+        desc: "Design experiences that feel effortless, intuitive, and future-ready. We craft intelligent interfaces across web, mobile, and enterprise platforms that reduce friction, increase engagement, and turn complex workflows into seamless interactions."
       },
       {
         num: "03",
-        title: "User Research & Usability Testing",
-        desc: "Stop guessing what users want. We conduct qualitative and quantitative research—including user interviews, wireframe testing, and behavior tracking—to validate concepts before a single line of code is written."
+        title: "User Research & Experience Validation",
+        desc: "Replace assumptions with evidence. Through behavioural analysis, usability testing, customer interviews, and data-driven insights, we uncover what users truly need helping you validate ideas faster and build with confidence."
       },
       {
         num: "04",
-        title: "Scalable Design Systems",
-        desc: "Ensure brand consistency and speed up development. We build comprehensive libraries of reusable UI components and guidelines that allow your design and engineering teams to scale products efficiently."
+        title: "Scalable Design Systems & Governance",
+        desc: "Create once. Scale everywhere. We build flexible design systems and reusable component libraries that ensure consistency, accelerate development, and empower teams to deliver exceptional experiences at speed."
       }
     ],
-    solutionsTitle: "ENTERPRISE SOLUTIONS FOR DIGITAL EXPERIENCES",
+    solutionsTitle: "Challenges Decoded. Experiences Reimagined.",
     solutions: [
       {
-        title: "Increase User Engagement",
-        desc: "Keep your customers coming back to your platform.",
+        title: "Too Many Ideas. Not Enough Direction.",
+        desc: "Transforming product vision into a focused strategy that aligns users, teams, and business growth.",
         icon: Heart,
-        items: [
-          "Frictionless onboarding flows",
-          "Intuitive task navigation",
-          "Engaging micro-interactions",
-          "ADA/WCAG accessibility compliance"
-        ]
+        items: []
       },
       {
-        title: "Accelerate Time-to-Market",
-        desc: "Launch better products, faster.",
+        title: "Great Features. Frustrating Experience.",
+        desc: "Creating seamless, intelligent journeys that feel natural from the first interaction to the last.",
         icon: Clock,
-        items: [
-          "Rapid high-fidelity prototyping",
-          "Agile design sprints",
-          "Seamless developer handoff",
-          "Minimum Viable Product (MVP) definition"
-        ]
+        items: []
       },
       {
-        title: "Boost Conversion Rates",
-        desc: "Turn casual users into dedicated customers.",
+        title: "Guesswork Driving Decisions.",
+        desc: "Replacing assumptions with user insights, behavioural data, and evidence-backed design choices.",
         icon: TrendingUp,
-        items: [
-          "E-commerce funnel optimization",
-          "Data-driven A/B testing",
-          "Checkout process simplification",
-          "Strategic Call-to-Action placement"
-        ]
+        items: []
       }
-    ]
+    ],
+    accelerator: {
+      title: "Experience Transformation Framework",
+      desc: "A proven approach that combines customer insights, AI-driven innovation, and modern design systems to accelerate digital adoption and drive sustainable growth.",
+      buttonText: "Get Details",
+      buttonHref: "/contact"
+    },
+    showTestimonials: true,
+    ctaOverride: {
+      title: "Your Next Breakthrough Starts Here",
+      desc: "Transform bold ideas into intelligent experiences, scalable solutions, and measurable business impact."
+    }
   },
   "enterprise-services": {
     badge: "SERVICE",
@@ -1334,6 +1362,27 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
   const [error, setError] = useState("");
+
+  // Testimonials Slider State & Handlers
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  useEffect(() => {
+    if (!activeService.showTestimonials) return;
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % TESTIMONIALS_LIST.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [activeService.showTestimonials]);
+
+  const nextSlide = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % TESTIMONIALS_LIST.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentTestimonial(
+      (prev) => (prev - 1 + TESTIMONIALS_LIST.length) % TESTIMONIALS_LIST.length
+    );
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1431,7 +1480,48 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
             </div>
           </div>
 
-          {/* Section 2: Capabilities "What we offer" List */}
+          {/* Section 2: Key Solutions Section (Challenges Decoded) */}
+          <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
+            <ScrollReveal>
+              <h2 className="text-2xl sm:text-3xl md:text-[32px] font-light tracking-tight text-text-title uppercase">
+                {activeService.solutionsTitle}
+              </h2>
+            </ScrollReveal>
+
+            <div className="grid gap-8 grid-cols-1 md:grid-cols-3 text-left">
+              {activeService.solutions.map((sol, index) => {
+                const Icon = sol.icon;
+                return (
+                  <ScrollReveal key={index} delay={index * 100} className="flex h-full">
+                    <div className="flex flex-col space-y-5 p-6 rounded-[2.2rem] border border-card-border bg-card-bg/20 w-full">
+                      {/* Icon */}
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-card-border bg-white/[0.02]">
+                        <Icon className={`h-6 w-6 ${activeService.themeColor}`} />
+                      </div>
+                      {/* Content */}
+                      <div className="space-y-2">
+                        <h3 className="text-xl font-normal text-text-title">{sol.title}</h3>
+                        <p className="text-sm text-text-muted leading-relaxed font-light">{sol.desc}</p>
+                      </div>
+                      {/* Bullet list */}
+                      {sol.items && sol.items.length > 0 && (
+                        <ul className="space-y-2 pt-2 border-t border-card-border/40 font-light">
+                          {sol.items.map((item, idx) => (
+                            <li key={idx} className="flex items-center space-x-2 text-sm text-text-title">
+                              <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${activeService.themeColor.replace("text-", "bg-")}`} />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </ScrollReveal>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Section 3: Capabilities "What we offer" List */}
           <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
             <ScrollReveal className="space-y-4">
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border border-card-border shadow-sm">
@@ -1466,45 +1556,6 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                 ))}
               </div>
             </ScrollReveal>
-          </div>
-
-          {/* Section 3: Key Solutions Section */}
-          <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
-            <ScrollReveal>
-              <h2 className="text-2xl sm:text-3xl md:text-[32px] font-light tracking-tight text-text-title uppercase">
-                {activeService.solutionsTitle}
-              </h2>
-            </ScrollReveal>
-
-            <div className="grid gap-8 grid-cols-1 md:grid-cols-3 text-left">
-              {activeService.solutions.map((sol, index) => {
-                const Icon = sol.icon;
-                return (
-                  <ScrollReveal key={index} delay={index * 100} className="flex h-full">
-                    <div className="flex flex-col space-y-5 p-6 rounded-[2.2rem] border border-card-border bg-card-bg/20 w-full">
-                      {/* Icon */}
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-card-border bg-white/[0.02]">
-                        <Icon className={`h-6 w-6 ${activeService.themeColor}`} />
-                      </div>
-                      {/* Content */}
-                      <div className="space-y-2">
-                        <h3 className="text-xl font-normal text-text-title">{sol.title}</h3>
-                        <p className="text-sm text-text-muted leading-relaxed font-light">{sol.desc}</p>
-                      </div>
-                      {/* Bullet list */}
-                      <ul className="space-y-2 pt-2 border-t border-card-border/40 font-light">
-                        {sol.items.map((item, idx) => (
-                          <li key={idx} className="flex items-center space-x-2 text-sm text-text-title">
-                            <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${activeService.themeColor.replace("text-", "bg-")}`} />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </ScrollReveal>
-                );
-              })}
-            </div>
 
             {/* Let's Get Started Button */}
             <ScrollReveal delay={150} className="pt-6">
@@ -1517,6 +1568,133 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
             </ScrollReveal>
           </div>
 
+          {/* Section 4: Accelerator Section */}
+          {activeService.accelerator && (
+            <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-10">
+              <ScrollReveal className="space-y-4">
+                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border border-card-border shadow-sm">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]"></span>
+                  </span>
+                  <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#10b981]">
+                    ACCELERATOR
+                  </span>
+                </div>
+                <h2 className="text-3xl md:text-[44px] font-light tracking-tight text-text-title">
+                  {activeService.accelerator.title}
+                </h2>
+              </ScrollReveal>
+
+              <ScrollReveal delay={100} className="w-full">
+                <div className="p-8 md:p-12 rounded-[2.2rem] border border-card-border bg-card-bg/25 backdrop-blur-sm relative overflow-hidden text-left max-w-4xl mx-auto">
+                  <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(16,185,129,0.08)_0%,transparent_70%)] pointer-events-none" />
+                  
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                    <div className="space-y-4 max-w-2xl">
+                      <p className="text-[18px] text-text-muted leading-relaxed font-light font-sans">
+                        {activeService.accelerator.desc}
+                      </p>
+                    </div>
+                    <div className="shrink-0">
+                      <a
+                        href={activeService.accelerator.buttonHref}
+                        className="inline-flex items-center space-x-2 px-8 py-4 rounded-full text-sm font-semibold tracking-wider text-white bg-white/[0.04] border border-card-border hover:bg-white/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
+                      >
+                        <span>{activeService.accelerator.buttonText}</span>
+                        <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+          )}
+
+          {/* Section 5: Testimonials Section */}
+          {activeService.showTestimonials && (
+            <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
+              <ScrollReveal className="space-y-4">
+                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border border-card-border shadow-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#10b981] shrink-0" />
+                  <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-text-muted">
+                    TESTIMONIALS
+                  </span>
+                </div>
+                <h2 className="text-3xl md:text-[44px] font-light tracking-tight text-text-title">
+                  The Trust We've Earned
+                </h2>
+              </ScrollReveal>
+
+              <ScrollReveal delay={100} className="relative max-w-4xl mx-auto">
+                <div className="relative overflow-hidden rounded-[2.2rem] border border-card-border bg-card-bg/25 backdrop-blur-sm p-8 md:p-14 min-h-[260px] flex flex-col justify-between">
+                  <div className="absolute -top-12 -left-12 w-40 h-40 bg-[#10b981]/5 rounded-full blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none" />
+
+                  <div className="relative h-full flex flex-col justify-center text-left">
+                    {TESTIMONIALS_LIST.map((t, idx) => {
+                      const isActive = idx === currentTestimonial;
+                      return (
+                        <div
+                          key={idx}
+                          className={`transition-all duration-700 ease-in-out ${
+                            isActive
+                              ? "opacity-100 translate-x-0 relative z-10 scale-100"
+                              : "opacity-0 absolute pointer-events-none translate-x-8 scale-95"
+                          }`}
+                        >
+                          <blockquote className="text-lg md:text-xl font-light text-text-title italic leading-relaxed mb-6 font-sans">
+                            "{t.quote}"
+                          </blockquote>
+                          <div className="space-y-1">
+                            <cite className="not-italic font-medium text-[16px] text-text-title block font-sans">
+                              {t.name}
+                            </cite>
+                            <span className="text-xs font-mono uppercase tracking-wider text-text-muted">
+                              {t.role}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="flex justify-between items-center mt-8 pt-6 border-t border-card-border/30">
+                    <div className="flex space-x-2">
+                      {TESTIMONIALS_LIST.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setCurrentTestimonial(idx)}
+                          className={`h-1.5 rounded-full transition-all duration-300 ${
+                            idx === currentTestimonial ? "w-6 bg-[#10b981]" : "w-1.5 bg-card-border"
+                          }`}
+                          aria-label={`Go to testimonial ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    <div className="flex space-x-3">
+                      <button
+                        onClick={prevSlide}
+                        className="p-2.5 rounded-full border border-card-border bg-white/[0.02] hover:bg-white/[0.06] text-text-title transition-colors cursor-pointer"
+                        aria-label="Previous testimonial"
+                      >
+                        <ArrowRight className="h-4 w-4 rotate-180" />
+                      </button>
+                      <button
+                        onClick={nextSlide}
+                        className="p-2.5 rounded-full border border-card-border bg-white/[0.02] hover:bg-white/[0.06] text-text-title transition-colors cursor-pointer"
+                        aria-label="Next testimonial"
+                      >
+                        <ArrowRight className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+          )}
+
           {/* Section 4: High-Impact Consultation CTA Form */}
           <ScrollReveal id="cta-section" className="always-dark rounded-3xl border border-card-border bg-gradient-to-br from-[#0c1e3b] via-[#051124] to-[#040c1a] shadow-2xl p-10 sm:p-14 text-left max-w-5xl mx-auto relative overflow-hidden">
             {/* Background glowing telemetry */}
@@ -1526,10 +1704,10 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
               {/* Left Column: Heading and Description */}
               <div className="lg:col-span-7 space-y-4">
                 <h2 className="text-3xl md:text-[54.4px] font-light text-white tracking-tight leading-tight">
-                  Start Your AI Transformation
+                  {activeService.ctaOverride?.title || "Start Your AI Transformation"}
                 </h2>
                 <p className="text-[16px] text-zinc-300 leading-relaxed max-w-2xl font-light">
-                  Let's discuss how intelligent automation and scalable cloud infrastructure can accelerate your business.
+                  {activeService.ctaOverride?.desc || "Let's discuss how intelligent automation and scalable cloud infrastructure can accelerate your business."}
                 </p>
               </div>
 
