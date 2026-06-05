@@ -968,8 +968,9 @@ const SERVICES_DATA: Record<string, {
     items: string[];
   }[];
   accelerator?: {
-    title: string;
-    desc: string;
+    title?: string;
+    desc?: string;
+    features?: { title: string; desc: string }[];
     buttonText: string;
     buttonHref: string;
   };
@@ -1264,8 +1265,16 @@ const SERVICES_DATA: Record<string, {
       }
     ],
     accelerator: {
-      title: "Experience Transformation Framework",
-      desc: "A proven approach that combines customer insights, AI-driven innovation, and modern design systems to accelerate digital adoption and drive sustainable growth.",
+      features: [
+        {
+          title: "Think Beyond Implementation",
+          desc: "Technology alone doesn't create impact. We combine strategic thinking, AI innovation, and experience design to solve business challenges at their root."
+        },
+        {
+          title: "Design for Momentum",
+          desc: "From customer experiences to internal operations, we build systems that keep organizations moving forward, faster, smarter, and with greater confidence."
+        }
+      ],
       buttonText: "Get Details",
       buttonHref: "/contact"
     },
@@ -1570,7 +1579,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
 
           {/* Section 4: Accelerator Section */}
           {activeService.accelerator && (
-            <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-10">
+            <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
               <ScrollReveal className="space-y-4">
                 <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border border-card-border shadow-sm">
                   <span className="relative flex h-2 w-2">
@@ -1581,33 +1590,70 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                     ACCELERATOR
                   </span>
                 </div>
-                <h2 className="text-3xl md:text-[44px] font-light tracking-tight text-text-title">
-                  {activeService.accelerator.title}
-                </h2>
+                {activeService.accelerator.title && (
+                  <h2 className="text-3xl md:text-[44px] font-light tracking-tight text-text-title">
+                    {activeService.accelerator.title}
+                  </h2>
+                )}
               </ScrollReveal>
 
-              <ScrollReveal delay={100} className="w-full">
-                <div className="p-8 md:p-12 rounded-[2.2rem] border border-card-border bg-card-bg/25 backdrop-blur-sm relative overflow-hidden text-left max-w-4xl mx-auto">
-                  <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(16,185,129,0.08)_0%,transparent_70%)] pointer-events-none" />
-                  
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
-                    <div className="space-y-4 max-w-2xl">
-                      <p className="text-[18px] text-text-muted leading-relaxed font-light font-sans">
-                        {activeService.accelerator.desc}
-                      </p>
-                    </div>
-                    <div className="shrink-0">
-                      <a
-                        href={activeService.accelerator.buttonHref}
-                        className="inline-flex items-center space-x-2 px-8 py-4 rounded-full text-sm font-semibold tracking-wider text-white bg-white/[0.04] border border-card-border hover:bg-white/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
-                      >
-                        <span>{activeService.accelerator.buttonText}</span>
-                        <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
-                      </a>
+              {activeService.accelerator.features ? (
+                <div className="space-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
+                    {activeService.accelerator.features.map((feat, idx) => (
+                      <ScrollReveal key={idx} delay={idx * 100} className="flex h-full">
+                        <div className="flex flex-col justify-between p-8 rounded-[2.2rem] border border-card-border bg-card-bg/20 backdrop-blur-sm relative overflow-hidden group hover:border-[#10b981]/50 transition-all duration-300 w-full">
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,rgba(16,185,129,0.04)_0%,transparent_70%)] pointer-events-none" />
+                          <div className="space-y-4">
+                            <span className="font-mono text-xs text-[#10b981] uppercase tracking-[0.2em] block">
+                              0{idx + 1}. CONCEPT
+                            </span>
+                            <h3 className="text-2xl font-light text-text-title group-hover:text-[#10b981] transition-colors duration-300">
+                              {feat.title}
+                            </h3>
+                            <p className="text-[15px] text-text-muted leading-relaxed font-light font-sans">
+                              {feat.desc}
+                            </p>
+                          </div>
+                        </div>
+                      </ScrollReveal>
+                    ))}
+                  </div>
+
+                  <ScrollReveal delay={200} className="pt-4">
+                    <a
+                      href={activeService.accelerator.buttonHref}
+                      className="inline-flex items-center space-x-2 px-10 py-4 rounded-full text-sm font-semibold tracking-wider text-white bg-white/[0.04] border border-card-border hover:bg-white/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
+                    >
+                      <span>{activeService.accelerator.buttonText}</span>
+                      <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
+                    </a>
+                  </ScrollReveal>
+                </div>
+              ) : (
+                <ScrollReveal delay={100} className="w-full">
+                  <div className="p-8 md:p-12 rounded-[2.2rem] border border-card-border bg-card-bg/25 backdrop-blur-sm relative overflow-hidden text-left max-w-4xl mx-auto">
+                    <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(16,185,129,0.08)_0%,transparent_70%)] pointer-events-none" />
+                    
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                      <div className="space-y-4 max-w-2xl">
+                        <p className="text-[18px] text-text-muted leading-relaxed font-light font-sans">
+                          {activeService.accelerator.desc}
+                        </p>
+                      </div>
+                      <div className="shrink-0">
+                        <a
+                          href={activeService.accelerator.buttonHref}
+                          className="inline-flex items-center space-x-2 px-8 py-4 rounded-full text-sm font-semibold tracking-wider text-white bg-white/[0.04] border border-card-border hover:bg-white/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
+                        >
+                          <span>{activeService.accelerator.buttonText}</span>
+                          <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </ScrollReveal>
+                </ScrollReveal>
+              )}
             </div>
           )}
 
