@@ -209,10 +209,10 @@ export default function ContactPage() {
 
         {/* Section 1: Unified Hero + Form Grid (Top Section) */}
         <div className="max-w-7xl mx-auto px-6 pt-12 md:pt-16 pb-20 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
             
-            {/* Left Column: Headline, copy, and secondary CTA (5 columns) */}
-            <ScrollReveal className="lg:col-span-5 text-left space-y-6">
+            {/* Left Column: Headline, copy, and secondary CTA (7 columns) */}
+            <ScrollReveal className="lg:col-span-7 text-left space-y-6 lg:pr-8 flex flex-col justify-center items-start">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-card-bg/60 border border-card-border shadow-sm">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0 animate-pulse" />
                 <span className="text-[10px] md:text-xs font-mono font-semibold uppercase tracking-[0.2em] text-text-muted">
@@ -220,8 +220,8 @@ export default function ContactPage() {
                 </span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-[54px] font-semibold tracking-tight leading-[1.1] text-[#0f294a] dark:text-white">
-                S3B Global helps businesses <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1d70b8] to-cyan-400 dark:from-cyan-400 dark:to-purple-400 font-semibold">automate, scale, and innovate</span>, confidently.
+              <h1 className="text-3xl md:text-4xl lg:text-[48px] font-semibold tracking-tight leading-[1.15] text-[#0f294a] dark:text-white">
+                S3B Global helps businesses <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1d70b8] to-cyan-400 dark:from-cyan-400 dark:to-purple-400 font-semibold">automate, scale, and innovate.</span>
               </h1>
               
               <p className="text-[15px] md:text-[16px] text-text-muted leading-relaxed font-light">
@@ -237,9 +237,13 @@ export default function ContactPage() {
                       document.getElementById("first-name-input")?.focus();
                     }, 500);
                   }}
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest text-[#0f2d59] dark:text-white bg-card-bg/85 border border-card-border hover:bg-card-bg-hover hover:scale-[1.02] hover:shadow-lg transition-all duration-300 cursor-pointer"
+                  className="relative inline-flex items-center justify-center px-6 py-3 rounded-full text-xs font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer uppercase tracking-widest"
                 >
-                  SCHEDULE A DISCOVERY CALL
+                  <span className="relative z-10 flex items-center space-x-2">
+                    <span>BOOK A CALL</span>
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                 </button>
               </div>
 
@@ -267,8 +271,8 @@ export default function ContactPage() {
               </div>
             </ScrollReveal>
 
-            {/* Right Column: Contact Form Panel (7 columns) */}
-            <ScrollReveal delay={150} className="lg:col-span-7 bg-card-bg border border-card-border p-8 md:p-10 rounded-3xl backdrop-blur-md shadow-sm text-left relative overflow-hidden transition-all duration-300 hover:shadow-md">
+            {/* Right Column: Contact Form Panel (5 columns) */}
+            <ScrollReveal delay={150} className="lg:col-span-5 bg-card-bg border border-card-border p-8 md:p-10 lg:p-12 rounded-3xl backdrop-blur-md shadow-sm text-left relative overflow-hidden transition-all duration-300 hover:shadow-md flex flex-col justify-center">
               <div id="contact-form-card" className="absolute -top-20" />
               
               {isSubmitted ? (
@@ -307,9 +311,9 @@ export default function ContactPage() {
                 </div>
               ) : (
                 /* The Contact form matching screenshot */
-                <form onSubmit={handleFormSubmit} className="space-y-4">
+                <form onSubmit={handleFormSubmit} className="space-y-5 lg:space-y-6">
                   {/* First and Last Name row */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5">
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-semibold text-text-title block">First Name <span className="text-red-500">*</span></label>
                       <input 
@@ -318,7 +322,7 @@ export default function ContactPage() {
                         placeholder="First name here"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
+                        className="w-full px-3.5 py-3 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -328,13 +332,13 @@ export default function ContactPage() {
                         placeholder="Last name here"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
+                        className="w-full px-3.5 py-3 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
                       />
                     </div>
                   </div>
 
                   {/* Email and Phone row */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5">
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-semibold text-text-title block">Email Address <span className="text-red-500">*</span></label>
                       <input 
@@ -342,7 +346,7 @@ export default function ContactPage() {
                         placeholder="Add email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
+                        className="w-full px-3.5 py-3 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -352,7 +356,7 @@ export default function ContactPage() {
                         placeholder="Telephone"
                         value={telephone}
                         onChange={(e) => setTelephone(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
+                        className="w-full px-3.5 py-3 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
                       />
                     </div>
                   </div>
@@ -361,11 +365,11 @@ export default function ContactPage() {
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-semibold text-text-title block">Comments / Questions <span className="text-red-500">*</span></label>
                     <textarea 
-                      rows={4}
+                      rows={6}
                       placeholder="Tell us about your project or business goals"
                       value={comments}
                       onChange={(e) => setComments(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
+                      className="w-full px-3.5 py-3 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
                     />
                   </div>
 
@@ -380,9 +384,13 @@ export default function ContactPage() {
                   <div className="pt-2 text-left">
                     <button
                       type="submit"
-                      className="w-full px-8 py-3.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#1d70b8] to-cyan-500 hover:from-blue-600 hover:to-cyan-600 shadow-[0_4px_20px_rgba(29,112,184,0.25)] transition-all duration-300 cursor-pointer flex items-center justify-center space-x-1.5 hover:-translate-y-0.5 select-none uppercase tracking-widest"
+                      className="relative inline-flex items-center justify-center w-full px-8 py-4 rounded-full text-xs font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer uppercase tracking-widest"
                     >
-                      <span>GO FORWARD</span>
+                      <span className="relative z-10 flex items-center justify-center space-x-2">
+                        <span>GO FORWARD</span>
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                     </button>
                   </div>
                 </form>
@@ -640,9 +648,13 @@ export default function ContactPage() {
                     document.getElementById("first-name-input")?.focus();
                   }, 500);
                 }}
-                className="inline-flex items-center justify-center px-8 py-4 rounded-xl text-sm font-bold uppercase tracking-widest text-[#041018] bg-gradient-to-r from-emerald-400 to-cyan-400 hover:brightness-110 shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 cursor-pointer"
+                className="relative inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-emerald-400/40 hover:border-emerald-400 text-emerald-400 hover:text-[#041018] shadow-[0_0_12px_rgba(52,211,153,0.08)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer uppercase tracking-widest"
               >
-                GET IN TOUCH
+                <span className="relative z-10 flex items-center space-x-2">
+                  <span>GET IN TOUCH</span>
+                  <ArrowRight className="h-4.5 w-4.5 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
               </button>
             </div>
           </ScrollReveal>

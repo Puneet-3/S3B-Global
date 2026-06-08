@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const PARTNERS_LIST = [
@@ -40,11 +41,11 @@ export default function HeroSection() {
 
           <div className="flex flex-col items-center text-center space-y-6 select-none">
             {/* Top capsule tag matching reference design */}
-            <ScrollReveal>
+            {/* <ScrollReveal>
               <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full border border-card-border bg-card-bg/60 backdrop-blur-md text-[11px] font-normal uppercase tracking-widest text-text-muted select-none">
                 AI & AUTOMATION SOLUTIONS
               </div>
-            </ScrollReveal>
+            </ScrollReveal> */}
 
             <ScrollReveal delay={50}>
               <h1 className="text-4xl md:text-5xl lg:text-[67.2px] font-semibold tracking-tight leading-[1.08] text-[#0f294a] dark:text-white">
@@ -69,15 +70,23 @@ export default function HeroSection() {
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <a
                   href="#services"
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-semibold bg-[#0f294a] dark:bg-white text-white dark:text-slate-900 hover:scale-[1.02] hover:shadow-lg transition-all duration-300 group cursor-pointer"
+                  className="relative inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                 >
-                  Our Services
+                  <span className="relative z-10 flex items-center space-x-2">
+                    <span>Our Services</span>
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                 </a>
                 <a
                   href="#contact-us"
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-semibold border border-card-border hover:bg-card-bg-hover hover:scale-[1.02] text-text-title transition-all duration-300 cursor-pointer"
+                  className="relative inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                 >
-                  Get in Touch
+                  <span className="relative z-10 flex items-center space-x-2">
+                    <span>Get in Touch</span>
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                 </a>
               </div>
             </ScrollReveal>

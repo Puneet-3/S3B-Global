@@ -28,7 +28,7 @@ export default function IndustriesGrid() {
     {
       id: 1,
       title: "Fintech",
-      description: "Automate compliance, enhance fraud detection, and streamline financial operations with secure, intelligent systems.",
+      description: "Automate compliance audits, enhance fraud detection pipelines, and streamline financial transactions using secure, intelligent AI systems.",
       image: fintechImg,
       color: "rgba(16, 185, 129, 1)", // Emerald
       glow: "rgba(16, 185, 129, 0.15)"
@@ -36,7 +36,7 @@ export default function IndustriesGrid() {
     {
       id: 2,
       title: "Insurance",
-      description: "Accelerate core claims processing, personalize policyholder experiences, and improve risk assessment using secure, data-driven AI systems.",
+      description: "Accelerate core claims processing, personalize policyholder risk profiles, and improve actuarial assessments with secure, intelligent systems.",
       image: insuranceImg,
       color: "rgba(6, 182, 212, 1)", // Cyan
       glow: "rgba(6, 182, 212, 0.15)"
@@ -44,7 +44,7 @@ export default function IndustriesGrid() {
     {
       id: 3,
       title: "Retail",
-      description: "Automate inventory management, personalize omnichannel shopping experiences, and optimize store operations with data-driven AI solutions.",
+      description: "Automate inventory supply lines, personalize omnichannel customer journeys, and optimize store checkouts with secure, intelligent systems.",
       image: retailImg,
       color: "rgba(245, 158, 11, 1)", // Amber
       glow: "rgba(245, 158, 11, 0.15)"
@@ -52,7 +52,7 @@ export default function IndustriesGrid() {
     {
       id: 4,
       title: "Healthcare",
-      description: "Streamline patient data management, automate administrative workflows, and enhance care delivery with secure, compliant AI systems.",
+      description: "Streamline secure patient records, automate clinical scheduling workflows, and enhance care delivery with compliant, intelligent systems.",
       image: healthcareImg,
       color: "rgba(168, 85, 247, 1)", // Purple
       glow: "rgba(168, 85, 247, 0.15)"
@@ -125,16 +125,16 @@ export default function IndustriesGrid() {
                   onMouseLeave={() => setHoveredCard(null)}
                   style={{
                     transform: isHovered ? "translateY(-6px)" : "none",
-                    boxShadow: isHovered 
-                      ? "0 20px 40px -10px rgba(0, 0, 0, 0.3)" 
+                    boxShadow: isHovered
+                      ? "0 20px 40px -10px rgba(0, 0, 0, 0.3)"
                       : "0 10px 20px -5px rgba(0, 0, 0, 0.1)",
                     borderColor: isDarkMode ? item.color.replace("1)", "0.35)") : undefined
                   }}
-                  className="group relative rounded-[2.2rem] border border-card-border overflow-hidden transition-all duration-500 flex flex-col justify-between h-full w-full flex-grow flex-1 bg-card-bg p-6"
+                  className="group relative rounded-[2.2rem] border border-card-border overflow-hidden transition-all duration-500 flex flex-col justify-between h-full w-full flex-grow flex-1 bg-card-bg p-5"
                 >
-                  <div className="flex flex-col w-full h-full space-y-6">
+                  <div className="flex flex-col w-full h-full space-y-4">
                     {/* Inner image container */}
-                    <div className="relative w-full aspect-[4/3] rounded-[1.6rem] overflow-hidden border border-card-border bg-slate-100/50 dark:bg-black/20 shadow-inner p-1">
+                    <div className="relative w-full aspect-[16/10] rounded-[1.6rem] overflow-hidden border border-card-border bg-slate-100/50 dark:bg-black/20 shadow-inner p-1">
                       <div className="relative w-full h-full rounded-[1.3rem] overflow-hidden">
                         <Image
                           src={item.image}
@@ -146,8 +146,8 @@ export default function IndustriesGrid() {
                     </div>
 
                     {/* Centered Content */}
-                    <div className="flex flex-col justify-center items-center text-center space-y-3 px-2 pb-2">
-                      <h3 className="text-[20px] font-normal text-text-title transition-colors duration-300">
+                    <div className="flex flex-col justify-center items-center text-center space-y-2.5 px-2 pb-1 flex-grow">
+                      <h3 className="text-[24px] font-bold text-text-title transition-colors duration-300">
                         {item.title}
                       </h3>
                       <p className="text-[14px] text-text-muted leading-relaxed font-sans font-light">

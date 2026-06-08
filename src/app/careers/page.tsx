@@ -660,7 +660,7 @@ export default function CareersPage() {
 
                       {/* Job Info */}
                       <div className="space-y-1">
-                        <h3 className="text-[20px] font-normal text-text-title tracking-tight leading-tight">
+                        <h3 className="text-[24px] font-bold text-text-title tracking-tight leading-tight">
                           {job.title}
                         </h3>
                         <div className="flex items-center space-x-3 text-[14px] font-mono text-text-muted/70">
@@ -692,10 +692,13 @@ export default function CareersPage() {
                     <div className="pt-6">
                       <button
                         onClick={() => handleApplyClick(job)}
-                        className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-[#1d70b8] hover:bg-blue-600 shadow-[0_4px_12px_rgba(29,112,184,0.25)] transition-all cursor-pointer space-x-1.5 group"
+                        className="relative w-full inline-flex items-center justify-center px-4 py-2.5 rounded-full text-xs font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                       >
-                        <span>Apply Now</span>
-                        <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                        <span className="relative z-10 flex items-center space-x-1.5">
+                          <span>Apply Now</span>
+                          <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                       </button>
                     </div>
                   </ScrollReveal>
@@ -706,7 +709,7 @@ export default function CareersPage() {
             /* No Results view */
             <ScrollReveal className="text-center py-16 bg-card-bg/20 border border-card-border border-dashed rounded-3xl max-w-xl mx-auto space-y-3 select-none">
               <AlertCircle className="h-10 w-10 text-[#f59e0b] mx-auto animate-bounce" />
-              <h3 className="text-[20px] font-normal text-text-title">No Openings Match Your Query</h3>
+              <h3 className="text-[24px] font-bold text-text-title">No Openings Match Your Query</h3>
               <p className="text-[14px] text-text-muted max-w-sm mx-auto leading-relaxed font-light">
                 Try searching for other developer technologies or reset your department filters to browse all active careers.
               </p>
@@ -740,7 +743,7 @@ export default function CareersPage() {
                   <Briefcase className="h-3 w-3" />
                   <span className="text-[8px] font-mono font-bold uppercase tracking-wider select-none">Application Form</span>
                 </div>
-                <h3 className="text-[20px] font-normal text-text-title tracking-tight leading-tight">
+                <h3 className="text-[24px] font-bold text-text-title tracking-tight leading-tight">
                   {selectedJobForModal.title}
                 </h3>
               </div>
@@ -758,7 +761,7 @@ export default function CareersPage() {
                 <div className="w-14 h-14 rounded-full bg-[#10b981]/15 border border-[#10b981]/40 flex items-center justify-center text-[#10b981] shadow animate-bounce">
                   <CheckCircle2 className="h-7 w-7" />
                 </div>
-                <h4 className="text-[20px] font-normal text-text-title">Application Transmitted!</h4>
+                <h4 className="text-[24px] font-bold text-text-title">Application Transmitted!</h4>
                 <p className="text-[14px] text-text-muted leading-relaxed font-light max-w-sm">
                   Thank you, **{fullName}**. Your dossier and resume have been securely synced. S3B Human Resources will review your credentials and contact you within 48 business hours.
                 </p>
@@ -859,10 +862,13 @@ export default function CareersPage() {
                   </button>
                   <button 
                     type="submit"
-                    className="px-6 py-2.5 rounded-lg text-xs font-bold text-white bg-[#1d70b8] hover:bg-blue-600 shadow-[0_4px_12px_rgba(29,112,184,0.25)] transition-all cursor-pointer flex items-center space-x-1.5 hover:-translate-y-0.5"
+                    className="relative inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                   >
-                    <span>Transmit File</span>
-                    <Send className="h-3.5 w-3.5" />
+                    <span className="relative z-10 flex items-center space-x-1.5">
+                      <span>Transmit File</span>
+                      <Send className="h-3.5 w-3.5" />
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                   </button>
                 </div>
               </form>

@@ -118,7 +118,7 @@ export default function CapabilitiesBento() {
 
             <ScrollReveal delay={100}>
               <h2 className="text-3xl md:text-[54.4px] font-light tracking-tight leading-tight text-text-title">
-                Future-Ready AI Agents & Workflows
+                Data Transformation
               </h2>
             </ScrollReveal>
 
@@ -159,8 +159,8 @@ export default function CapabilitiesBento() {
                     key={item.id}
                     onMouseEnter={() => setActiveIndex(index)}
                     className={`group relative rounded-[2rem] border overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] h-full cursor-pointer ${isActive
-                        ? "flex-[2.8] border-slate-300 dark:border-zinc-800 shadow-2xl z-10"
-                        : "flex-1 bg-slate-100/40 dark:bg-card-bg border-slate-200/60 dark:border-card-border hover:bg-slate-100/70 dark:hover:bg-card-bg-hover hover:border-slate-300 dark:hover:border-card-border-hover z-0"
+                      ? "flex-[2.8] border-slate-300 dark:border-zinc-800 shadow-2xl z-10"
+                      : "flex-1 bg-slate-100/40 dark:bg-card-bg border-slate-200/60 dark:border-card-border hover:bg-slate-100/70 dark:hover:bg-card-bg-hover hover:border-slate-300 dark:hover:border-card-border-hover z-0"
                       }`}
                     style={{
                       boxShadow: isActive ? `0 25px 50px -12px ${item.glow}` : "none",
@@ -191,7 +191,7 @@ export default function CapabilitiesBento() {
                           <span className="text-[10px] md:text-xs uppercase tracking-[0.22em] text-[#125492] dark:text-cyan-400 font-mono font-semibold block">
                             {item.subtitle}
                           </span>
-                          <h4 className="text-[20px] font-light text-text-title leading-tight">
+                          <h4 className="text-[24px] font-bold text-text-title leading-tight">
                             {item.title}
                           </h4>
                           <p className="text-[14px] text-text-muted font-sans font-light leading-relaxed max-w-md">
@@ -275,19 +275,19 @@ export default function CapabilitiesBento() {
                     </div>
 
                     {/* Mobile Title */}
-                    <h3 className={`font-light tracking-tight transition-all duration-500 mt-1 text-[20px] ${isActive
-                        ? "text-slate-900 dark:text-white"
-                        : "text-slate-950/40 dark:text-white/30 hover:text-slate-950/60 dark:hover:text-white/50 hover:translate-x-2"
+                    <h3 className={`font-bold tracking-tight transition-all duration-500 mt-1 text-[24px] ${isActive
+                      ? "text-slate-900 dark:text-white"
+                      : "text-slate-950/40 dark:text-white/30 hover:text-slate-950/60 dark:hover:text-white/50 hover:translate-x-2"
                       }`}>
                       {item.title}
                     </h3>
 
                     {/* Mobile Expanded Card */}
                     <div className={`transition-all duration-500 ease-in-out overflow-hidden ${isActive
-                        ? "max-h-[480px] opacity-100 mt-4"
-                        : "max-h-0 opacity-0 pointer-events-none"
+                      ? "max-h-[480px] opacity-100 mt-4"
+                      : "max-h-0 opacity-0 pointer-events-none"
                       }`}>
-                      <div 
+                      <div
                         className="p-6 rounded-3xl border border-slate-200/60 dark:border-card-border bg-white dark:bg-card-bg shadow-lg space-y-4 relative overflow-hidden"
                         style={{ borderColor: isActive && isDarkMode ? item.color.replace("1)", "0.35)") : undefined }}
                       >

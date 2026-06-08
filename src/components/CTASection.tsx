@@ -20,14 +20,14 @@ export default function CTASection() {
 
   return (
     <section id="contact-us" className="pt-16 pb-24 md:pt-24 md:pb-32 relative overflow-hidden bg-background border-t border-card-border transition-colors duration-300">
-      
+
       {/* Background glowing telemetry */}
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 w-[350px] h-[350px] rounded-full bg-blue-400/5 blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
       <div className="absolute top-1/2 right-1/4 translate-x-1/2 w-[350px] h-[350px] rounded-full bg-indigo-400/5 blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
 
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          
+
           {/* Left Column: Heading and Details */}
           <div className="lg:col-span-7 space-y-6 text-left select-none">
             <ScrollReveal>
@@ -72,19 +72,20 @@ export default function CTASection() {
                   <button
                     type="submit"
                     disabled={isSubmitted}
-                    className="group w-full px-8 py-4 rounded-full text-sm font-normal text-white-force bg-gradient-to-r from-[#1d70b8] to-[#00b4d8] hover:from-[#155694] hover:to-[#009bb8] hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-blue-500/10 transition-all duration-300 shrink-0 select-none cursor-pointer disabled:opacity-50 flex items-center justify-center space-x-2"
+                    className="relative inline-flex items-center justify-center w-full px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer disabled:opacity-50"
                   >
-                    <span>{isSubmitted ? "APPLYING..." : "APPLY NOW"}</span>
-                    {!isSubmitted && (
-                      <ArrowRight className="h-4 w-4 text-white-force transition-transform duration-300 group-hover:translate-x-1.5" />
-                    )}
+                    <span className="relative z-10 flex items-center justify-center space-x-2">
+                      <span>{isSubmitted ? "APPLYING..." : "APPLY NOW"}</span>
+                      {!isSubmitted && (
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      )}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                   </button>
                 </form>
 
                 {/* Subtext info */}
-                <div className="mt-4 text-xs font-mono font-normal text-text-muted/50 text-center">
-                  Terms | Privacy policy | Accessibility
-                </div>
+
               </div>
             </ScrollReveal>
           </div>

@@ -181,7 +181,7 @@ export default function Header() {
 
             {/* Elegant Mega Menu Dropdown Panel */}
             <div
-              className={`absolute top-full -left-44 pt-2 w-[800px] transition-all duration-300 text-left select-none z-50 ${isServicesOpen
+              className={`absolute top-full -left-32 pt-2 w-[640px] transition-all duration-300 text-left select-none z-50 ${isServicesOpen
                   ? "opacity-100 translate-y-0 pointer-events-auto"
                   : "opacity-0 -translate-y-2 pointer-events-none"
                 }`}
@@ -194,20 +194,17 @@ export default function Header() {
                       key={idx}
                       href={item.href}
                       onClick={() => setIsServicesOpen(false)}
-                      className="group/item flex items-start gap-3 p-2.5 rounded-xl hover:bg-nav-hover-bg transition-all duration-300"
+                      className="group/item flex items-center gap-3 p-2.5 rounded-xl hover:bg-nav-hover-bg transition-all duration-300"
                     >
                       {/* Stylized Icon container */}
                       <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-300 group-hover/item:scale-105 ${item.color}`}>
                         <Icon className="h-4.5 w-4.5" />
                       </div>
                       {/* Copy details */}
-                      <div className="space-y-1">
+                      <div>
                         <h4 className="text-[16.5px] font-bold text-text-title group-hover/item:text-[#1d70b8] transition-colors leading-tight">
                           {item.title}
                         </h4>
-                        <p className="text-[11px] text-text-muted leading-snug font-light">
-                          {item.desc}
-                        </p>
                       </div>
                     </a>
                   );
@@ -358,10 +355,14 @@ export default function Header() {
             <a
               href="/contact"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="inline-flex items-center justify-center w-full px-5 py-3 rounded-full text-sm font-semibold text-white-force bg-primary hover:bg-primary-hover shadow-lg transition-all text-center space-x-2"
+              className="relative inline-flex items-center justify-center w-full px-5 py-3 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden text-center"
             >
-              <span>BOOK FREE CONSULTATION</span>
-              <ArrowRight className="h-4 w-4" />
+              <span className="relative z-10 flex items-center space-x-2">
+                <span>BOOK FREE CONSULTATION</span>
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </span>
+              {/* Hover Background Gradient Fill */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
             </a>
           </nav>
         </div>

@@ -541,7 +541,7 @@ export default function AboutPage() {
                 >
                   <div className="space-y-3">
                     <span className="text-[10px] font-mono font-normal text-primary/80 block">{step.id}</span>
-                    <h4 className="text-[20px] font-normal text-text-title tracking-tight leading-tight">{step.name}</h4>
+                    <h4 className="text-[24px] font-bold text-text-title tracking-tight leading-tight">{step.name}</h4>
                     <p className="text-[14px] text-text-muted leading-relaxed font-light">
                       {step.desc}
                     </p>
@@ -565,7 +565,7 @@ export default function AboutPage() {
                 <div className="p-2.5 rounded-lg bg-[#1d70b8]/10 border border-[#1d70b8]/20 text-[#1d70b8]">
                   <Eye className="h-5 w-5" />
                 </div>
-                <h3 className="text-[20px] font-light text-text-title tracking-tight">Our Vision</h3>
+                <h3 className="text-[24px] font-bold text-text-title tracking-tight">Our Vision</h3>
               </div>
               <p className="text-[14px] text-text-muted leading-relaxed font-light">
                 To be the leading global technology partner for autonomous AI agents, intelligent workflow automation, and cognitive enterprise systems.
@@ -584,7 +584,7 @@ export default function AboutPage() {
                 <div className="p-2.5 rounded-lg bg-brand-green/10 border border-brand-green/20 text-brand-green">
                   <Target className="h-5 w-5" />
                 </div>
-                <h3 className="text-[20px] font-light text-text-title tracking-tight">Our Mission</h3>
+                <h3 className="text-[24px] font-bold text-text-title tracking-tight">Our Mission</h3>
               </div>
               <p className="text-[14px] text-text-muted leading-relaxed font-light">
                 To empower businesses through AI agent deployment, automated workflow engineering, cloud-scale systems, and end-to-end cognitive automation.

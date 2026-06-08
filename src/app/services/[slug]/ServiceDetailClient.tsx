@@ -5,25 +5,25 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import { 
-  Cloud, 
-  Cpu, 
-  Database, 
-  ShieldCheck, 
-  CheckCircle2, 
-  Sparkles, 
-  Send, 
-  ArrowRight, 
-  Terminal, 
-  Settings, 
-  AlertCircle, 
-  Fingerprint, 
-  Lock, 
-  Server, 
-  Activity, 
-  Workflow, 
-  Layers, 
-  Binary, 
+import {
+  Cloud,
+  Cpu,
+  Database,
+  ShieldCheck,
+  CheckCircle2,
+  Sparkles,
+  Send,
+  ArrowRight,
+  Terminal,
+  Settings,
+  AlertCircle,
+  Fingerprint,
+  Lock,
+  Server,
+  Activity,
+  Workflow,
+  Layers,
+  Binary,
   GitBranch,
   Users,
   Rocket,
@@ -129,11 +129,11 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
       const dpr = window.devicePixelRatio || 1;
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      
+
       const scale = Math.min(rect.width / 400, rect.height / 250);
       const offsetX = (rect.width - 400 * scale) / 2;
       const offsetY = (rect.height - 250 * scale) / 2;
-      
+
       transform = { scale, offsetX, offsetY };
       ctx.scale(dpr, dpr);
     };
@@ -165,13 +165,13 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
     // ----------------------------------------------------
     // INITIALIZE PARTICLE SYSTEMS ACCORDING TO SLUG
     // ----------------------------------------------------
-    
+
     // 1. Cloud Infrastructure structures
     const cloudNodes: GridNode[] = [];
     const cloudPackets: DataPacket[] = [];
     const gridCols = 5;
     const gridRows = 5;
-    
+
     if (isCloud) {
       // Create a 5x5 grid in 3D coordinate space
       for (let r = 0; r < gridRows; r++) {
@@ -196,7 +196,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
         const row = Math.floor(from / gridCols);
         const col = from % gridCols;
         const neighbors: number[] = [];
-        
+
         if (row > 0) neighbors.push(from - gridCols);
         if (row < gridRows - 1) neighbors.push(from + gridCols);
         if (col > 0) neighbors.push(from - 1);
@@ -218,7 +218,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
     // 2. AI Synapse neurons
     const aiNeurons: AINeuron[] = [];
     const aiSignals: SynapseSignal[] = [];
-    
+
     if (isAI) {
       // Central primary cognitive core soma
       aiNeurons.push({
@@ -266,7 +266,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
       for (let i = 0; i < 18; i++) {
         // Path starts at central node (0), goes to a root node (1-6), then to a random close peripheral node
         const rootIdx = Math.floor(Math.random() * rootCount) + 1;
-        
+
         // Find peripheral closest to root
         let closestIdx = 7;
         let minDist = 9999;
@@ -295,7 +295,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
     const dataTracks: PipelineTrack[] = [];
     const dataPackets: PipelinePacket[] = [];
     const dataShards: DatabaseShard[] = [];
-    
+
     if (isData) {
       // 3 Parallel horizontal tracks
       const baseLines = [60, 125, 190];
@@ -345,7 +345,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
         const t = i / steps;
         let sx = 0;
         let sy = 0;
-        
+
         if (t < 0.5) {
           // Left side
           const k = t * 2;
@@ -411,7 +411,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
         const projected = cloudNodes.map(node => {
           // Breathe velocities
           const breath = Math.sin(time * 0.7 + node.ox * 0.05) * 4;
-          
+
           let dx = node.ox + node.vx * breath - cx;
           let dy = node.oy + node.vy * breath - cy;
           let dz = node.oz + node.vz * breath;
@@ -437,7 +437,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
           // 2D orthographic projection scale
           const perspective = 300;
           const scale = perspective / (perspective + rz);
-          
+
           return {
             x: cx + rx * scale,
             y: cy + dy * scale,
@@ -457,11 +457,11 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
             if (c < gridCols - 1) {
               const rightIdx = currentIdx + 1;
               const nodeB = projected[rightIdx];
-              
+
               ctx.beginPath();
               ctx.moveTo(nodeA.x, nodeA.y);
               ctx.lineTo(nodeB.x, nodeB.y);
-              
+
               const edgeOpacity = Math.min(nodeA.alpha, nodeB.alpha) * (isLightMode ? 0.28 : 0.12);
               ctx.strokeStyle = isLightMode ? `rgba(29, 112, 184, ${edgeOpacity})` : `rgba(6, 182, 212, ${edgeOpacity})`;
               ctx.stroke();
@@ -471,11 +471,11 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
             if (r < gridRows - 1) {
               const downIdx = currentIdx + gridCols;
               const nodeB = projected[downIdx];
-              
+
               ctx.beginPath();
               ctx.moveTo(nodeA.x, nodeA.y);
               ctx.lineTo(nodeB.x, nodeB.y);
-              
+
               const edgeOpacity = Math.min(nodeA.alpha, nodeB.alpha) * (isLightMode ? 0.28 : 0.12);
               ctx.strokeStyle = isLightMode ? `rgba(29, 112, 184, ${edgeOpacity})` : `rgba(6, 182, 212, ${edgeOpacity})`;
               ctx.stroke();
@@ -493,7 +493,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
             const row = Math.floor(from / gridCols);
             const col = from % gridCols;
             const neighbors: number[] = [];
-            
+
             if (row > 0) neighbors.push(from - gridCols);
             if (row < gridRows - 1) neighbors.push(from + gridCols);
             if (col > 0) neighbors.push(from - 1);
@@ -510,7 +510,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
           if (nodeA && nodeB) {
             const px = nodeA.x + (nodeB.x - nodeA.x) * p.progress;
             const py = nodeA.y + (nodeB.y - nodeA.y) * p.progress;
-            
+
             ctx.save();
             ctx.fillStyle = isLightMode ? "rgba(29, 112, 184, 0.95)" : "rgba(6, 182, 212, 0.95)";
             ctx.shadowColor = ctx.fillStyle as string;
@@ -546,7 +546,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
         // Slowly drift nodes
         aiNeurons.forEach((node, idx) => {
           if (idx === 0) return; // keep core pinned
-          
+
           const breathe = Math.sin(time * 0.8 + node.pulsePhase) * 1.5;
           node.x = node.ox + node.vx * breathe;
           node.y = node.oy + node.vy * breathe;
@@ -568,21 +568,21 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
         ctx.lineWidth = isLightMode ? 0.55 : 0.35;
         for (let i = 0; i < aiNeurons.length; i++) {
           const nA = aiNeurons[i];
-          
+
           for (let j = i + 1; j < aiNeurons.length; j++) {
             const nB = aiNeurons[j];
-            
+
             const dx = nA.x - nB.x;
             const dy = nA.y - nB.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            
+
             // Connect only relatively close nodes to represent organic neural branches
             const threshold = i === 0 ? 95 : 36;
             if (dist < threshold) {
               ctx.beginPath();
               ctx.moveTo(nA.x, nA.y);
               ctx.lineTo(nB.x, nB.y);
-              
+
               const factor = 1.0 - (dist / threshold);
               const opacity = factor * (isLightMode ? 0.32 : 0.08);
               ctx.strokeStyle = isLightMode ? `rgba(4, 120, 87, ${opacity})` : `rgba(16, 185, 129, ${opacity})`;
@@ -630,10 +630,10 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
         // Draw Neuron Soma centers
         aiNeurons.forEach((node, idx) => {
           ctx.beginPath();
-          ctx.fillStyle = idx === 0 
-            ? (isLightMode ? "rgba(4, 120, 87, 0.95)" : "rgba(16, 185, 129, 0.95)") 
+          ctx.fillStyle = idx === 0
+            ? (isLightMode ? "rgba(4, 120, 87, 0.95)" : "rgba(16, 185, 129, 0.95)")
             : (isLightMode ? "rgba(4, 120, 87, 0.9)" : "rgba(255, 255, 255, 0.88)");
-          
+
           const sizeMult = isLightMode ? 1.35 : 0.85;
           ctx.arc(node.x, node.y, node.size * sizeMult, 0, Math.PI * 2);
           ctx.fill();
@@ -661,11 +661,11 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
           ctx.strokeStyle = isLightMode ? "rgba(194, 120, 3, 0.18)" : "rgba(245, 158, 11, 0.08)";
 
           const len = track.points.length;
-          
+
           // Animate wave fluctuations on tracks based on time
           track.points.forEach((pt, ptIdx) => {
             const xPos = (ptIdx / (len - 1)) * 400;
-            
+
             // Attract tracks slightly to cursor
             let mousePull = 0;
             if (isMouseActive) {
@@ -700,7 +700,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
 
           ctx.save();
           ctx.translate(shard.x, shard.y);
-          
+
           // Shard glass plate background
           ctx.fillStyle = isLightMode ? "rgba(241, 245, 249, 0.8)" : "rgba(10, 15, 30, 0.8)";
           ctx.strokeStyle = isLightMode ? "rgba(194, 120, 3, 0.55)" : "rgba(245, 158, 11, 0.45)";
@@ -732,7 +732,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
         // Draw flowing data packets along track equations
         dataPackets.forEach(p => {
           p.xProgress += p.speed;
-          
+
           // Boost speed if mouse is magnetically near the packet
           if (isMouseActive) {
             const track = dataTracks[p.trackIdx];
@@ -768,7 +768,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
 
             ctx.save();
             ctx.fillStyle = isLightMode ? "rgba(194, 120, 3, 0.95)" : "rgba(245, 158, 11, 0.95)";
-            
+
             // Sparkling packets passing databases
             dataShards.forEach(shard => {
               const dx = px - shard.x;
@@ -796,7 +796,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
         serverMatrix.forEach(node => {
           node.pulse += 0.02;
           const statePulse = Math.sin(node.pulse);
-          
+
           ctx.save();
           if (node.active) {
             // Pulse color green or purple
@@ -836,17 +836,17 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
           ctx.save();
           ctx.translate(200, 125);
           ctx.rotate(time * speed);
-          
+
           ctx.lineWidth = isLightMode ? 0.95 : 0.65;
           ctx.strokeStyle = color;
-          
+
           ctx.beginPath();
           // Draw rotated tilted ellipse
           for (let angle = 0; angle <= Math.PI * 2; angle += 0.05) {
             const ex = rx * Math.cos(angle);
             // Tilt the Y coordinate to fake 3D perspective
             const ey = ry * Math.sin(angle) * 0.35;
-            
+
             if (angle === 0) ctx.moveTo(ex, ey);
             else ctx.lineTo(ex, ey);
           }
@@ -871,7 +871,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
           else ctx.lineTo(pt.x, pt.y);
         });
         ctx.closePath();
-        
+
         ctx.fillStyle = isLightMode ? "rgba(241, 245, 249, 0.88)" : "rgba(7, 13, 28, 0.82)";
         ctx.strokeStyle = isLightMode ? "rgba(126, 34, 206, 0.85)" : "rgba(168, 85, 247, 0.75)";
         ctx.lineWidth = 1.6;
@@ -920,8 +920,8 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
   }, [slug]);
 
   return (
-    <canvas 
-      ref={canvasRef} 
+    <canvas
+      ref={canvasRef}
       className="w-full h-full block bg-transparent"
       style={{ minHeight: "220px" }}
     />
@@ -971,7 +971,7 @@ const SERVICES_DATA: Record<string, {
   accelerator?: {
     title?: string;
     desc?: string;
-    features?: { title: string; desc: string }[];
+    features?: { title: string; desc: string; badge?: string }[];
     buttonText: string;
     buttonHref: string;
   };
@@ -1045,11 +1045,13 @@ const SERVICES_DATA: Record<string, {
       features: [
         {
           title: "Data Governance Accelerator",
-          desc: "Architect and implement robust enterprise data governance utilizing Microsoft Purview, Fabric, and Profisee. Guarantee data integrity, comprehensive audit trails, and seamless end-to-end lifecycle management."
+          desc: "Architect and implement robust enterprise data governance utilizing Microsoft Purview, Fabric, and Profisee. Guarantee data integrity, comprehensive audit trails, and end-to-end lifecycle management.",
+          badge: "GOVERN"
         },
         {
           title: "Microsoft Fabric Migration Assistant",
-          desc: "Fast-track the migration of your data, schemas, and reports into Microsoft Fabric. Eliminate manual bottlenecks, enforce stringent quality standards, and realize AI-driven insights faster through highly reliable analytics."
+          desc: "Fast-track the migration of your data, schemas, and reports into Microsoft Fabric. Eliminate manual bottlenecks, enforce stringent quality standards, and realize AI-driven insights faster through highly reliable analytics.",
+          badge: "MIGRATE"
         }
       ],
       buttonText: "GET STARTED",
@@ -1125,11 +1127,13 @@ const SERVICES_DATA: Record<string, {
       features: [
         {
           title: "Intelligent Ops Automation Framework",
-          desc: "Built natively on Azure, this framework leverages advanced AI and machine learning to autonomously handle issue detection, resolution, and ticketing. S3B Global delivers real-time operational insights to drive faster, smarter, and highly resilient enterprise operations at scale."
+          desc: "Built natively on Azure, this framework leverages advanced AI and machine learning to autonomously handle issue detection, resolution, and ticketing. S3B Global delivers real-time operational insights to drive faster, smarter, and highly resilient enterprise operations at scale.",
+          badge: "AUTOMATE"
         },
         {
           title: "Cloud Factory Migration Accelerator",
-          desc: "A highly repeatable, automated engine for cloud migration aligned with Microsoft’s Cloud Adoption Framework (CAF). S3B Global accelerates secure lift-and-shift initiatives, seamless application refactoring, and comprehensive infrastructure modernization."
+          desc: "A highly repeatable, automated engine for cloud migration aligned with Microsoft’s Cloud Adoption Framework (CAF). S3B Global accelerates secure lift-and-shift initiatives, seamless application refactoring, and comprehensive infrastructure modernization.",
+          badge: "MIGRATE"
         }
       ],
       buttonText: "GET STARTED",
@@ -1205,11 +1209,13 @@ const SERVICES_DATA: Record<string, {
       features: [
         {
           title: "Engineer a Modular Data Intelligence Platform",
-          desc: "Engineer highly scalable, metadata-driven ecosystems utilizing Databricks and S3B Global’s proprietary modular engine. Our solution seamlessly supports decentralized data mesh frameworks and Medallion architectures—organizing data progressively from raw to business-ready—to accelerate your transition to a fully AI-enabled enterprise."
+          desc: "Engineer highly scalable, metadata-driven ecosystems utilizing Databricks and S3B Global’s proprietary modular engine. Our solution seamlessly supports decentralized data mesh frameworks and Medallion architectures—organizing data progressively from raw to business-ready—to accelerate your transition to a fully AI-enabled enterprise.",
+          badge: "INTELLIGENT"
         },
         {
           title: "Centralize Operations with Control Tower",
-          desc: "Driven by advanced artificial intelligence, S3B Global’s Control Tower integrates enterprise data, IoT, and high-performance analytics into a centralized operational hub. We empower your business with real-time, cross-industry insights to maximize efficiency, significantly reduce operational costs, and actively support your strategic ESG initiatives."
+          desc: "Driven by advanced artificial intelligence, S3B Global’s Control Tower integrates enterprise data, IoT, and high-performance analytics into a centralized operational hub. We empower your business with real-time, cross-industry insights to maximize efficiency, significantly reduce operational costs, and actively support your strategic ESG initiatives.",
+          badge: "OPERATIONAL"
         }
       ],
       buttonText: "GET STARTED",
@@ -1284,11 +1290,13 @@ const SERVICES_DATA: Record<string, {
       features: [
         {
           title: "Think Beyond Implementation",
-          desc: "Technology alone doesn't create impact. We combine strategic thinking, AI innovation, and experience design to solve business challenges at their root."
+          desc: "Technology alone doesn't create impact. We combine strategic thinking, AI innovation, and experience design to solve business challenges at their root.",
+          badge: "STRATEGIZE"
         },
         {
           title: "Design for Momentum",
-          desc: "From customer experiences to internal operations, we build systems that keep organizations moving forward, faster, smarter, and with greater confidence."
+          desc: "From customer experiences to internal operations, we build systems that keep organizations moving forward, faster, smarter, and with greater confidence.",
+          badge: "DESIGN"
         }
       ],
       buttonText: "Get Details",
@@ -1366,11 +1374,13 @@ const SERVICES_DATA: Record<string, {
       features: [
         {
           title: "Intelligence with Purpose",
-          desc: "Align AI, data, and technology investments with real business objectives to create measurable value, not just innovation for innovation's sake."
+          desc: "Align AI, data, and technology investments with real business objectives to create measurable value, not just innovation for innovation's sake.",
+          badge: "ALIGN & SCALE"
         },
         {
           title: "Flexible Digital Foundations",
-          desc: "Create flexible digital foundations that adapt to changing business needs, support growth, and accelerate transformation at every stage."
+          desc: "Create flexible digital foundations that adapt to changing business needs, support growth, and accelerate transformation at every stage.",
+          badge: "ALIGN & SCALE"
         }
       ],
       buttonText: "GET STARTED",
@@ -1452,7 +1462,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-white transition-colors duration-300">
-      
+
       {/* 1. Global Navigation Header */}
       <Header />
 
@@ -1463,7 +1473,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
         <div className="absolute top-[40%] left-0 w-[400px] h-[400px] rounded-full bg-secondary/3 blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
 
         <div className="max-w-7xl mx-auto px-6 space-y-20">
-          
+
           {/* Section 1: Hero Block */}
           <ScrollReveal className="text-center max-w-4xl mx-auto space-y-6">
             <div className={`inline-flex items-center space-x-2.5 px-4.5 py-2 rounded-full bg-card-bg border shadow-sm ${activeService.lightColor}`}>
@@ -1483,8 +1493,8 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
 
           {/* Two-Column Hero Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center max-w-5xl mx-auto pt-4 pb-8">
-            {/* Left Column: Tagline & Description */}
-            <div className="lg:col-span-6 space-y-6 text-left">
+            {/* Left Column: Tagline & Description (7 columns) */}
+            <div className="lg:col-span-7 space-y-6 text-left">
               <div className="flex gap-6 items-stretch">
                 {/* Visual vertical accent line with theme-colored gradient */}
                 <div className="relative w-1 shrink-0 rounded-full overflow-hidden">
@@ -1492,7 +1502,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                   <div className={`absolute inset-0 bg-gradient-to-b from-transparent via-current ${activeService.themeColor} to-transparent animate-pulse`} />
                 </div>
                 <div className="space-y-6 py-1">
-                  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-normal text-text-title leading-snug tracking-tight">
+                  <h2 className="text-2xl sm:text-3xl lg:text-[26px] xl:text-[34px] font-normal text-text-title leading-snug tracking-tight">
                     {activeService.tagline}
                   </h2>
                   <div className="space-y-4 text-base md:text-lg text-text-muted leading-relaxed font-normal">
@@ -1503,8 +1513,8 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                 </div>
               </div>
             </div>
-            {/* Right Column: Premium Hero Image + Interactive Canvas */}
-            <div className="lg:col-span-6">
+            {/* Right Column: Premium Hero Image + Interactive Canvas (5 columns) */}
+            <div className="lg:col-span-5">
               <ScrollReveal delay={150}>
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[2.2rem] border border-card-border bg-card-bg shadow-2xl group">
                   <Image
@@ -1535,15 +1545,14 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                 const isAIM = slug === "enterprise-services";
                 return (
                   <ScrollReveal key={index} delay={index * 100} className="flex h-full group">
-                    <div className={`flex flex-col space-y-4 w-full transition-all duration-300 ${
-                      isAIM ? "p-4 bg-transparent border-0" : "p-6 rounded-[2.2rem] border border-card-border bg-card-bg shadow-sm hover:shadow-md"
-                    }`}>
+                    <div className={`flex flex-col space-y-4 w-full transition-all duration-300 ${isAIM ? "p-4 bg-transparent border-0" : "p-6 rounded-[2.2rem] border border-card-border bg-card-bg shadow-sm hover:shadow-md"
+                      }`}>
                       {/* Icon */}
                       {isAIM ? (
                         <div className="relative flex items-end justify-start h-40 md:h-48 overflow-visible select-none mb-2">
                           {/* Soft background ambient glow behind the huge letter */}
                           <div className="absolute left-8 bottom-4 w-32 h-32 rounded-full bg-gradient-to-tr from-accent-purple/15 via-indigo-500/5 to-transparent blur-2xl group-hover:scale-125 transition-transform duration-700 pointer-events-none" />
-                          
+
                           {/* Huge Letter with modern multi-color gradient */}
                           <div className="text-[9.5rem] sm:text-[11.5rem] md:text-[13rem] font-extralight leading-none bg-gradient-to-br from-indigo-500 via-accent-purple to-pink-500 bg-clip-text text-transparent tracking-tighter transition-all duration-500 group-hover:scale-[1.03] group-hover:-translate-y-1.5 font-sans drop-shadow-[0_8px_24px_rgba(168,85,247,0.12)]">
                             {sol.title.charAt(0)}
@@ -1653,7 +1662,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                           <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,rgba(16,185,129,0.04)_0%,transparent_70%)] pointer-events-none" />
                           <div className="space-y-4">
                             <span className="inline-flex items-center px-3.5 py-1 rounded-full border border-emerald-700/20 dark:border-[#10b981]/30 bg-emerald-700/5 dark:bg-[#10b981]/10 font-mono text-[13px] md:text-[14px] font-semibold text-emerald-700 dark:text-[#10b981] uppercase tracking-wider select-none">
-                              0{idx + 1}. CONCEPT
+                              0{idx + 1}. {feat.badge || "CONCEPT"}
                             </span>
                             <h3 className="text-2xl font-semibold text-text-title group-hover:text-[#10b981] transition-colors duration-300">
                               {feat.title}
@@ -1670,10 +1679,13 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                   <ScrollReveal delay={200} className="pt-4">
                     <a
                       href={activeService.accelerator.buttonHref}
-                      className="inline-flex items-center space-x-2 px-10 py-4 rounded-full text-sm font-semibold tracking-wider text-text-title bg-foreground/[0.04] border border-card-border hover:bg-foreground/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
+                      className="relative inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-bold bg-transparent border border-[#10b981]/40 dark:border-emerald-400/40 hover:border-[#10b981] dark:hover:border-emerald-400 text-[#10b981] dark:text-emerald-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(16,185,129,0.08)] dark:shadow-[0_0_15px_rgba(52,211,153,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                     >
-                      <span>{activeService.accelerator.buttonText}</span>
-                      <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
+                      <span className="relative z-10 flex items-center space-x-2">
+                        <span>{activeService.accelerator.buttonText}</span>
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#10b981] to-[#059669] dark:from-emerald-400 dark:to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                     </a>
                   </ScrollReveal>
                 </div>
@@ -1681,7 +1693,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                 <ScrollReveal delay={100} className="w-full">
                   <div className="p-8 md:p-12 rounded-[2.2rem] border border-card-border bg-card-bg shadow-sm relative overflow-hidden text-left max-w-4xl mx-auto">
                     <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(16,185,129,0.08)_0%,transparent_70%)] pointer-events-none" />
-                    
+
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                       <div className="space-y-4 max-w-2xl">
                         <p className="text-[18px] text-text-muted leading-relaxed font-normal font-sans">
@@ -1691,10 +1703,13 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                       <div className="shrink-0">
                         <a
                           href={activeService.accelerator.buttonHref}
-                          className="inline-flex items-center space-x-2 px-8 py-4 rounded-full text-sm font-semibold tracking-wider text-text-title bg-foreground/[0.04] border border-card-border hover:bg-foreground/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
+                          className="relative inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-[#10b981]/40 dark:border-emerald-400/40 hover:border-[#10b981] dark:hover:border-emerald-400 text-[#10b981] dark:text-emerald-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(16,185,129,0.08)] dark:shadow-[0_0_15px_rgba(52,211,153,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                         >
-                          <span>{activeService.accelerator.buttonText}</span>
-                          <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
+                          <span className="relative z-10 flex items-center space-x-2">
+                            <span>{activeService.accelerator.buttonText}</span>
+                            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                          </span>
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#10b981] to-[#059669] dark:from-emerald-400 dark:to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                         </a>
                       </div>
                     </div>
@@ -1708,12 +1723,6 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
           {activeService.showTestimonials && (
             <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
               <ScrollReveal className="space-y-4">
-                <div className="inline-flex items-center space-x-2.5 px-4.5 py-2 rounded-full bg-card-bg border border-card-border shadow-sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#10b981] shrink-0" />
-                  <span className="text-xs md:text-sm font-mono font-semibold uppercase tracking-[0.2em] text-text-muted">
-                    TESTIMONIALS
-                  </span>
-                </div>
                 <h2 className="text-3xl md:text-[44px] font-semibold tracking-tight text-text-title">
                   The Trust We've Earned
                 </h2>
@@ -1730,11 +1739,10 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                       return (
                         <div
                           key={idx}
-                          className={`col-start-1 row-start-1 transition-all duration-700 ease-in-out ${
-                            isActive
+                          className={`col-start-1 row-start-1 transition-all duration-700 ease-in-out ${isActive
                               ? "opacity-100 translate-x-0 z-10 scale-100 pointer-events-auto"
                               : "opacity-0 pointer-events-none translate-x-8 scale-95"
-                          }`}
+                            }`}
                         >
                           <blockquote className="text-lg md:text-xl font-normal text-text-title italic leading-relaxed mb-6 font-sans">
                             "{t.quote}"
@@ -1758,9 +1766,8 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                         <button
                           key={idx}
                           onClick={() => setCurrentTestimonial(idx)}
-                          className={`h-1.5 rounded-full transition-all duration-300 ${
-                            idx === currentTestimonial ? "w-6 bg-[#10b981]" : "w-1.5 bg-card-border"
-                          }`}
+                          className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentTestimonial ? "w-6 bg-[#10b981]" : "w-1.5 bg-card-border"
+                            }`}
                           aria-label={`Go to testimonial ${idx + 1}`}
                         />
                       ))}
@@ -1792,7 +1799,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
           <ScrollReveal id="cta-section" className="rounded-3xl border border-card-border bg-gradient-to-br from-white via-slate-50 to-slate-100 dark:from-[#0c1e3b] dark:via-[#051124] dark:to-[#040c1a] shadow-2xl p-10 sm:p-14 text-left max-w-5xl mx-auto relative overflow-hidden">
             {/* Background glowing telemetry */}
             <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-[radial-gradient(circle,rgba(29,112,184,0.15)_0%,transparent_70%)] pointer-events-none" />
-            
+
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center text-left">
               {/* Left Column: Heading and Description */}
               <div className="lg:col-span-7 space-y-4">
@@ -1839,17 +1846,20 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                           setEmail(e.target.value);
                           if (error) setError("");
                         }}
-                        className={`w-full px-6 py-4 rounded-full border bg-foreground/[0.04] text-sm font-semibold text-text-title placeholder-text-muted/60 focus:outline-none focus:ring-1 focus:ring-[#1d70b8] transition-all disabled:opacity-50 ${
-                          error ? "border-red-500/50 focus:border-red-500 focus:ring-red-500" : "border-card-border focus:border-[#1d70b8]"
-                        }`}
+                        className={`w-full px-6 py-4 rounded-full border bg-foreground/[0.04] text-sm font-semibold text-text-title placeholder-text-muted/60 focus:outline-none focus:ring-1 focus:ring-[#1d70b8] transition-all disabled:opacity-50 ${error ? "border-red-500/50 focus:border-red-500 focus:ring-red-500" : "border-card-border focus:border-[#1d70b8]"
+                          }`}
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="px-8 py-4 rounded-full text-sm font-bold text-[#041018] bg-gradient-to-r from-emerald-400 to-cyan-400 hover:brightness-110 shadow-lg transition-all duration-300 shrink-0 select-none cursor-pointer disabled:opacity-50"
+                      className="relative inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-emerald-400/40 hover:border-emerald-400 text-emerald-400 hover:text-[#041018] shadow-[0_0_12px_rgba(52,211,153,0.08)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer disabled:opacity-50"
                     >
-                      GET STARTED
+                      <span className="relative z-10 flex items-center justify-center space-x-2">
+                        <span>GET STARTED</span>
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                     </button>
                   </form>
                 )}

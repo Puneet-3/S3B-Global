@@ -126,12 +126,12 @@ export default function Footer() {
 
         {/* Footer bottom bar */}
         <div className="pt-10 border-t border-card-border flex flex-col md:flex-row items-center justify-between gap-6 select-none">
-          <div className="flex items-center space-x-3.5">
+          <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-foreground/[0.03] border border-foreground/10 flex items-center justify-center text-xs font-mono font-black text-foreground shadow-sm shrink-0">
               S3B
             </div>
             <span className="text-[13px] font-mono font-bold uppercase tracking-wider text-text-muted">
-              © 2026. S3B Global | All Rights Reserved
+              © 2026.S3B GLOBAL
             </span>
           </div>
           <span className="text-[13px] font-mono font-bold uppercase tracking-widest text-brand-blue animate-pulse md:text-right">

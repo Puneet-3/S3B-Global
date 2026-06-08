@@ -63,8 +63,8 @@ export default function ServicesSection() {
     {
       quote:
         "Collaborating with S3B Global has transformed our growth path. They crafted a strategic, highly professional digital platform and database. Their data-driven approach, clear communication, and commitment to our success have been a game-changer for our team.",
-      name: "Amie Tremblay",
-      role: "Founder, BuzzBound",
+      name: "Amin Toussaint",
+      role: "Founder, BuzzBreach",
     },
     {
       quote:
@@ -179,7 +179,7 @@ export default function ServicesSection() {
                             {item.num}
                           </span>
                           <span className="h-1.5 w-1.5 rounded-full opacity-60" style={{ backgroundColor: item.color }} />
-                          <h3 className="text-[20px] font-normal tracking-wide text-text-title">
+                          <h3 className="text-[24px] font-bold tracking-wide text-text-title">
                             {item.name}
                           </h3>
                         </div>
@@ -224,20 +224,32 @@ export default function ServicesSection() {
                 </span>
               </div>
 
-               <div key={current} className="min-h-[85px] animate-slide-in">
-                <p className="text-[17px] font-normal leading-relaxed text-text-title">
-                  "{testimonials[current].quote}"
-                </p>
-              </div>
-
-              <div key={`author-${current}`} className="pt-4 animate-slide-in" style={{ animationDelay: "80ms" }}>
-                <h4 className="text-[17px] font-semibold text-text-title">
-                  {testimonials[current].name}
-                </h4>
-
-                <p className="text-[13px] font-mono text-text-muted uppercase tracking-wider font-normal">
-                  {testimonials[current].role}
-                </p>
+              <div className="relative min-h-[240px] sm:min-h-[160px] md:min-h-[120px] w-full">
+                {testimonials.map((item, index) => {
+                  const isActive = current === index;
+                  return (
+                    <div
+                      key={index}
+                      className={`absolute inset-x-0 top-0 w-full transition-all duration-700 ease-in-out ${
+                        isActive
+                          ? "opacity-100 translate-y-0 pointer-events-auto z-10"
+                          : "opacity-0 -translate-y-2 pointer-events-none z-0"
+                      }`}
+                    >
+                      <p className="text-[17px] font-normal leading-relaxed text-text-title">
+                        "{item.quote}"
+                      </p>
+                      <div className="pt-4">
+                        <h4 className="text-[17px] font-semibold text-text-title">
+                          {item.name}
+                        </h4>
+                        <p className="text-[13px] font-mono text-text-muted uppercase tracking-wider font-normal">
+                          {item.role}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Controls */}
