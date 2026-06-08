@@ -28,7 +28,7 @@
   --card-bg-hover: #161616;
   --card-border: rgba(255, 255, 255, 0.08);
   --card-border-hover: rgba(255, 255, 255, 0.15);
-  --text-muted: rgba(255, 255, 255, 0.65); /* Standard crisp white/65 muted text */
+  --text-muted: rgba(255, 255, 255, 0.8);
   --text-title: #ffffff;
   --glow-opacity: 0.08;
   --panel-bg: rgba(5, 5, 5, 0.85);
@@ -78,7 +78,7 @@
   --card-bg-hover: #ffffff;
   --card-border: rgba(15, 23, 42, 0.15); /* Significantly more visible border (slate-200 level) */
   --card-border-hover: rgba(29, 112, 184, 0.45); /* High-contrast hovered brand blue border */
-  --text-muted: #475569; /* slate-600 */
+  --text-muted: #1e293b; /* slate-800 (high contrast for maximum readability) */
   --text-title: #0f172a; /* slate-900 */
   --glow-opacity: 0.05;
   --panel-bg: rgba(248, 250, 252, 0.9);
@@ -274,18 +274,31 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(249, 115, 22, 0.2);
+  background: rgba(34, 211, 238, 0.2);
   border-radius: 9999px;
   border: 2px solid var(--background);
 }
 
+.light-mode ::-webkit-scrollbar-thumb {
+  background: rgba(29, 112, 184, 0.2);
+}
+
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(249, 115, 22, 0.5);
+  background: rgba(34, 211, 238, 0.5);
+}
+
+.light-mode ::-webkit-scrollbar-thumb:hover {
+  background: rgba(29, 112, 184, 0.5);
 }
 
 /* Text Selection Style */
 ::selection {
-  background: rgba(249, 115, 22, 0.3);
+  background: #22d3ee;
+  color: #050505;
+}
+
+.light-mode ::selection {
+  background: #1d70b8;
   color: #ffffff;
 }
 
@@ -634,6 +647,34 @@ body {
 
 .light-mode .hover\:bg-cyan-400\/20:hover {
   background-color: rgba(29, 112, 184, 0.16) !important;
+}
+
+/* ==========================================
+   GLOBAL TYPOGRAPHY LEGIBILITY STANDARDIZATION
+   ========================================== */
+/* Improve general text contrast by upgrading thin body typography to normal weight 400 */
+.font-light:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  font-weight: 400 !important;
+}
+
+/* Standardize paragraph and standard body copy sizes to match service page readability */
+p,
+.text-\[16px\].font-light,
+.text-\[17px\].font-light,
+.text-base.font-light,
+.text-lg.font-light {
+  font-size: 16px !important;
+  line-height: 1.625 !important;
+}
+
+@media (min-width: 768px) {
+  p,
+  .text-\[16px\].font-light,
+  .text-\[17px\].font-light,
+  .text-base.font-light,
+  .text-lg.font-light {
+    font-size: 18px !important;
+  }
 }
 
 

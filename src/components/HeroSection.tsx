@@ -6,6 +6,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const PARTNERS_LIST = [
   { src: "/partner-logo-1.png", alt: "Collabera" },
+  { src: "/partner-logo-2.png", alt: "Tata" },
   { src: "/partner-logo-3.png", alt: "H&H Insurance" },
   { src: "/partner-logo-4.png", alt: "CSI" },
   { src: "/partner-logo-5.png", alt: "RKS" },
@@ -46,19 +47,19 @@ export default function HeroSection() {
             </ScrollReveal>
 
             <ScrollReveal delay={50}>
-              <h1 className="text-4xl md:text-5xl lg:text-[67.2px] font-extralight tracking-tight leading-[1.08] text-[#0f294a] dark:text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-[67.2px] font-semibold tracking-tight leading-[1.08] text-[#0f294a] dark:text-white">
                 AI Agent & <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#1d70b8] to-cyan-400 dark:from-cyan-400 dark:to-purple-400">Automation Services</span>
               </h1>
             </ScrollReveal>
 
             <ScrollReveal delay={100}>
-              <h3 className="text-[18px] font-normal text-[#0f294a]/95 dark:text-cyan-400 tracking-wide font-sans leading-relaxed">
+              <h3 className="text-[18px] font-medium text-[#0f294a]/95 dark:text-cyan-400 tracking-wide font-sans leading-relaxed">
                 Where Strategy Meets Practical Implementation.
               </h3>
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
-              <p className="text-base md:text-lg text-text-muted leading-relaxed max-w-2xl font-light">
+              <p className="text-base md:text-lg text-text-muted leading-relaxed max-w-2xl font-normal">
                 Deploy autonomous AI agents, intelligent automated workflows, and cognitive AI services to automate repetitive tasks, improve productivity, and scale your business operations.
               </p>
             </ScrollReveal>
@@ -97,32 +98,38 @@ export default function HeroSection() {
 
                 {/* Track Group 1 */}
                 <div className="flex items-center shrink-0">
-                  {PARTNERS_LIST.map((partner, index) => (
-                    <div key={`p1-${index}`} className="flex items-center justify-center shrink-0 w-[240px] h-16 opacity-55 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                      <Image
-                        src={partner.src}
-                        alt={partner.alt}
-                        width={160}
-                        height={40}
-                        className="max-h-10 max-w-[160px] object-contain filter grayscale hover:grayscale-0 transition-all duration-300 dark:invert"
-                      />
-                    </div>
-                  ))}
+                  {PARTNERS_LIST.map((partner, index) => {
+                    const isTata = partner.alt === "Tata";
+                    return (
+                      <div key={`p1-${index}`} className="flex items-center justify-center shrink-0 w-[240px] h-16 opacity-55 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                        <Image
+                          src={partner.src}
+                          alt={partner.alt}
+                          width={isTata ? 100 : 160}
+                          height={isTata ? 100 : 40}
+                          className={`object-contain filter grayscale hover:grayscale-0 transition-all duration-300 dark:invert ${isTata ? "max-h-14 max-w-[100px] scale-[1.7]" : "max-h-10 max-w-[160px]"}`}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {/* Track Group 2 (Duplicate for seamless loop) */}
                 <div className="flex items-center shrink-0" aria-hidden="true">
-                  {PARTNERS_LIST.map((partner, index) => (
-                    <div key={`p2-${index}`} className="flex items-center justify-center shrink-0 w-[240px] h-16 opacity-55 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                      <Image
-                        src={partner.src}
-                        alt={partner.alt}
-                        width={160}
-                        height={40}
-                        className="max-h-10 max-w-[160px] object-contain filter grayscale hover:grayscale-0 transition-all duration-300 dark:invert"
-                      />
-                    </div>
-                  ))}
+                  {PARTNERS_LIST.map((partner, index) => {
+                    const isTata = partner.alt === "Tata";
+                    return (
+                      <div key={`p2-${index}`} className="flex items-center justify-center shrink-0 w-[240px] h-16 opacity-55 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                        <Image
+                          src={partner.src}
+                          alt={partner.alt}
+                          width={isTata ? 100 : 160}
+                          height={isTata ? 100 : 40}
+                          className={`object-contain filter grayscale hover:grayscale-0 transition-all duration-300 dark:invert ${isTata ? "max-h-14 max-w-[100px] scale-[1.7]" : "max-h-10 max-w-[160px]"}`}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
 
               </div>

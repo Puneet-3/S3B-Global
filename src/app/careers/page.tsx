@@ -554,7 +554,7 @@ export default function CareersPage() {
       <Header />
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full pt-20 md:pt-24 pb-20 relative">
+      <main className="flex-1 w-full pt-28 md:pt-36 pb-20 relative">
         {/* Dynamic visual blobs */}
         <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full bg-[#1d70b8]/3 blur-[140px] pointer-events-none -z-10 animate-pulse-slow" />
         <div className="absolute top-[35%] left-0 w-[400px] h-[400px] rounded-full bg-[#10b981]/3 blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />

@@ -681,6 +681,107 @@ const BLOG_POSTS: BlogPost[] = [
 
 const CATEGORIES = ["All", "Web & Mobile", "Digital Marketing", "Machine Learning", "Security"] as const;
 
+const renderFormattedContent = (content: string) => {
+  if (!content) return null;
+  
+  const lines = content.split("\n");
+  const elements: React.ReactNode[] = [];
+  let listItems: string[] = [];
+  let inList = false;
+
+  const parseInlineMarkdown = (text: string) => {
+    let parsed = text;
+    // Bold: **text** -> <strong>text</strong>
+    parsed = parsed.replace(/\*\*(.*?)\*\*/g, "<strong class=\"font-bold text-text-title\">$1</strong>");
+    // Links: [text](url) -> <a href="url" target="_blank" class="...">text</a>
+    parsed = parsed.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#1d70b8] dark:text-cyan-400 hover:underline font-semibold">$1</a>');
+    return parsed;
+  };
+
+  const flushList = (key: string | number) => {
+    if (listItems.length > 0) {
+      elements.push(
+        <ul key={`list-${key}`} className="list-disc pl-6 space-y-2.5 my-5 text-[15px] md:text-[17px] text-text-muted font-normal">
+          {listItems.map((item, i) => (
+            <li 
+              key={i} 
+              className="leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(item) }}
+            />
+          ))}
+        </ul>
+      );
+      listItems = [];
+    }
+    inList = false;
+  };
+
+  lines.forEach((line, idx) => {
+    const trimmed = line.trim();
+    
+    // If it's a list item
+    if (trimmed.startsWith("•") || trimmed.startsWith("-") || (trimmed.startsWith("*") && !trimmed.endsWith("*"))) {
+      const itemText = trimmed.replace(/^[•\-*]\s*/, "");
+      inList = true;
+      listItems.push(itemText);
+      return;
+    }
+    
+    // If we were in a list, but this line is not a list item
+    if (inList && !trimmed.startsWith("•") && !trimmed.startsWith("-") && !trimmed.startsWith("*")) {
+      flushList(idx);
+    }
+    
+    if (trimmed === "") return;
+    
+    // Headings
+    if (trimmed.startsWith("###")) {
+      const headingText = trimmed.replace(/^###\s*/, "");
+      elements.push(
+        <h4 
+          key={`h4-${idx}`} 
+          className="text-lg md:text-xl font-bold text-text-title mt-8 mb-4 tracking-tight border-b border-card-border/30 pb-2 font-sans"
+          dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(headingText) }}
+        />
+      );
+    } else if (trimmed.startsWith("##")) {
+      const headingText = trimmed.replace(/^##\s*/, "");
+      elements.push(
+        <h3 
+          key={`h3-${idx}`} 
+          className="text-xl md:text-2xl font-extrabold text-text-title mt-10 mb-4 tracking-tight border-b border-card-border/55 pb-2.5 font-sans"
+          dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(headingText) }}
+        />
+      );
+    } else if (trimmed.startsWith("#")) {
+      const headingText = trimmed.replace(/^#\s*/, "");
+      elements.push(
+        <h2 
+          key={`h2-${idx}`} 
+          className="text-2xl md:text-3xl font-black text-text-title mt-12 mb-6 tracking-tight font-sans"
+          dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(headingText) }}
+        />
+      );
+    } else {
+      // Regular Paragraph
+      elements.push(
+        <p 
+          key={`p-${idx}`} 
+          className="text-[15px] md:text-[17px] text-text-muted leading-relaxed font-normal mb-5 font-sans"
+          dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(trimmed) }}
+        />
+      );
+    }
+  });
+  
+  // Flush any remaining list items at the end
+  if (inList) {
+    flushList("final");
+  }
+  
+  return <div className="space-y-2">{elements}</div>;
+};
+
 export default function BlogPage() {
   useEffect(() => {
     document.title = "Blog - S3B Global";
@@ -758,7 +859,7 @@ export default function BlogPage() {
       <Header />
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full pt-20 transition-colors duration-300">
+      <main className="flex-1 w-full pt-24 md:pt-28 transition-colors duration-300">
         
         {/* Curved Header Banner Section */}
         <div className="w-full relative bg-gradient-to-r from-blue-50/50 via-indigo-50/20 to-white dark:from-white/[0.01] dark:via-white/[0.005] dark:to-transparent border-b border-card-border overflow-hidden px-8 py-20 md:py-24 rounded-b-[40px] select-none">
@@ -786,12 +887,12 @@ export default function BlogPage() {
           </div>
         </div>
 
-        {/* Content sections inside standard max-w-5xl container */}
-        <div className="max-w-[95rem] mx-auto px-6 lg:px-12 py-20 space-y-16">
+        {/* Content sections inside standard w-full container */}
+        <div className="w-full mx-auto px-6 lg:px-12 py-20 space-y-16">
           
           {/* Section 2: Search & Categorical Category Filters */}
           <ScrollReveal delay={100} className="w-full space-y-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 max-w-[85rem] mx-auto bg-card-bg/25 border border-card-border p-6 rounded-3xl backdrop-blur-md shadow-md">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full mx-auto bg-card-bg/25 border border-card-border p-6 rounded-3xl backdrop-blur-md shadow-md">
               
               {/* Dynamic search bar */}
               <div className="relative w-full md:max-w-md">
@@ -812,7 +913,7 @@ export default function BlogPage() {
                   </button>
                 )}
               </div>
-
+ 
               {/* Articles Count indicator */}
               <div className="shrink-0 font-mono text-xs font-normal text-text-muted bg-card-bg/80 border border-card-border/80 px-4 py-2.5 rounded-full select-none shadow-sm flex items-center gap-2">
                 <span>PUBLISHED INSIGHTS:</span>
@@ -820,9 +921,9 @@ export default function BlogPage() {
                 <span className="font-bold text-[#10b981]">{filteredPosts.length}</span>
               </div>
             </div>
-
+ 
             {/* Category Navigation buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-2.5 max-w-[85rem] mx-auto">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 w-full mx-auto">
               {CATEGORIES.map((cat, idx) => {
                 const isActive = selectedCategory === cat;
                 return (
@@ -841,80 +942,81 @@ export default function BlogPage() {
               })}
             </div>
           </ScrollReveal>
-
-          {/* Section 3: Blog Grid */}
+ 
           {filteredPosts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full mx-auto select-none">
-              {filteredPosts.map((post, idx) => {
-                const Icon = post.icon;
-                return (
-                  <ScrollReveal
-                    key={post.id}
-                    delay={(idx % 3) * 80}
-                    className="group liquid-glass-glowing bg-card-bg/30 border border-card-border/60 rounded-[2rem] flex flex-col justify-between hover:-translate-y-1 hover:border-card-border-hover/80 hover:shadow-xl text-left relative overflow-hidden transition-all duration-500"
-                  >
-                    {/* Premium Image Header */}
-                    <div className="relative w-full aspect-[16/10] overflow-hidden bg-black/10 border-b border-card-border/20">
-                      <img 
-                        src={post.image} 
-                        alt={post.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent opacity-60 pointer-events-none" />
-                      <span className="absolute top-4 right-4 text-[9px] font-mono font-medium uppercase tracking-widest text-text-title bg-background/85 border border-card-border/80 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
-                        {post.category}
-                      </span>
-                    </div>
-
-                    <div className="p-6 md:p-8 flex-1 flex flex-col justify-between space-y-6">
-                      <div className="space-y-4">
-                        {/* Blog Header row */}
-                        <div className="flex items-start justify-between space-x-3">
-                          <div className={`p-2.5 rounded-xl ${post.accent} border border-white/[0.04] shrink-0`}>
-                            <Icon className="h-4.5 w-4.5" />
-                          </div>
-                        </div>
-
-                        {/* Blog Info */}
-                        <div className="space-y-3">
-                          <h3 className="text-[20px] font-light text-text-title tracking-tight leading-snug group-hover:text-[#1d70b8] dark:group-hover:text-cyan-400 transition-colors duration-300">
-                            {post.title}
-                          </h3>
-                          <p className="text-[14px] text-text-muted/70 leading-relaxed font-sans font-light line-clamp-3 overflow-hidden">
-                            {post.excerpt}
-                          </p>
-                        </div>
+            <div className="w-full mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full select-none">
+                {filteredPosts.map((post, idx) => {
+                  const Icon = post.icon;
+                  return (
+                    <ScrollReveal
+                      key={post.id}
+                      delay={(idx % 3) * 80}
+                      className="group liquid-glass-glowing bg-card-bg/30 border border-card-border/60 rounded-[2rem] flex flex-col justify-between hover:-translate-y-1 hover:border-card-border-hover/80 hover:shadow-xl text-left relative overflow-hidden transition-all duration-500"
+                    >
+                      {/* Premium Image Header */}
+                      <div className="relative w-full aspect-[16/9] overflow-hidden bg-black/10 border-b border-card-border/20">
+                        <img 
+                          src={post.image} 
+                          alt={post.title} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent opacity-60 pointer-events-none" />
+                        <span className="absolute top-4 right-4 text-[9px] font-mono font-medium uppercase tracking-widest text-text-title bg-background/85 border border-card-border/80 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
+                          {post.category}
+                        </span>
                       </div>
 
-                      <div className="space-y-5">
-                        {/* Metadata Row */}
-                        <div className="flex items-center justify-between text-[11px] font-mono text-text-muted/60 pt-4 border-t border-card-border/20">
-                          <div className="flex items-center space-x-1.5">
-                            <Clock className="h-3.5 w-3.5 text-text-muted/30 shrink-0" />
-                            <span>{post.readTime}</span>
+                      <div className="p-5 md:p-6 flex-1 flex flex-col justify-between space-y-5">
+                        <div className="space-y-4">
+                          {/* Blog Header row */}
+                          <div className="flex items-start justify-between space-x-3">
+                            <div className={`p-2.5 rounded-xl ${post.accent} border border-white/[0.04] shrink-0`}>
+                              <Icon className="h-4.5 w-4.5" />
+                            </div>
                           </div>
-                          <div className="flex items-center space-x-1.5">
-                            <User className="h-3.5 w-3.5 text-text-muted/30 shrink-0" />
-                            <span>{post.date}</span>
+
+                          {/* Blog Info */}
+                          <div className="space-y-3">
+                            <h3 className="text-[18.5px] font-semibold text-text-title tracking-tight leading-snug group-hover:text-[#1d70b8] dark:group-hover:text-cyan-400 transition-colors duration-300">
+                              {post.title}
+                            </h3>
+                            <div className="text-[13px] md:text-[13.5px] text-text-muted/70 leading-relaxed font-sans font-normal line-clamp-3 overflow-hidden">
+                              {post.excerpt}
+                            </div>
                           </div>
                         </div>
 
-                        {/* Bottom CTA to trigger dynamic overlay reader */}
-                        <div>
-                          <button
-                            onClick={() => handleReadClick(post)}
-                            className="w-full inline-flex items-center justify-between px-6 py-3.5 rounded-full text-xs font-semibold text-text-title bg-card-bg/60 border border-card-border hover:bg-[#1d70b8] dark:hover:bg-cyan-400 hover:text-white dark:hover:text-[#041018] hover:border-[#1d70b8] dark:hover:border-cyan-400 transition-all duration-300 cursor-pointer group shadow-sm"
-                          >
-                            <span>Read Full Article</span>
-                            <ArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
-                          </button>
+                        <div className="space-y-5">
+                          {/* Metadata Row */}
+                          <div className="flex items-center justify-between text-[11px] font-mono text-text-muted/60 pt-4 border-t border-card-border/20">
+                            <div className="flex items-center space-x-1.5">
+                              <Clock className="h-3.5 w-3.5 text-text-muted/30 shrink-0" />
+                              <span>{post.readTime}</span>
+                            </div>
+                            <div className="flex items-center space-x-1.5">
+                              <User className="h-3.5 w-3.5 text-text-muted/30 shrink-0" />
+                              <span>{post.date}</span>
+                            </div>
+                          </div>
+
+                          {/* Bottom CTA to trigger dynamic overlay reader */}
+                          <div>
+                            <button
+                              onClick={() => handleReadClick(post)}
+                              className="w-full inline-flex items-center justify-between px-6 py-3.5 rounded-full text-xs font-semibold text-text-title bg-card-bg/60 border border-card-border hover:bg-[#1d70b8] dark:hover:bg-cyan-400 hover:text-white dark:hover:text-[#041018] hover:border-[#1d70b8] dark:hover:border-cyan-400 transition-all duration-300 cursor-pointer group shadow-sm"
+                            >
+                              <span>Read Full Article</span>
+                              <ArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </ScrollReveal>
-                );
-              })}
+                    </ScrollReveal>
+                  );
+                })}
+              </div>
             </div>
           ) : (
             /* No Results view */
@@ -963,7 +1065,7 @@ export default function BlogPage() {
                   <Clock className="h-3.5 w-3.5" />
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider">{selectedPostForModal.date} · {selectedPostForModal.readTime}</span>
                 </div>
-                <h3 className="text-xl md:text-2xl lg:text-3.5xl font-light text-text-title tracking-tight leading-tight">
+                <h3 className="text-xl md:text-2xl lg:text-3.5xl font-bold text-text-title tracking-tight leading-tight">
                   {selectedPostForModal.title}
                 </h3>
               </div>
@@ -982,26 +1084,8 @@ export default function BlogPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                 </div>
 
-                <div className="text-[17px] md:text-[18px] text-text-muted leading-relaxed whitespace-pre-line font-light max-w-5xl mx-auto font-sans">
-                  {selectedPostForModal.content}
-                </div>
-                
-                {/* External Redirection Button */}
-                <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-card-border/45 select-none max-w-5xl mx-auto w-full">
-                  <div className="flex items-center space-x-1.5 text-[10px] font-mono text-text-muted/50 font-bold uppercase">
-                    <User className="h-4 w-4 text-text-muted/40 shrink-0" />
-                    <span>Dossier sync by {selectedPostForModal.author}</span>
-                  </div>
-                  
-                  <a 
-                    href={selectedPostForModal.url}
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-1.5 px-6 py-3 rounded-full text-xs font-semibold text-[#041018] bg-gradient-to-r from-emerald-400 to-cyan-400 hover:brightness-110 shadow-md transition-all cursor-pointer uppercase tracking-wider"
-                  >
-                    <span>Read on s3bglobal.com</span>
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
+                <div className="max-w-5xl mx-auto pb-6">
+                  {renderFormattedContent(selectedPostForModal.content)}
                 </div>
               </div>
             ) : (

@@ -131,11 +131,11 @@ export default function CapabilitiesBento() {
         </div>
 
         {/* BOTTOM ROW: Why Choose Us */}
-        <div className="pt-6 space-y-8 select-none">
+        <div className="pt-16 md:pt-24 space-y-8 select-none">
           <ScrollReveal className="w-full text-center space-y-4 flex flex-col items-center">
             <h2 className="text-3xl md:text-[54.4px] font-light tracking-tight text-text-title flex items-center justify-center gap-3">
-              Why Choose <span className="text-[#f59e0b] dark:text-[#fb923c]">Us</span>?
-              <span className="text-[#f59e0b] dark:text-[#fb923c] animate-spin-slow text-2xl md:text-3xl select-none leading-none">✸</span>
+              Why Choose <span className="text-brand-blue">Us</span>?
+              <span className="text-brand-blue animate-spin-slow text-2xl md:text-3xl select-none leading-none">✸</span>
             </h2>
             <p className="text-[16px] text-slate-800 dark:text-zinc-300 font-light font-serif italic max-w-2xl leading-relaxed text-center pt-2">
               "We help businesses grow and scale with custom autonomous AI agents, automated workflow routing, and smart AI solutions designed specifically for your needs."

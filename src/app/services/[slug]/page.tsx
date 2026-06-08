@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       desc: "Reimagine your business operations by strategically integrating cutting-edge AI for sustainable innovation and competitive advantage by S3B Global."
     },
     "cloud-infrastructure": {
-      title: "Cloud & Infrastructure - S3B Global",
+      title: "Cloud + Infrastructure - S3B Global",
       desc: "Build robust, secure, and highly available cloud environments tailored to your scaling demands and critical workloads by S3B Global."
     },
     "data-ai": {
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       desc: "Create intuitive, user-centric digital products designed to maximize customer engagement, retention, and seamless processes by S3B Global."
     },
     "enterprise-services": {
-      title: "Enterprise IT Solutions & Services - S3B Global",
+      title: "Enterprise IT Solutions + Services - S3B Global",
       desc: "Ensuring institutional resilience with 24/7 SLAs, continuous security monitoring, and custom cluster architecture by S3B Global."
     }
   };

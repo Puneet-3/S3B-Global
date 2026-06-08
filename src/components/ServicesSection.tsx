@@ -28,7 +28,7 @@ export default function ServicesSection() {
     },
     {
       num: "02",
-      name: "Cloud & Infrastructure",
+      name: "Cloud + Infrastructure",
       href: "/services/cloud-infrastructure",
       icon: Cloud,
       color: "rgba(6, 182, 212, 1)", // Cyan
@@ -52,7 +52,7 @@ export default function ServicesSection() {
     },
     {
       num: "05",
-      name: "Enterprise IT Solutions & Services",
+      name: "Enterprise IT Solutions + Services",
       href: "/services/enterprise-services",
       icon: Briefcase,
       color: "rgba(59, 130, 246, 1)", // Blue
@@ -121,13 +121,13 @@ export default function ServicesSection() {
             </ScrollReveal>
 
             <ScrollReveal delay={100}>
-              <h2 className="text-3xl md:text-[54.4px] font-light tracking-tight text-text-title leading-tight">
+              <h2 className="text-3xl md:text-[54.4px] font-semibold tracking-tight text-text-title leading-tight">
                 Our expertise.
               </h2>
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
-              <p className="text-[16px] text-text-muted leading-relaxed font-light">
+              <p className="text-[17px] text-text-muted leading-relaxed font-normal">
                 We engineer scalable solutions that transform legacy systems, automate complex enterprise routing, and integrate state-of-the-art cognitive algorithms. Explore each capability to learn more about our specific services.
               </p>
             </ScrollReveal>
@@ -224,14 +224,14 @@ export default function ServicesSection() {
                 </span>
               </div>
 
-              <div key={current} className="min-h-[85px] animate-slide-in">
-                <p className="text-[17px] font-light leading-relaxed text-text-title">
+               <div key={current} className="min-h-[85px] animate-slide-in">
+                <p className="text-[17px] font-normal leading-relaxed text-text-title">
                   "{testimonials[current].quote}"
                 </p>
               </div>
 
               <div key={`author-${current}`} className="pt-4 animate-slide-in" style={{ animationDelay: "80ms" }}>
-                <h4 className="text-[17px] font-light text-text-title">
+                <h4 className="text-[17px] font-semibold text-text-title">
                   {testimonials[current].name}
                 </h4>
 

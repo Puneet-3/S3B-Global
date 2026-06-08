@@ -27,13 +27,13 @@ export function S3BLogoFull({
       <img
         src="/s3b-logo-dark.png"
         alt="S3B Global"
-        className="block [.light-mode_&]:hidden h-10 md:h-12 w-auto object-contain transition-transform duration-300 hover:scale-[1.02]"
+        className="block [.light-mode_&]:hidden h-12 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-[1.02]"
       />
       {/* Light mode logo - hidden in default dark mode, visible in light mode */}
       <img
         src="/s3b-logo-light.png"
         alt="S3B Global"
-        className="hidden [.light-mode_&]:block h-10 md:h-12 w-auto object-contain transition-transform duration-300 hover:scale-[1.02]"
+        className="hidden [.light-mode_&]:block h-12 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-[1.02]"
       />
     </div>
   );

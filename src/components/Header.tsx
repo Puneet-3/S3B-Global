@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Sun, Moon, Menu, X, ArrowRight, ChevronDown, Cloud, Cpu, Database, ShieldCheck } from "lucide-react";
+import { Sun, Moon, Menu, X, ArrowRight, ChevronDown, Cloud, Brain, Database, MonitorPlay, Briefcase } from "lucide-react";
 import { S3BLogoFull } from "@/components/S3BLogo";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -15,23 +15,38 @@ export default function Header() {
   const servicesList = [
     {
       title: "AI Transformation",
-      href: "/services/ai-transformation"
+      desc: "Commanding the AI frontier with deep expertise and rapid execution.",
+      href: "/services/ai-transformation",
+      icon: Brain,
+      color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20"
     },
     {
-      title: "Cloud & Infrastructure",
-      href: "/services/cloud-infrastructure"
+      title: "Cloud + Infrastructure",
+      desc: "AI-powered, secure cloud architectures built for enterprise growth.",
+      href: "/services/cloud-infrastructure",
+      icon: Cloud,
+      color: "text-brand-blue bg-brand-blue/10 border-brand-blue/20"
     },
     {
       title: "Data + AI",
-      href: "/services/data-ai"
+      desc: "Actionable intelligence powered by secure, modern data engineering.",
+      href: "/services/data-ai",
+      icon: Database,
+      color: "text-amber-500 bg-amber-500/10 border-amber-500/20"
     },
     {
       title: "Digital Product Experience",
-      href: "/services/digital-product-experience"
+      desc: "Intuitive digital experiences designed for user adoption and impact.",
+      href: "/services/digital-product-experience",
+      icon: MonitorPlay,
+      color: "text-purple-500 bg-purple-500/10 border-purple-500/20"
     },
     {
-      title: "Enterprise IT Solutions & Services",
-      href: "/services/enterprise-services"
+      title: "Enterprise IT Solutions + Services",
+      desc: "Simplifying complex legacy architectures and scaling intelligence.",
+      href: "/services/enterprise-services",
+      icon: Briefcase,
+      color: "text-accent-purple bg-accent-purple/10 border-accent-purple/20"
     }
   ];
 
@@ -45,7 +60,7 @@ export default function Header() {
     };
 
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
         setIsMobileMenuOpen(false);
         setIsMobileServicesOpen(false);
       }
@@ -107,22 +122,22 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b border-card-border/45 ${
         isMobileMenuOpen
-          ? "bg-background border-b border-card-border py-4"
+          ? "bg-background py-4"
           : isScrolled
-            ? "bg-panel-bg/75 backdrop-blur-md border-b border-card-border py-4"
-            : "bg-transparent py-6"
+            ? "bg-panel-bg/75 backdrop-blur-md py-4"
+            : "bg-background/25 backdrop-blur-sm py-6"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="w-full px-6 lg:px-12 flex items-center justify-between">
         {/* Futuristic Official Logo */}
         <a href="/">
           <S3BLogoFull />
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-text-muted">
+        <nav className="hidden lg:flex items-center space-x-10 text-[16px] font-semibold text-text-muted">
           <a
             href="/"
             className="relative py-1 transition-colors hover:text-text-title group"
@@ -157,31 +172,46 @@ export default function Header() {
                   setIsServicesOpen(true);
                 }
               }}
-              className="flex items-center space-x-1 py-1 transition-colors hover:text-text-title cursor-pointer text-sm font-medium text-text-muted select-none"
+              className="flex items-center space-x-1 py-1 transition-colors hover:text-text-title cursor-pointer text-[16px] font-semibold text-text-muted select-none"
             >
               <span>Services</span>
-              <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${isServicesOpen ? "rotate-180" : ""}`} />
+              <ChevronDown className={`h-4.5 w-4.5 transition-transform duration-300 ${isServicesOpen ? "rotate-180" : ""}`} />
             </button>
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
 
-            {/* Elegant Vertical Dropdown Panel - Fixes Hover Gap Bug */}
+            {/* Elegant Mega Menu Dropdown Panel */}
             <div
-              className={`absolute top-full left-0 pt-2 w-72 transition-all duration-300 text-left select-none z-50 ${isServicesOpen
+              className={`absolute top-full -left-44 pt-2 w-[800px] transition-all duration-300 text-left select-none z-50 ${isServicesOpen
                   ? "opacity-100 translate-y-0 pointer-events-auto"
                   : "opacity-0 -translate-y-2 pointer-events-none"
                 }`}
             >
-              <div className="rounded-xl bg-panel-bg border border-card-border backdrop-blur-xl p-2 shadow-[0_15px_40px_rgba(0,0,0,0.4)] flex flex-col space-y-1">
-                {servicesList.map((item, idx) => (
-                  <a
-                    key={idx}
-                    href={item.href}
-                    onClick={() => setIsServicesOpen(false)}
-                    className="w-full px-4 py-3 rounded-lg text-xs font-bold text-text-title hover:text-[#1d70b8] hover:bg-nav-hover-bg transition-all leading-tight block"
-                  >
-                    {item.title}
-                  </a>
-                ))}
+              <div className="rounded-2xl bg-card-bg border border-card-border p-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] grid grid-cols-2 gap-2">
+                {servicesList.map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={idx}
+                      href={item.href}
+                      onClick={() => setIsServicesOpen(false)}
+                      className="group/item flex items-start gap-3 p-2.5 rounded-xl hover:bg-nav-hover-bg transition-all duration-300"
+                    >
+                      {/* Stylized Icon container */}
+                      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-300 group-hover/item:scale-105 ${item.color}`}>
+                        <Icon className="h-4.5 w-4.5" />
+                      </div>
+                      {/* Copy details */}
+                      <div className="space-y-1">
+                        <h4 className="text-[16.5px] font-bold text-text-title group-hover/item:text-[#1d70b8] transition-colors leading-tight">
+                          {item.title}
+                        </h4>
+                        <p className="text-[11px] text-text-muted leading-snug font-light">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -210,57 +240,58 @@ export default function Header() {
         </nav>
 
         {/* Controls & CTA */}
-        <div className="hidden md:flex items-center space-x-5">
+        <div className="hidden lg:flex items-center space-x-6">
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="relative p-2 rounded-full border border-card-border hover:border-primary/40 bg-card-bg hover:bg-primary/5 text-text-muted hover:text-primary transition-all duration-300 group shadow-sm overflow-hidden"
+            className="relative p-2.5 rounded-full border border-card-border hover:border-primary/40 bg-card-bg hover:bg-primary/5 text-text-muted hover:text-primary transition-all duration-300 group shadow-sm overflow-hidden"
           >
             {isDarkMode ? (
-              <Sun className="h-4.5 w-4.5" />
+              <Sun className="h-5 w-5" />
             ) : (
-              <Moon className="h-4.5 w-4.5" />
+              <Moon className="h-5 w-5" />
             )}
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           </button>
 
           {/* Book Consultation Button */}
           <a
-            href="/services"
-            className="relative inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-[#1d70b8] to-[#0A0D53] hover:brightness-110 shadow-[0_4px_20px_rgba(29,112,184,0.25)] transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden"
+            href="/contact"
+            className="relative inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden"
           >
-            <span className="relative z-10 flex items-center space-x-1.5">
+            <span className="relative z-10 flex items-center space-x-2">
               <span>BOOK FREE CONSULTATION</span>
-              <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform text-white" />
+              <ArrowRight className="h-4.5 w-4.5 group-hover:translate-x-1 transition-transform" />
             </span>
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#2582d0] to-[#12166a] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Hover Background Gradient Fill */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
           </a>
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center space-x-4">
+        <div className="lg:hidden flex items-center space-x-4">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-card-border bg-card-bg text-text-muted"
+            className="p-2.5 rounded-full border border-card-border bg-card-bg text-text-muted"
           >
             {isDarkMode ? (
-              <Sun className="h-4 w-4" />
+              <Sun className="h-5 w-5" />
             ) : (
-              <Moon className="h-4 w-4" />
+              <Moon className="h-5 w-5" />
             )}
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-lg border border-card-border bg-card-bg text-text-muted hover:text-text-title"
+            className="p-2.5 rounded-lg border border-card-border bg-card-bg text-text-muted hover:text-text-title"
           >
-            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isMobileMenuOpen ? <X className="h-5.5 w-5.5" /> : <Menu className="h-5.5 w-5.5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-[73px] z-30 bg-background border-t border-card-border animate-fade-in overflow-y-auto">
+        <div className="lg:hidden fixed inset-0 top-[81px] z-30 bg-background border-t border-card-border animate-fade-in overflow-y-auto">
           <nav className="flex flex-col p-8 space-y-6 text-lg font-medium text-text-muted">
             <a
               href="/"

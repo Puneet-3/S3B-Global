@@ -34,7 +34,7 @@ export default function Footer() {
             </p>
 
             <div className="space-y-2 pt-2 flex flex-col items-center md:items-start">
-              <span className="text-[11px] font-mono font-bold tracking-widest text-[#f59e0b] uppercase block">Follow us</span>
+              <span className="text-[11px] font-mono font-bold tracking-widest text-brand-blue uppercase block">Follow us</span>
               <div className="flex items-center justify-center md:justify-start space-x-2">
                 <a
                   href="https://www.linkedin.com/company/s3b-global/mycompany/"
@@ -50,48 +50,48 @@ export default function Footer() {
 
           {/* Column 2: Quick Links (lg:col-span-2) */}
           <div className="lg:col-span-2 space-y-5 text-center md:text-left flex flex-col items-center md:items-start">
-            <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-[#1d70b8]">
+            <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
               Quick Links
             </h4>
             <ul className="space-y-3.5 text-[15px] text-text-muted font-semibold">
               <li>
-                <a href="/" className="inline-block hover:text-[#1d70b8] hover:translate-x-1 transition-all duration-300">Home</a>
+                <a href="/" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Home</a>
               </li>
               <li>
-                <a href="/about" className="inline-block hover:text-[#1d70b8] hover:translate-x-1 transition-all duration-300">About us</a>
+                <a href="/about" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">About us</a>
               </li>
               <li>
-                <a href="/#services" className="inline-block hover:text-[#1d70b8] hover:translate-x-1 transition-all duration-300">Services</a>
+                <a href="/#services" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Services</a>
               </li>
               <li>
-                <a href="/blog" className="inline-block hover:text-[#1d70b8] hover:translate-x-1 transition-all duration-300">Blog</a>
+                <a href="/blog" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Blog</a>
               </li>
               <li>
-                <a href="/contact" className="inline-block hover:text-[#1d70b8] hover:translate-x-1 transition-all duration-300">Contact Us</a>
+                <a href="/contact" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Contact Us</a>
               </li>
             </ul>
           </div>
 
           {/* Column 3: SERVICES (lg:col-span-3) */}
           <div className="lg:col-span-3 space-y-5 text-center md:text-left flex flex-col items-center md:items-start">
-            <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-[#10b981]">
+            <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
               SERVICES
             </h4>
             <ul className="space-y-3.5 text-[15px] text-text-muted font-semibold">
               <li>
-                <a href="/services/ai-transformation" className="inline-block hover:text-[#10b981] hover:translate-x-1 transition-all duration-300">AI Transformation</a>
+                <a href="/services/ai-transformation" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">AI Transformation</a>
               </li>
               <li>
-                <a href="/services/cloud-infrastructure" className="inline-block hover:text-[#10b981] hover:translate-x-1 transition-all duration-300">Cloud & Infrastructure</a>
+                <a href="/services/cloud-infrastructure" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Cloud + Infrastructure</a>
               </li>
               <li>
-                <a href="/services/data-ai" className="inline-block hover:text-[#10b981] hover:translate-x-1 transition-all duration-300">Data + AI</a>
+                <a href="/services/data-ai" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Data + AI</a>
               </li>
               <li>
-                <a href="/services/digital-product-experience" className="inline-block hover:text-[#10b981] hover:translate-x-1 transition-all duration-300">Digital Product Experience</a>
+                <a href="/services/digital-product-experience" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Digital Product Experience</a>
               </li>
               <li>
-                <a href="/services/enterprise-services" className="inline-block hover:text-[#10b981] hover:translate-x-1 transition-all duration-300">Enterprise IT Solutions & Services</a>
+                <a href="/services/enterprise-services" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Enterprise IT Solutions + Services</a>
               </li>
             </ul>
           </div>
@@ -99,7 +99,7 @@ export default function Footer() {
           {/* Column 4: ADDRESS & CONTACT (lg:col-span-3) */}
           <div className="lg:col-span-3 space-y-6 text-center md:text-left flex flex-col items-center md:items-start">
             <div className="space-y-3 flex flex-col items-center md:items-start">
-              <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-[#f59e0b]">
+              <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
                 ADDRESS
               </h4>
               <div className="flex items-start justify-center md:justify-start text-[15px] text-text-muted font-semibold">
@@ -110,12 +110,12 @@ export default function Footer() {
             </div>
 
             <div className="space-y-3 pt-2 flex flex-col items-center md:items-start">
-              <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-accent-purple">
+              <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
                 CONTACT
               </h4>
               <div className="flex items-center justify-center md:justify-start space-x-2.5 text-[15px] text-text-muted font-semibold font-sans">
-                <Mail className="h-4.5 w-4.5 text-accent-purple shrink-0" />
-                <a href="mailto:info@s3bglobal.com" className="hover:text-primary transition-colors break-all">
+                <Mail className="h-4.5 w-4.5 text-brand-blue shrink-0" />
+                <a href="mailto:info@s3bglobal.com" className="hover:text-brand-blue transition-colors break-all">
                   info@s3bglobal.com
                 </a>
               </div>
@@ -134,7 +134,7 @@ export default function Footer() {
               © 2026. S3B Global | All Rights Reserved
             </span>
           </div>
-          <span className="text-[13px] font-mono font-bold uppercase tracking-widest text-[#10b981] animate-pulse md:text-right">
+          <span className="text-[13px] font-mono font-bold uppercase tracking-widest text-brand-blue animate-pulse md:text-right">
             ENERGY. SPEED. SOLUTIONS FOR BUSINESS.
           </span>
         </div>

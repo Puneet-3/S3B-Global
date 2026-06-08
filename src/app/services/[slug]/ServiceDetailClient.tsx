@@ -33,7 +33,8 @@ import {
   Target,
   Heart,
   Clock,
-  TrendingUp
+  TrendingUp,
+  Brain
 } from "lucide-react";
 
 // Types for cloud transformation particles
@@ -983,12 +984,12 @@ const SERVICES_DATA: Record<string, {
   "ai-transformation": {
     badge: "SERVICE",
     title: "AI Transformation",
-    tagline: "Turning artificial intelligence into measurable business value.",
+    tagline: "Commanding the AI Frontier: Deep Expertise. Rapid Execution. Tangible ROI.",
     themeColor: "text-[#10b981]",
     lightColor: "text-[#10b981] bg-[#10b981]/10 border-[#10b981]/25",
     overviewHeader: "Intelligent Solutions for a Smarter Future",
     paragraphs: [
-      "Moving beyond the hype requires a strategic approach. We help enterprises identify high-impact use cases and deploy AI solutions that automate complex workflows, augment human capabilities, and drive real return on investment. Our focus is on practical, secure AI integration that solves specific operational bottlenecks."
+      "S3B Global enables businesses to fully leverage artificial intelligence through Agentic AI, Microsoft Copilot, machine learning, AI governance, and advanced knowledge management. Our AI-centric approach positions your organization at the cutting edge—equipping you to disrupt your market, accelerate technological progress, and achieve measurable business results."
     ],
     statusMetrics: [
       { label: "SYNAPSE SPEED", val: "<95ms PAYLOAD" },
@@ -999,71 +1000,76 @@ const SERVICES_DATA: Record<string, {
     capabilities: [
       {
         num: "01",
-        title: "AI Strategy & Roadmap",
-        desc: "We audit your current processes to identify where AI can deliver the highest ROI. We define clear success metrics and build a phased implementation plan that aligns directly with your business objectives."
+        title: "AI Strategy & Consulting",
+        desc: "Architect a tailored AI strategy that connects advanced technology directly to your core business outcomes. We partner with you from initial vision to measurable ROI, driving an enterprise-wide transformation that is both scalable and sustainable."
       },
       {
         num: "02",
-        title: "Workflow Automation (Agents & RPA)",
-        desc: "Replace manual, repetitive tasks with intelligent agents. We integrate robotic process automation and AI to handle data entry, customer routing, and back-office operations with zero fatigue."
+        title: "Generative AI & Copilot Solutions",
+        desc: "Develop intelligent, adaptive applications that grow alongside your user base. By embedding generative AI and leveraging Microsoft Copilot Studio, we build custom solutions that deliver highly personalized and predictive digital experiences."
       },
       {
         num: "03",
-        title: "Custom Generative AI & Copilots",
-        desc: "Build secure, private AI models trained on your proprietary data. We develop internal copilots that assist your team with drafting documents, querying internal knowledge bases, and generating code."
+        title: "AI Governance & Ethics",
+        desc: "Establish trust and maintain regulatory compliance with transparent, accountable AI systems. S3B Global helps you integrate comprehensive governance frameworks, ensuring your AI initiatives are developed and deployed responsibly."
       },
       {
         num: "04",
-        title: "AI Governance & Ethics",
-        desc: "Deploy AI responsibly. We establish frameworks to ensure your AI systems maintain data privacy, eliminate bias, and comply with industry-specific security regulations."
+        title: "Enhanced Developer Productivity",
+        desc: "Speed up your software lifecycle using AI-driven digital labor. Our tools assist human engineers by writing code, automating quality assurance, and mapping functional requirements—equipping your team to build faster and with absolute confidence."
       }
     ],
-    solutionsTitle: "ENTERPRISE SOLUTIONS FOR AI ADOPTION",
+    solutionsTitle: "Transform Business Challenges into AI-Driven Competitive Advantages",
     solutions: [
       {
-        title: "Drive Operational Efficiency",
-        desc: "Reduce manual effort and error rates across departments.",
-        icon: Settings,
-        items: [
-          "Process bottleneck automation",
-          "Smart document processing (OCR)",
-          "Predictive maintenance models",
-          "Intelligent resource allocation"
-        ]
+        title: "Demystify AI Complexity",
+        desc: "We translate complex AI capabilities into clear, actionable strategies. Through targeted consulting and proprietary accelerators, S3B Global helps you bypass adoption barriers and engineer tailored, high-impact AI solutions without the guesswork.",
+        icon: Brain,
+        items: []
       },
       {
-        title: "Enhance Customer Experience",
-        desc: "Deliver instant, personalized support at scale.",
-        icon: Users,
-        items: [
-          "Context-aware AI chatbots",
-          "Dynamic recommendation engines",
-          "Real-time sentiment analysis",
-          "Voice and conversational AI"
-        ]
+        title: "Unlock Enterprise Productivity",
+        desc: "From proof-of-concept to full-scale deployment, we seamlessly integrate AI agents and intelligent automation into your core workflows and applications. We equip your teams with the exact tools needed to streamline operations and drastically maximize efficiency.",
+        icon: Workflow,
+        items: []
       },
       {
-        title: "Accelerate Innovation",
-        desc: "Unlock new capabilities and revenue streams.",
+        title: "Drive Measurable Results",
+        desc: "We bridge the gap between advanced technical execution and core business strategy. By aligning custom AI architectures directly with your enterprise objectives, we ensure every deployment acts as a catalyst for sustainable innovation and quantifiable ROI.",
         icon: Rocket,
-        items: [
-          "Rapid product prototyping",
-          "Market trend analysis",
-          "Competitive intelligence tracking",
-          "Automated code generation"
-        ]
+        items: []
       }
-    ]
+    ],
+    accelerator: {
+      title: "Proprietary Accelerators",
+      features: [
+        {
+          title: "Data Governance Accelerator",
+          desc: "Architect and implement robust enterprise data governance utilizing Microsoft Purview, Fabric, and Profisee. Guarantee data integrity, comprehensive audit trails, and seamless end-to-end lifecycle management."
+        },
+        {
+          title: "Microsoft Fabric Migration Assistant",
+          desc: "Fast-track the migration of your data, schemas, and reports into Microsoft Fabric. Eliminate manual bottlenecks, enforce stringent quality standards, and realize AI-driven insights faster through highly reliable analytics."
+        }
+      ],
+      buttonText: "GET STARTED",
+      buttonHref: "#cta-section"
+    },
+    showTestimonials: true,
+    ctaOverride: {
+      title: "Ready to build your competitive edge?",
+      desc: "Architect a custom AI transformation roadmap with S3B Global and start achieving measurable business results."
+    }
   },
   "cloud-infrastructure": {
     badge: "SERVICE",
-    title: "Cloud & Infrastructure",
-    tagline: "Scalable, secure, and cost-optimized cloud environments.",
+    title: "Cloud + Infrastructure",
+    tagline: "AI-Powered Cloud. Architected for Growth. Secured for the Future.",
     themeColor: "text-[#1d70b8]",
     lightColor: "text-[#1d70b8] bg-[#1d70b8]/10 border-[#1d70b8]/25",
     overviewHeader: "Resilient Infrastructure for Modern Enterprises",
     paragraphs: [
-      "Modern businesses need infrastructure that adapts instantly to market demands. We help organizations migrate, manage, and modernize their systems on AWS, Azure, or Google Cloud. By optimizing architecture and eliminating wasted resources, we turn your cloud environment into a catalyst for agility rather than a cost center."
+      "S3B Global unlocks the full capabilities of Microsoft Azure through smart, resilient cloud architectures. Whether modernizing legacy systems or engineering cloud-native products, we utilize advanced AI agents, proprietary IP, and compliance-driven automation to build infrastructure that continuously evolves with your business."
     ],
     statusMetrics: [
       { label: "SLA RESILIENCE", val: "99.999% UPTIME" },
@@ -1074,136 +1080,146 @@ const SERVICES_DATA: Record<string, {
     capabilities: [
       {
         num: "01",
-        title: "Cloud Migration & Modernization",
-        desc: "Transition smoothly from on-premise servers to the cloud with zero downtime. We re-architect legacy applications to take full advantage of cloud-native features like auto-scaling and serverless computing."
+        title: "Deploy Autonomous Infrastructure",
+        desc: "Transition from static scripts to AI-augmented infrastructure capable of autonomous provisioning, monitoring, and self-optimization. By integrating Agentic AI, S3B Global delivers self-healing environments, policy-driven change management, and zero-touch operations."
       },
       {
         num: "02",
-        title: "Infrastructure as Code (IaC)",
-        desc: "Automate the provisioning and management of your IT environment. Using tools like Terraform, we ensure your infrastructure is deployed consistently, rapidly, and without manual configuration errors."
+        title: "Next-Gen Platform Architecture",
+        desc: "Transform legacy platforms into modern, AI-ready architectures. S3B Global refactors and re-platforms your core applications to unlock enterprise agility, securely integrate cloud-native services, and enable the seamless adoption of generative AI and agentic capabilities—establishing a robust foundation for continuous innovation."
       },
       {
         num: "03",
-        title: "Cloud Cost Optimization (FinOps)",
-        desc: "Stop paying for idle resources. We audit your cloud usage, implement right-sizing strategies, and set up automated billing alerts to drastically reduce your monthly cloud spend."
+        title: "Optimize Your Cloud ROI",
+        desc: "Maximize your cloud investment through AI-powered analytics. S3B Global continuously assesses system performance, resource utilization, and operational costs to implement strategies that enhance efficiency and optimize your overall cloud spend."
       },
       {
         num: "04",
-        title: "Cloud Security Posture Management",
-        desc: "Embed security directly into your cloud architecture. We configure continuous monitoring, strict identity controls, and automated compliance checks to secure your data across all environments."
+        title: "Migrate with Zero Disruption",
+        desc: "Accelerate your transition to Azure with highly secure, low-disruption migrations. S3B Global leverages AI-powered automation and specialized accelerators for AVS, Linux, PostgreSQL, and legacy workloads to drastically reduce risk, guarantee maximum uptime, and expedite modernization across cloud, hybrid, and edge environments."
       }
     ],
-    solutionsTitle: "ENTERPRISE SOLUTIONS FOR CLOUD AGILITY",
+    solutionsTitle: "Eliminate IT Constraints with Smart Cloud Architecture",
     solutions: [
       {
-        title: "Maximize System Reliability",
-        desc: "Ensure continuous availability for mission-critical apps.",
-        icon: Server,
-        items: [
-          "Multi-zone/Multi-region deployments",
-          "Automated disaster recovery",
-          "Intelligent load balancing",
-          "24/7 performance monitoring"
-        ]
+        title: "Eliminate Downtime & Data Loss Risks",
+        desc: "Guarantee business continuity through AI-monitored automated backups and resilient disaster recovery frameworks. We ensure seamless transitions and zero-disruption operations during your most critical cloud migrations.",
+        icon: ShieldCheck,
+        items: []
       },
       {
-        title: "Control Infrastructure Costs",
-        desc: "Pay only for the compute power you actually use.",
+        title: "Optimize Infrastructure & Licensing Costs",
+        desc: "Slash operational expenditures by adopting a highly scalable, pay-as-you-go cloud architecture. Our engineers help you eliminate resource over-provisioning and restructure your licensing models to drive immediate, long-term cost efficiency.",
         icon: BarChart,
-        items: [
-          "Resource right-sizing",
-          "Spot and reserved instance usage",
-          "Automated budget alerts",
-          "Granular usage analytics"
-        ]
+        items: []
       },
       {
-        title: "Enable Rapid Deployment",
-        desc: "Ship features faster with modern infrastructure.",
-        icon: RefreshCw,
-        items: [
-          "CI/CD pipeline automation",
-          "Containerization (Docker/Kubernetes)",
-          "Microservices architecture",
-          "Automated testing environments"
-        ]
+        title: "Neutralize Threats & Simplify Compliance",
+        desc: "Fortify your enterprise against evolving cyber threats with proactive, AI-driven monitoring and native cloud security. We implement continuous, automated governance to ensure your infrastructure maintains strict adherence to complex industry regulations.",
+        icon: Lock,
+        items: []
       }
-    ]
+    ],
+    accelerator: {
+      title: "Proprietary Accelerators",
+      features: [
+        {
+          title: "Intelligent Ops Automation Framework",
+          desc: "Built natively on Azure, this framework leverages advanced AI and machine learning to autonomously handle issue detection, resolution, and ticketing. S3B Global delivers real-time operational insights to drive faster, smarter, and highly resilient enterprise operations at scale."
+        },
+        {
+          title: "Cloud Factory Migration Accelerator",
+          desc: "A highly repeatable, automated engine for cloud migration aligned with Microsoft’s Cloud Adoption Framework (CAF). S3B Global accelerates secure lift-and-shift initiatives, seamless application refactoring, and comprehensive infrastructure modernization."
+        }
+      ],
+      buttonText: "GET STARTED",
+      buttonHref: "#cta-section"
+    },
+    showTestimonials: true,
+    ctaOverride: {
+      title: "Ready to optimize your cloud ecosystem?",
+      desc: "Architect a highly scalable, secure, and cost-effective cloud environment with S3B Global today."
+    }
   },
   "data-ai": {
     badge: "SERVICE",
     title: "Data + AI",
-    tagline: "Transforming raw data into strategic intelligence.",
+    tagline: "Powering the AI Frontier with Secure Data & Actionable Intelligence.",
     themeColor: "text-[#f59e0b]",
     lightColor: "text-[#f59e0b] bg-[#f59e0b]/10 border-[#f59e0b]/25",
     overviewHeader: "Fueling Growth with Actionable Insights",
     paragraphs: [
-      "Data is only valuable if you can act on it. We build the robust data pipelines and centralized warehouses necessary to break down information silos. By layering advanced analytics and predictive modeling on top of clean data, we give your leadership team the visibility they need to make confident, proactive decisions."
+      "S3B Global empowers enterprises to convert complex data into strategic assets and intelligent products. Our Data and AI services equip leaders to drive precise decision-making through modern architectures, advanced analytics, and predictive modeling. Leveraging deep technical expertise and our proprietary accelerators, we engineer scalable data ecosystems that consistently deliver measurable business outcomes."
     ],
     statusMetrics: [
       { label: "THROUGHPUT VOLUME", val: "50M+ EVENTS/D" },
       { label: "SYNC LATENCY", val: "180ms STREAM" },
       { label: "SHARD RESILIENCE", val: "ACTIVE-ACTIVE" }
     ],
-    image: "/data-ai-hero.png",
+    image: "/data-ai-hero-new.png",
     capabilities: [
       {
         num: "01",
-        title: "Modern Data Engineering",
-        desc: "Build the foundation. We design and implement automated ETL (Extract, Transform, Load) pipelines that securely move data from fragmented sources into a centralized, highly structured data lake or warehouse."
+        title: "AI Readiness + Strategy",
+        desc: "Establish a robust architecture to responsibly integrate, scale, and govern artificial intelligence across your enterprise. By aligning your data infrastructure with strict security protocols, we bridge the gap between AI ambition and execution—ensuring your data is reliable, accessible, and primed to drive tangible ROI."
       },
       {
         num: "02",
-        title: "Advanced Analytics & BI",
-        desc: "Turn complex datasets into clear narratives. We create interactive dashboards and reporting tools that provide real-time visibility into your most critical Key Performance Indicators (KPIs)."
+        title: "Data Migration + Modernization",
+        desc: "Convert fragmented data into a centralized strategic asset. S3B Global migrates legacy systems to scalable, cloud-native architectures, streamlining your entire data ecosystem to build a future-proof foundation that accelerates processing and fuels continuous innovation."
       },
       {
         num: "03",
-        title: "Predictive Modeling",
-        desc: "Move from reacting to anticipating. We train machine learning models on your historical data to forecast future trends, customer behaviors, and market shifts before they happen."
+        title: "Enterprise Data Governance + Security",
+        desc: "Guarantee the accuracy, privacy, and regulatory compliance of your digital assets. We implement comprehensive governance frameworks and automated access controls, ensuring high data integrity and robust master data management for secure, trusted utilization across your organization."
       },
       {
         num: "04",
-        title: "Data Governance & Quality",
-        desc: "Ensure your insights are built on truth. We implement strict data validation rules, access controls, and cataloging to maintain data integrity and regulatory compliance."
+        title: "Advanced Analytics + Predictive Insights",
+        desc: "Translate complex datasets into autonomous, AI-driven business outcomes. By unifying data access and quality controls, we empower your teams with real-time, actionable insights that accelerate strategic decision-making, optimize productivity, and scale intelligent enterprise growth."
       }
     ],
-    solutionsTitle: "ENTERPRISE SOLUTIONS FOR DATA-DRIVEN GROWTH",
+    solutionsTitle: "Maximize Your Data Asset Value in the AI Era",
     solutions: [
       {
-        title: "Unify Disconnected Data",
-        desc: "Break down silos to create a single source of truth.",
+        title: "Unify Your Data Ecosystem",
+        desc: "Break down enterprise silos by integrating disparate sources into a centralized, highly accessible architecture. We engineer a single source of truth that powers real-time visibility, cross-functional collaboration, and rapid, unified decision-making.",
         icon: Database,
-        items: [
-          "Centralized data warehouse setup",
-          "Automated ETL pipelines",
-          "Real-time API data syncing",
-          "Legacy system data integration"
-        ]
+        items: []
       },
       {
-        title: "Gain Clear Visibility",
-        desc: "See the whole picture across your organization.",
-        icon: Search,
-        items: [
-          "Interactive BI dashboards",
-          "Real-time KPI tracking",
-          "Custom executive reporting",
-          "Ad-hoc data exploration"
-        ]
+        title: "Engineer Data for AI Readiness",
+        desc: "Intelligent systems demand absolute data integrity. We establish rigorous governance frameworks, automated validation protocols, and continuous monitoring to guarantee high-quality, reliable datasets that drive confident business strategies.",
+        icon: ShieldCheck,
+        items: []
       },
       {
-        title: "Predict Business Outcomes",
-        desc: "Stay ahead of the curve with predictive insights.",
-        icon: Target,
-        items: [
-          "Inventory demand forecasting",
-          "Customer churn prediction",
-          "Financial risk scoring",
-          "Dynamic pricing optimization"
-        ]
+        title: "Accelerate AI-Driven Innovation",
+        desc: "In today’s competitive landscape, deployment speed is a baseline requirement. S3B Global leverages advanced methodologies and proprietary IP to deliver the most direct path to enterprise adoption, ensuring rapid, measurable ROI on your data infrastructure.",
+        icon: Rocket,
+        items: []
       }
-    ]
+    ],
+    accelerator: {
+      title: "Proprietary Accelerators",
+      features: [
+        {
+          title: "Engineer a Modular Data Intelligence Platform",
+          desc: "Engineer highly scalable, metadata-driven ecosystems utilizing Databricks and S3B Global’s proprietary modular engine. Our solution seamlessly supports decentralized data mesh frameworks and Medallion architectures—organizing data progressively from raw to business-ready—to accelerate your transition to a fully AI-enabled enterprise."
+        },
+        {
+          title: "Centralize Operations with Control Tower",
+          desc: "Driven by advanced artificial intelligence, S3B Global’s Control Tower integrates enterprise data, IoT, and high-performance analytics into a centralized operational hub. We empower your business with real-time, cross-industry insights to maximize efficiency, significantly reduce operational costs, and actively support your strategic ESG initiatives."
+        }
+      ],
+      buttonText: "GET STARTED",
+      buttonHref: "#cta-section"
+    },
+    showTestimonials: true,
+    ctaOverride: {
+      title: "Ready to unlock the true power of your data?",
+      desc: "Partner with S3B Global to design a secure, scalable data architecture and accelerate your journey toward actionable intelligence."
+    }
   },
   "digital-product-experience": {
     badge: "SERVICE",
@@ -1286,13 +1302,14 @@ const SERVICES_DATA: Record<string, {
   },
   "enterprise-services": {
     badge: "SERVICE",
-    title: "Enterprise IT Solutions & Services",
-    tagline: "Empowering modern enterprises with scalable, secure, and resilient IT infrastructure.",
+    title: "Enterprise IT Solutions + Services",
+    tagline: "Enterprise Transformation, Reimagined",
     themeColor: "text-accent-purple",
     lightColor: "text-accent-purple bg-accent-purple/10 border-accent-purple/25",
-    overviewHeader: "Institutional Resilience and Dedicated Support",
+    overviewHeader: "Simplifying complexity. Accelerating intelligence.",
     paragraphs: [
-      "Great enterprise IT doesn't just keep the lights on—it accelerates growth. We blend strategic infrastructure planning, robust cybersecurity, and advanced managed services to turn complex IT environments into streamlined, secure ecosystems. Our focus is helping organizations scale seamlessly, optimize operational costs, and build a resilient foundation for digital transformation."
+      "Simplifying complexity. Accelerating intelligence.",
+      "Enterprise transformation starts with the right strategy, technology, and expertise. S3B partners with organizations to modernize systems, harness AI, and build secure, scalable digital ecosystems that improve efficiency, accelerate innovation, and support long-term growth."
     ],
     statusMetrics: [
       { label: "SLA DISPATCH", val: "<15m DEV RESPONSE" },
@@ -1303,61 +1320,67 @@ const SERVICES_DATA: Record<string, {
     capabilities: [
       {
         num: "01",
-        title: "Infrastructure Modernization",
-        desc: "Upgrade and migrate legacy systems to scalable, hybrid, and cloud-ready architectures. We help you reduce technical debt, improve system agility, and build a flexible IT foundation that aligns directly with your long-term business goals."
+        title: "Intelligent Infrastructure",
+        desc: "Modernize legacy systems and unlock the flexibility, scalability, and performance required to support long-term digital growth."
       },
       {
         num: "02",
-        title: "Cybersecurity & Compliance",
-        desc: "Implement multi-layered security frameworks to safeguard your critical data. From identity and access management (IAM) to continuous threat monitoring, we ensure your infrastructure is protected against evolving cyber threats while meeting strict regulatory standards."
+        title: "AI-Powered Cybersecurity & Digital Trust",
+        desc: "Leverage AI-driven threat intelligence, proactive risk management, and enterprise-grade security strategies to identify vulnerabilities faster, respond smarter, and safeguard your business in an increasingly connected world."
       },
       {
         num: "03",
-        title: "Digital Workplace Solutions",
-        desc: "Equip your teams to work securely from anywhere. We deploy intuitive collaboration platforms, secure virtual desktops, and mobile device management (MDM) solutions that drive employee productivity and streamline remote operations."
+        title: "The Modern Workplace",
+        desc: "Create connected experiences that empower employees, streamline collaboration, and elevate productivity across every touchpoint."
       },
       {
         num: "04",
-        title: "Managed IT Services",
-        desc: "Offload the burden of day-to-day IT management. We provide 24/7 proactive monitoring, automated patch management, and disaster recovery support, allowing your internal teams to stop troubleshooting and start focusing on strategic innovation."
+        title: "Always-On Operations",
+        desc: "Ensure business continuity through proactive management, continuous optimization, and expert-led support that keeps innovation moving forward."
       }
     ],
-    solutionsTitle: "ENTERPRISE SOLUTIONS FOR IT MODERNIZATION",
+    solutionsTitle: "A.I.M. Methodology for Enterprise Transformation",
     solutions: [
       {
-        title: "Optimize IT Operations",
-        desc: "Streamline resources and reduce operational overhead for maximum efficiency.",
-        icon: Settings,
-        items: [
-          "Proactive 24/7 monitoring",
-          "Automated patch management",
-          "IT service desk support",
-          "Vendor and asset management"
-        ]
+        title: "Advise",
+        desc: "Strategic planning for IT assets, licensing, and solutions to align with business goals.",
+        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>A</span>,
+        items: []
       },
       {
-        title: "Strengthen Security Posture",
-        desc: "Protect digital assets and mitigate risks against external threats.",
-        icon: ShieldCheck,
-        items: [
-          "Endpoint detection and response",
-          "Vulnerability assessments",
-          "Zero-trust architecture",
-          "Data backup and disaster recovery"
-        ]
+        title: "Implement",
+        desc: "Seamless design, deployment, and adoption for empowered end-users.",
+        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>I</span>,
+        items: []
       },
       {
-        title: "Accelerate Scalability",
-        desc: "Build a high-performance infrastructure that grows with your business.",
-        icon: Cloud,
-        items: [
-          "Cloud migration strategies",
-          "Capacity and workload planning",
-          "Network optimization",
-          "High-availability architecture"
-        ]
+        title: "Manage",
+        desc: "Ongoing support for platforms, users, and devices to ensure consistent performance.",
+        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>M</span>,
+        items: []
       }
-    ]
+    ],
+    accelerator: {
+      title: "Turning strategy into measurable momentum.",
+      desc: "Every enterprise operates differently. That's why we don't believe in one-size-fits-all transformation. Our accelerator framework combines business strategy, AI innovation, modern technology, and human-centred design to create solutions tailored to your organization's goals, processes, and growth ambitions.",
+      features: [
+        {
+          title: "Intelligence with Purpose",
+          desc: "Align AI, data, and technology investments with real business objectives to create measurable value, not just innovation for innovation's sake."
+        },
+        {
+          title: "Flexible Digital Foundations",
+          desc: "Create flexible digital foundations that adapt to changing business needs, support growth, and accelerate transformation at every stage."
+        }
+      ],
+      buttonText: "GET STARTED",
+      buttonHref: "#cta-section"
+    },
+    showTestimonials: true,
+    ctaOverride: {
+      title: "Ready to start your enterprise transformation?",
+      desc: "Partner with S3B to modernize legacy systems, integrate intelligent technology, and build a secure digital foundation."
+    }
   }
 };
 
@@ -1434,7 +1457,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
       <Header />
 
       {/* Main Page Layout */}
-      <main className="flex-1 w-full pt-20 md:pt-24 pb-20 relative">
+      <main className="flex-1 w-full pt-28 md:pt-36 pb-20 relative">
         {/* Futuristic background glow blobs */}
         <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full bg-primary/3 blur-[140px] pointer-events-none -z-10 animate-pulse-slow" />
         <div className="absolute top-[40%] left-0 w-[400px] h-[400px] rounded-full bg-secondary/3 blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
@@ -1443,45 +1466,54 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
           
           {/* Section 1: Hero Block */}
           <ScrollReveal className="text-center max-w-4xl mx-auto space-y-6">
-            <div className={`inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border shadow-sm ${activeService.lightColor}`}>
+            <div className={`inline-flex items-center space-x-2.5 px-4.5 py-2 rounded-full bg-card-bg border shadow-sm ${activeService.lightColor}`}>
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-current opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-current"></span>
               </span>
-              <span className="text-[10px] md:text-xs font-mono font-normal uppercase tracking-wider">
+              <span className="text-xs md:text-sm font-mono font-semibold uppercase tracking-wider">
                 SERVICE
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-[54.4px] font-light text-text-title tracking-tight leading-[1.1] md:leading-none">
+            <h1 className="text-3xl sm:text-4xl md:text-[54.4px] font-bold text-text-title tracking-tight leading-[1.1] md:leading-none">
               {activeService.title}
             </h1>
           </ScrollReveal>
 
           {/* Two-Column Hero Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center max-w-5xl mx-auto pt-4 pb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center max-w-5xl mx-auto pt-4 pb-8">
             {/* Left Column: Tagline & Description */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <h2 className="text-xl sm:text-2xl md:text-[28px] font-light text-text-title leading-snug tracking-tight">
-                {activeService.tagline}
-              </h2>
-              <div className="space-y-4 text-[16px] text-text-muted leading-relaxed font-light">
-                {activeService.paragraphs.map((p, idx) => (
-                  <p key={idx}>{p}</p>
-                ))}
+            <div className="lg:col-span-6 space-y-6 text-left">
+              <div className="flex gap-6 items-stretch">
+                {/* Visual vertical accent line with theme-colored gradient */}
+                <div className="relative w-1 shrink-0 rounded-full overflow-hidden">
+                  <div className={`absolute inset-0 bg-current ${activeService.themeColor} opacity-70`} />
+                  <div className={`absolute inset-0 bg-gradient-to-b from-transparent via-current ${activeService.themeColor} to-transparent animate-pulse`} />
+                </div>
+                <div className="space-y-6 py-1">
+                  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-normal text-text-title leading-snug tracking-tight">
+                    {activeService.tagline}
+                  </h2>
+                  <div className="space-y-4 text-base md:text-lg text-text-muted leading-relaxed font-normal">
+                    {activeService.paragraphs.map((p, idx) => (
+                      <p key={idx} className="leading-relaxed">{p}</p>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-            {/* Right Column: Premium Hero Image */}
-            <div className="lg:col-span-5">
+            {/* Right Column: Premium Hero Image + Interactive Canvas */}
+            <div className="lg:col-span-6">
               <ScrollReveal delay={150}>
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[2.2rem] border border-card-border bg-card-bg shadow-2xl">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[2.2rem] border border-card-border bg-card-bg shadow-2xl group">
                   <Image
                     src={activeService.image}
                     alt={activeService.title}
                     fill
                     priority
                     className="object-cover transition-transform duration-700 hover:scale-105"
-                    sizes="(max-w-768px) 100vw, 40vw"
+                    sizes="(max-w-768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                 </div>
@@ -1492,29 +1524,44 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
           {/* Section 2: Key Solutions Section (Challenges Decoded) */}
           <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
             <ScrollReveal>
-              <h2 className="text-2xl sm:text-3xl md:text-[32px] font-light tracking-tight text-text-title uppercase">
+              <h2 className="text-2xl sm:text-3xl md:text-[32px] font-semibold tracking-tight text-text-title uppercase">
                 {activeService.solutionsTitle}
               </h2>
             </ScrollReveal>
 
-            <div className="grid gap-8 grid-cols-1 md:grid-cols-3 text-left">
+            <div className="grid gap-8 md:gap-12 grid-cols-1 md:grid-cols-3 text-left items-stretch">
               {activeService.solutions.map((sol, index) => {
                 const Icon = sol.icon;
+                const isAIM = slug === "enterprise-services";
                 return (
-                  <ScrollReveal key={index} delay={index * 100} className="flex h-full">
-                    <div className="flex flex-col space-y-5 p-6 rounded-[2.2rem] border border-card-border bg-card-bg/20 w-full">
+                  <ScrollReveal key={index} delay={index * 100} className="flex h-full group">
+                    <div className={`flex flex-col space-y-4 w-full transition-all duration-300 ${
+                      isAIM ? "p-4 bg-transparent border-0" : "p-6 rounded-[2.2rem] border border-card-border bg-card-bg shadow-sm hover:shadow-md"
+                    }`}>
                       {/* Icon */}
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-card-border bg-white/[0.02]">
-                        <Icon className={`h-6 w-6 ${activeService.themeColor}`} />
-                      </div>
+                      {isAIM ? (
+                        <div className="relative flex items-end justify-start h-40 md:h-48 overflow-visible select-none mb-2">
+                          {/* Soft background ambient glow behind the huge letter */}
+                          <div className="absolute left-8 bottom-4 w-32 h-32 rounded-full bg-gradient-to-tr from-accent-purple/15 via-indigo-500/5 to-transparent blur-2xl group-hover:scale-125 transition-transform duration-700 pointer-events-none" />
+                          
+                          {/* Huge Letter with modern multi-color gradient */}
+                          <div className="text-[9.5rem] sm:text-[11.5rem] md:text-[13rem] font-extralight leading-none bg-gradient-to-br from-indigo-500 via-accent-purple to-pink-500 bg-clip-text text-transparent tracking-tighter transition-all duration-500 group-hover:scale-[1.03] group-hover:-translate-y-1.5 font-sans drop-shadow-[0_8px_24px_rgba(168,85,247,0.12)]">
+                            {sol.title.charAt(0)}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-card-border bg-white/[0.02]">
+                          <Icon className={`h-6 w-6 ${activeService.themeColor}`} />
+                        </div>
+                      )}
                       {/* Content */}
-                      <div className="space-y-2">
-                        <h3 className="text-xl font-normal text-text-title">{sol.title}</h3>
-                        <p className="text-sm text-text-muted leading-relaxed font-light">{sol.desc}</p>
+                      <div className="space-y-2 relative z-10">
+                        <h3 className="text-xl md:text-2xl font-normal text-text-title tracking-wide">{sol.title}</h3>
+                        <p className="text-[16px] text-text-muted leading-relaxed font-normal">{sol.desc}</p>
                       </div>
                       {/* Bullet list */}
                       {sol.items && sol.items.length > 0 && (
-                        <ul className="space-y-2 pt-2 border-t border-card-border/40 font-light">
+                        <ul className="space-y-2 pt-2 border-t border-card-border/40 font-normal">
                           {sol.items.map((item, idx) => (
                             <li key={idx} className="flex items-center space-x-2 text-sm text-text-title">
                               <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${activeService.themeColor.replace("text-", "bg-")}`} />
@@ -1533,13 +1580,13 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
           {/* Section 3: Capabilities "What we offer" List */}
           <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
             <ScrollReveal className="space-y-4">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border border-card-border shadow-sm">
+              <div className="inline-flex items-center space-x-2.5 px-4.5 py-2 rounded-full bg-card-bg border border-card-border shadow-sm">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#10b981] shrink-0" />
-                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-text-muted">
+                <span className="text-xs md:text-sm font-mono font-semibold uppercase tracking-[0.2em] text-text-muted">
                   CAPABILITIES
                 </span>
               </div>
-              <h2 className="text-3xl md:text-[44px] font-light tracking-tight text-text-title">
+              <h2 className="text-3xl md:text-[44px] font-semibold tracking-tight text-text-title">
                 What we offer
               </h2>
             </ScrollReveal>
@@ -1549,15 +1596,15 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                 {activeService.capabilities.map((cap, idx) => (
                   <div key={idx} className="grid grid-cols-1 md:grid-cols-12 py-8 gap-4 md:gap-8 items-start">
                     <div className="md:col-span-5 flex items-baseline space-x-6">
-                      <span className="font-mono text-2xl font-light text-[#10b981]">
+                      <span className="font-mono text-2xl font-normal text-emerald-700 dark:text-[#10b981]">
                         {cap.num}
                       </span>
-                      <h3 className="text-2xl font-light text-text-title">
+                      <h3 className="text-2xl font-semibold text-text-title">
                         {cap.title}
                       </h3>
                     </div>
                     <div className="md:col-span-7">
-                      <p className="text-[16px] text-text-muted leading-relaxed font-light">
+                      <p className="text-[17px] text-text-muted leading-relaxed font-normal">
                         {cap.desc}
                       </p>
                     </div>
@@ -1581,17 +1628,17 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
           {activeService.accelerator && (
             <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
               <ScrollReveal className="space-y-4">
-                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border border-card-border shadow-sm">
+                <div className="inline-flex items-center space-x-2.5 px-4.5 py-2 rounded-full bg-card-bg border border-card-border shadow-sm">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]"></span>
                   </span>
-                  <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#10b981]">
+                  <span className="text-xs md:text-sm font-mono font-semibold uppercase tracking-[0.2em] text-emerald-700 dark:text-[#10b981]">
                     ACCELERATOR
                   </span>
                 </div>
                 {activeService.accelerator.title && (
-                  <h2 className="text-3xl md:text-[44px] font-light tracking-tight text-text-title">
+                  <h2 className="text-3xl md:text-[44px] font-semibold tracking-tight text-text-title">
                     {activeService.accelerator.title}
                   </h2>
                 )}
@@ -1602,16 +1649,16 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
                     {activeService.accelerator.features.map((feat, idx) => (
                       <ScrollReveal key={idx} delay={idx * 100} className="flex h-full">
-                        <div className="flex flex-col justify-between p-8 rounded-[2.2rem] border border-card-border bg-card-bg/20 backdrop-blur-sm relative overflow-hidden group hover:border-[#10b981]/50 transition-all duration-300 w-full">
+                        <div className="flex flex-col justify-between p-8 rounded-[2.2rem] border border-card-border bg-card-bg shadow-sm hover:shadow-md relative overflow-hidden group hover:border-[#10b981] dark:hover:border-[#10b981]/50 transition-all duration-300 w-full">
                           <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,rgba(16,185,129,0.04)_0%,transparent_70%)] pointer-events-none" />
                           <div className="space-y-4">
-                            <span className="font-mono text-xs text-[#10b981] uppercase tracking-[0.2em] block">
+                            <span className="inline-flex items-center px-3.5 py-1 rounded-full border border-emerald-700/20 dark:border-[#10b981]/30 bg-emerald-700/5 dark:bg-[#10b981]/10 font-mono text-[13px] md:text-[14px] font-semibold text-emerald-700 dark:text-[#10b981] uppercase tracking-wider select-none">
                               0{idx + 1}. CONCEPT
                             </span>
-                            <h3 className="text-2xl font-light text-text-title group-hover:text-[#10b981] transition-colors duration-300">
+                            <h3 className="text-2xl font-semibold text-text-title group-hover:text-[#10b981] transition-colors duration-300">
                               {feat.title}
                             </h3>
-                            <p className="text-[15px] text-text-muted leading-relaxed font-light font-sans">
+                            <p className="text-[16px] text-text-muted leading-relaxed font-normal font-sans">
                               {feat.desc}
                             </p>
                           </div>
@@ -1623,7 +1670,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                   <ScrollReveal delay={200} className="pt-4">
                     <a
                       href={activeService.accelerator.buttonHref}
-                      className="inline-flex items-center space-x-2 px-10 py-4 rounded-full text-sm font-semibold tracking-wider text-white bg-white/[0.04] border border-card-border hover:bg-white/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
+                      className="inline-flex items-center space-x-2 px-10 py-4 rounded-full text-sm font-semibold tracking-wider text-text-title bg-foreground/[0.04] border border-card-border hover:bg-foreground/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
                     >
                       <span>{activeService.accelerator.buttonText}</span>
                       <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
@@ -1632,19 +1679,19 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                 </div>
               ) : (
                 <ScrollReveal delay={100} className="w-full">
-                  <div className="p-8 md:p-12 rounded-[2.2rem] border border-card-border bg-card-bg/25 backdrop-blur-sm relative overflow-hidden text-left max-w-4xl mx-auto">
+                  <div className="p-8 md:p-12 rounded-[2.2rem] border border-card-border bg-card-bg shadow-sm relative overflow-hidden text-left max-w-4xl mx-auto">
                     <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(16,185,129,0.08)_0%,transparent_70%)] pointer-events-none" />
                     
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                       <div className="space-y-4 max-w-2xl">
-                        <p className="text-[18px] text-text-muted leading-relaxed font-light font-sans">
+                        <p className="text-[18px] text-text-muted leading-relaxed font-normal font-sans">
                           {activeService.accelerator.desc}
                         </p>
                       </div>
                       <div className="shrink-0">
                         <a
                           href={activeService.accelerator.buttonHref}
-                          className="inline-flex items-center space-x-2 px-8 py-4 rounded-full text-sm font-semibold tracking-wider text-white bg-white/[0.04] border border-card-border hover:bg-white/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
+                          className="inline-flex items-center space-x-2 px-8 py-4 rounded-full text-sm font-semibold tracking-wider text-text-title bg-foreground/[0.04] border border-card-border hover:bg-foreground/[0.08] hover:border-[#10b981] transition-all duration-300 group select-none cursor-pointer"
                         >
                           <span>{activeService.accelerator.buttonText}</span>
                           <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
@@ -1661,35 +1708,35 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
           {activeService.showTestimonials && (
             <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
               <ScrollReveal className="space-y-4">
-                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border border-card-border shadow-sm">
+                <div className="inline-flex items-center space-x-2.5 px-4.5 py-2 rounded-full bg-card-bg border border-card-border shadow-sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#10b981] shrink-0" />
-                  <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-text-muted">
+                  <span className="text-xs md:text-sm font-mono font-semibold uppercase tracking-[0.2em] text-text-muted">
                     TESTIMONIALS
                   </span>
                 </div>
-                <h2 className="text-3xl md:text-[44px] font-light tracking-tight text-text-title">
+                <h2 className="text-3xl md:text-[44px] font-semibold tracking-tight text-text-title">
                   The Trust We've Earned
                 </h2>
               </ScrollReveal>
 
               <ScrollReveal delay={100} className="relative max-w-4xl mx-auto">
-                <div className="relative overflow-hidden rounded-[2.2rem] border border-card-border bg-card-bg/25 backdrop-blur-sm p-8 md:p-14 min-h-[260px] flex flex-col justify-between">
+                <div className="relative overflow-hidden rounded-[2.2rem] border border-card-border bg-card-bg shadow-sm p-8 md:p-14 min-h-[260px] flex flex-col justify-between">
                   <div className="absolute -top-12 -left-12 w-40 h-40 bg-[#10b981]/5 rounded-full blur-2xl pointer-events-none" />
                   <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none" />
 
-                  <div className="relative h-full flex flex-col justify-center text-left">
+                  <div className="grid grid-cols-1 grid-rows-1 text-left w-full h-full items-center">
                     {TESTIMONIALS_LIST.map((t, idx) => {
                       const isActive = idx === currentTestimonial;
                       return (
                         <div
                           key={idx}
-                          className={`transition-all duration-700 ease-in-out ${
+                          className={`col-start-1 row-start-1 transition-all duration-700 ease-in-out ${
                             isActive
-                              ? "opacity-100 translate-x-0 relative z-10 scale-100"
-                              : "opacity-0 absolute pointer-events-none translate-x-8 scale-95"
+                              ? "opacity-100 translate-x-0 z-10 scale-100 pointer-events-auto"
+                              : "opacity-0 pointer-events-none translate-x-8 scale-95"
                           }`}
                         >
-                          <blockquote className="text-lg md:text-xl font-light text-text-title italic leading-relaxed mb-6 font-sans">
+                          <blockquote className="text-lg md:text-xl font-normal text-text-title italic leading-relaxed mb-6 font-sans">
                             "{t.quote}"
                           </blockquote>
                           <div className="space-y-1">
@@ -1742,17 +1789,17 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
           )}
 
           {/* Section 4: High-Impact Consultation CTA Form */}
-          <ScrollReveal id="cta-section" className="always-dark rounded-3xl border border-card-border bg-gradient-to-br from-[#0c1e3b] via-[#051124] to-[#040c1a] shadow-2xl p-10 sm:p-14 text-left max-w-5xl mx-auto relative overflow-hidden">
+          <ScrollReveal id="cta-section" className="rounded-3xl border border-card-border bg-gradient-to-br from-white via-slate-50 to-slate-100 dark:from-[#0c1e3b] dark:via-[#051124] dark:to-[#040c1a] shadow-2xl p-10 sm:p-14 text-left max-w-5xl mx-auto relative overflow-hidden">
             {/* Background glowing telemetry */}
             <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-[radial-gradient(circle,rgba(29,112,184,0.15)_0%,transparent_70%)] pointer-events-none" />
             
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center text-left">
               {/* Left Column: Heading and Description */}
               <div className="lg:col-span-7 space-y-4">
-                <h2 className="text-3xl md:text-[54.4px] font-light text-white tracking-tight leading-tight">
+                <h2 className="text-3xl md:text-[54.4px] font-bold text-text-title tracking-tight leading-tight">
                   {activeService.ctaOverride?.title || "Start Your AI Transformation"}
                 </h2>
-                <p className="text-[16px] text-zinc-300 leading-relaxed max-w-2xl font-light">
+                <p className="text-[17px] text-text-muted leading-relaxed max-w-2xl font-normal">
                   {activeService.ctaOverride?.desc || "Let's discuss how intelligent automation and scalable cloud infrastructure can accelerate your business."}
                 </p>
               </div>
@@ -1764,8 +1811,8 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                     <div className="w-10 h-10 rounded-full bg-[#10b981]/15 border border-[#10b981]/40 flex items-center justify-center text-[#10b981] shadow-md">
                       <CheckCircle2 className="h-5 w-5" />
                     </div>
-                    <h3 className="text-sm font-bold text-white">Inquiry Safely Routed!</h3>
-                    <p className="text-[10px] text-zinc-400 leading-relaxed font-medium">
+                    <h3 className="text-sm font-bold text-text-title">Inquiry Safely Routed!</h3>
+                    <p className="text-[10px] text-text-muted leading-relaxed font-medium">
                       Our system architect will reach out at **{email}** within 12 business hours.
                     </p>
                   </div>
@@ -1792,7 +1839,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                           setEmail(e.target.value);
                           if (error) setError("");
                         }}
-                        className={`w-full px-6 py-4 rounded-full border bg-black/40 text-sm font-semibold text-white placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-[#1d70b8] transition-all disabled:opacity-50 ${
+                        className={`w-full px-6 py-4 rounded-full border bg-foreground/[0.04] text-sm font-semibold text-text-title placeholder-text-muted/60 focus:outline-none focus:ring-1 focus:ring-[#1d70b8] transition-all disabled:opacity-50 ${
                           error ? "border-red-500/50 focus:border-red-500 focus:ring-red-500" : "border-card-border focus:border-[#1d70b8]"
                         }`}
                       />
@@ -1808,7 +1855,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                 )}
 
                 {/* Subtext info */}
-                <div className="mt-4 text-xs font-mono font-medium text-zinc-400">
+                <div className="mt-4 text-xs font-mono font-medium text-text-muted/70">
                   Connect with our enterprise IT experts today.
                 </div>
               </div>
