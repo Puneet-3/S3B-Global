@@ -168,92 +168,66 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchLiveBlogs = async () => {
       try {
-        const res = await fetch("https://s3bglobal.com/wp-json/wp/v2/posts?per_page=100");
+        const res = await fetch(
+          "https://s3bglobal.com/wp-json/wp/v2/posts?per_page=100&orderby=date&order=desc"
+        );
         if (!res.ok) return;
         const wpPosts = await res.json();
 
-        const mappedLivePosts = wpPosts.map((wpPost: any) => {
-          const title = wpPost.title?.rendered || "";
-          const content = wpPost.content?.rendered || "";
-          const excerpt = wpPost.excerpt?.rendered?.replace(/<[^>]*>/g, "") || "";
-          const slug = wpPost.slug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+        const seen = new Set<string>();
+        const mapped: BlogPost[] = [];
 
+        for (const wp of wpPosts) {
+          const slug = wp.slug;
+          if (!slug || seen.has(slug)) continue;
+          seen.add(slug);
+
+          const title = wp.title?.rendered || "";
+          const content = wp.content?.rendered || "";
+          const excerpt = wp.excerpt?.rendered?.replace(/<[^>]*>/g, "") || "";
+          const image = wp.yoast_head_json?.og_image?.[0]?.url
+            || "https://s3bglobal.com/wp-content/uploads/2025/05/Media.jpg";
+          const dateStr = new Date(wp.date).toLocaleDateString("en-US", {
+            month: "long", day: "numeric", year: "numeric"
+          });
+          const readTime = Math.max(1, Math.round(
+            content.replace(/<[^>]*>/g, "").split(/\s+/).length / 200
+          )) + " min read";
+
+          const text = (title + " " + content).toLowerCase();
           let category: BlogPost["category"] = "Web & Mobile";
-          const textToScan = (title + " " + content).toLowerCase();
-          if (textToScan.includes("ai") || textToScan.includes("intelligence") || textToScan.includes("learning") || textToScan.includes("model")) {
-            category = "Machine Learning";
-          } else if (textToScan.includes("marketing") || textToScan.includes("seo") || textToScan.includes("ppc") || textToScan.includes("digital")) {
-            category = "Digital Marketing";
-          } else if (textToScan.includes("security") || textToScan.includes("protocol") || textToScan.includes("mcp") || textToScan.includes("lock")) {
-            category = "Security";
-          }
-
           let color = "from-emerald-500/10 to-teal-500/10 border-emerald-500/20";
           let accent = "text-emerald-500 bg-emerald-500/10 dark:text-emerald-400";
           let icon = Laptop;
 
-          if (category === "Digital Marketing") {
-            color = "from-purple-500/10 to-pink-500/10 border-purple-500/20";
-            accent = "text-purple-500 bg-purple-500/10 dark:text-purple-400";
-            icon = BarChart;
-          } else if (category === "Machine Learning") {
-            color = "from-rose-500/10 to-orange-500/10 border-rose-500/20";
-            accent = "text-rose-500 bg-rose-500/10 dark:text-rose-400";
-            icon = Workflow;
-          } else if (category === "Security") {
+          if (text.includes("security") || text.includes("protocol") || text.includes("mcp")) {
+            category = "Security";
             color = "from-violet-500/10 to-indigo-500/10 border-violet-500/20";
             accent = "text-violet-500 bg-violet-500/10 dark:text-violet-400";
             icon = ShieldCheck;
+          } else if (text.includes("machine learning") || text.includes("neural") || text.includes("deep learning")) {
+            category = "Machine Learning";
+            color = "from-rose-500/10 to-orange-500/10 border-rose-500/20";
+            accent = "text-rose-500 bg-rose-500/10 dark:text-rose-400";
+            icon = Workflow;
+          } else if (text.includes("marketing") || text.includes("seo") || text.includes("ppc")) {
+            category = "Digital Marketing";
+            color = "from-purple-500/10 to-pink-500/10 border-purple-500/20";
+            accent = "text-purple-500 bg-purple-500/10 dark:text-purple-400";
+            icon = BarChart;
           }
 
-          const rawDate = new Date(wpPost.date);
-          const dateStr = rawDate.toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric"
+          mapped.push({
+            id: wp.id, title, excerpt, content, category,
+            date: dateStr, author: "admin",
+            url: wp.link || `https://s3bglobal.com/${slug}/`,
+            readTime, color, accent, icon, image, slug
           });
+        }
 
-          const readTime = Math.max(1, Math.round(content.replace(/<[^>]*>/g, "").split(/\s+/).length / 200)) + " min read";
-          const image = wpPost.yoast_head_json?.og_image?.[0]?.url || "https://s3bglobal.com/wp-content/uploads/2025/05/Media.jpg";
-
-          return {
-            id: wpPost.id,
-            title,
-            excerpt,
-            content,
-            category,
-            date: dateStr,
-            author: "admin",
-            url: wpPost.link || `https://s3bglobal.com/${slug}/`,
-            readTime,
-            color,
-            accent,
-            icon,
-            image,
-            slug
-          };
-        });
-
-        // Merge and deduplicate by slug
-        const uniqueMap = new Map();
-        mappedLivePosts.forEach((p: any) => {
-          if (p.slug && !uniqueMap.has(p.slug)) {
-            uniqueMap.set(p.slug, p);
-          }
-        });
-        setAllPosts(Array.from(uniqueMap.values()));
+        setAllPosts(mapped);
       } catch (err) {
         console.error("Failed to fetch live blogs:", err);
-        // Only fall back to static posts if live fetch failed entirely
-        const staticPosts = BLOG_POSTS.map(p => ({
-          ...p,
-          slug: p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
-        }));
-        const fallbackMap = new Map();
-        staticPosts.forEach(p => {
-          if (!fallbackMap.has(p.slug)) fallbackMap.set(p.slug, p);
-        });
-        setAllPosts(Array.from(fallbackMap.values()));
       }
     };
 

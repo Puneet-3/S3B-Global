@@ -1,67 +1,71 @@
 import React from "react";
 import { Metadata } from "next";
 import BlogDetailClient from "./BlogDetailClient";
-import { BLOG_POSTS } from "../postsData";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-// 1. Pre-render static paths for high performance and Next.js static export compliance
+// 1. Pre-render static paths — pulls real slugs from WordPress every 1 hour
 export async function generateStaticParams() {
-  const staticSlugs = BLOG_POSTS.map(p => ({
-    slug: p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
-  }));
-
   try {
-    const res = await fetch("https://s3bglobal.com/wp-json/wp/v2/posts?per_page=100");
-    if (res.ok) {
-      const wpPosts = await res.json();
-      const liveSlugs = wpPosts.map((post: any) => ({
-        slug: post.slug || post.title?.rendered?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || ""
-      }));
-      
-      const allSlugsMap = new Map<string, { slug: string }>();
-      staticSlugs.forEach((s: { slug: string }) => allSlugsMap.set(s.slug, s));
-      liveSlugs.forEach((s: { slug: string }) => {
-        if (s.slug) allSlugsMap.set(s.slug, s);
-      });
-      return Array.from(allSlugsMap.values());
-    }
-  } catch (err) {
-    console.error("Failed to generate static params from WP API:", err);
+    const res = await fetch(
+      "https://s3bglobal.com/wp-json/wp/v2/posts?per_page=100&_fields=slug",
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return [];
+    const posts = await res.json();
+    return posts
+      .filter((p: any) => !!p.slug)
+      .map((p: any) => ({ slug: p.slug }));
+  } catch {
+    return [];
   }
-
-  return staticSlugs;
 }
 
-// 2. Generate Metadata
+// 2. Generate Metadata — pulls Yoast SEO data directly from WordPress
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  
-  // Find in static posts
-  const matchedStaticPost = BLOG_POSTS.find(p => {
-    const postSlug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-    return postSlug === slug;
-  });
 
-  if (matchedStaticPost) {
+  try {
+    const res = await fetch(
+      `https://s3bglobal.com/wp-json/wp/v2/posts?slug=${slug}&_fields=title,excerpt,yoast_head_json`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) throw new Error();
+    const posts = await res.json();
+    if (!posts.length) throw new Error();
+
+    const post = posts[0];
+    const yoast = post.yoast_head_json;
+
     return {
-      title: `${matchedStaticPost.title} - S3B Global`,
-      description: matchedStaticPost.excerpt,
+      title: yoast?.title || `${post.title?.rendered} - S3B Global`,
+      description: yoast?.description || post.excerpt?.rendered?.replace(/<[^>]*>/g, ""),
       openGraph: {
-        title: `${matchedStaticPost.title} - S3B Global`,
-        description: matchedStaticPost.excerpt,
-        images: [{ url: matchedStaticPost.image }]
+        title: yoast?.og_title || post.title?.rendered,
+        description: yoast?.og_description || "",
+        images: yoast?.og_image?.[0]?.url
+          ? [{ url: yoast.og_image[0].url }]
+          : [],
+        type: "article",
+        publishedTime: yoast?.article_published_time,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: yoast?.og_title || post.title?.rendered,
+        description: yoast?.og_description || "",
+        images: yoast?.og_image?.[0]?.url
+          ? [yoast.og_image[0].url]
+          : [],
       }
     };
+  } catch {
+    return {
+      title: "Blog - S3B Global",
+      description: "Read our latest insights on AI, cloud, and digital transformation."
+    };
   }
-
-  // Otherwise, default/dynamic metadata values
-  return {
-    title: "Blog Details - S3B Global",
-    description: "Read our latest news, software engineering milestones, and AI capabilities."
-  };
 }
 
 // 3. Dynamic Page Entry Component
