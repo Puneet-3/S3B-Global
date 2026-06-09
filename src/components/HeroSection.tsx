@@ -97,7 +97,7 @@ export default function HeroSection() {
         {/* Partners Logos Section (In Motion, Centered below) */}
         <ScrollReveal delay={400} className="w-screen relative left-1/2 -translate-x-1/2 pt-2">
           <div className="w-full space-y-4">
-            <div className="text-[10px] font-mono font-light tracking-[0.25em] text-text-muted/40 text-center uppercase select-none">
+            <div className="text-[12px] font-light tracking-[0.25em] text-center uppercase select-none">
               THEY TRUSTED US
             </div>
 

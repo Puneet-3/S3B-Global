@@ -1626,9 +1626,13 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
             <ScrollReveal delay={150} className="pt-6">
               <a
                 href="#cta-section"
-                className="inline-block px-10 py-4 rounded-full text-sm font-semibold tracking-wider text-[#041018] bg-gradient-to-r from-emerald-400 to-cyan-400 hover:brightness-110 shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 select-none cursor-pointer"
+                className="relative inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/50 hover:border-[#1d70b8] dark:border-cyan-400/60 dark:hover:border-cyan-300 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-white shadow-none dark:shadow-[0_0_18px_rgba(34,211,238,0.22)] dark:hover:shadow-[0_0_28px_rgba(34,211,238,0.45)] hover:shadow-md transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer select-none tracking-wider"
               >
-                LET'S GET STARTED
+                <span className="relative z-10 flex items-center space-x-2">
+                  <span>LET'S GET STARTED</span>
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
               </a>
             </ScrollReveal>
           </div>
@@ -1679,13 +1683,13 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                   <ScrollReveal delay={200} className="pt-4">
                     <a
                       href={activeService.accelerator.buttonHref}
-                      className="relative inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-bold bg-transparent border border-[#10b981]/40 dark:border-emerald-400/40 hover:border-[#10b981] dark:hover:border-emerald-400 text-[#10b981] dark:text-emerald-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(16,185,129,0.08)] dark:shadow-[0_0_15px_rgba(52,211,153,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
+                      className="relative inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                     >
                       <span className="relative z-10 flex items-center space-x-2">
                         <span>{activeService.accelerator.buttonText}</span>
                         <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#10b981] to-[#059669] dark:from-emerald-400 dark:to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                     </a>
                   </ScrollReveal>
                 </div>
@@ -1703,13 +1707,13 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                       <div className="shrink-0">
                         <a
                           href={activeService.accelerator.buttonHref}
-                          className="relative inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-[#10b981]/40 dark:border-emerald-400/40 hover:border-[#10b981] dark:hover:border-emerald-400 text-[#10b981] dark:text-emerald-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(16,185,129,0.08)] dark:shadow-[0_0_15px_rgba(52,211,153,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
+                          className="relative inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                         >
                           <span className="relative z-10 flex items-center space-x-2">
                             <span>{activeService.accelerator.buttonText}</span>
                             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                           </span>
-                          <div className="absolute inset-0 bg-gradient-to-r from-[#10b981] to-[#059669] dark:from-emerald-400 dark:to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                         </a>
                       </div>
                     </div>
@@ -1740,8 +1744,8 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                         <div
                           key={idx}
                           className={`col-start-1 row-start-1 transition-all duration-700 ease-in-out ${isActive
-                              ? "opacity-100 translate-x-0 z-10 scale-100 pointer-events-auto"
-                              : "opacity-0 pointer-events-none translate-x-8 scale-95"
+                            ? "opacity-100 translate-x-0 z-10 scale-100 pointer-events-auto"
+                            : "opacity-0 pointer-events-none translate-x-8 scale-95"
                             }`}
                         >
                           <blockquote className="text-lg md:text-xl font-normal text-text-title italic leading-relaxed mb-6 font-sans">
@@ -1853,13 +1857,13 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="relative inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-emerald-400/40 hover:border-emerald-400 text-emerald-400 hover:text-[#041018] shadow-[0_0_12px_rgba(52,211,153,0.08)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer disabled:opacity-50"
+                      className="relative inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer disabled:opacity-50"
                     >
                       <span className="relative z-10 flex items-center justify-center space-x-2">
                         <span>GET STARTED</span>
                         <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                     </button>
                   </form>
                 )}
