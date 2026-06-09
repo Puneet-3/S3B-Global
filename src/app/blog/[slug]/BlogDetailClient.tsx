@@ -6,13 +6,13 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import { BLOG_POSTS } from "../postsData";
-import { 
-  Clock, 
-  User, 
-  ArrowLeft, 
-  Laptop, 
-  BarChart, 
-  Workflow, 
+import {
+  Clock,
+  User,
+  ArrowLeft,
+  Laptop,
+  BarChart,
+  Workflow,
   ShieldCheck,
   AlertCircle
 } from "lucide-react";
@@ -28,7 +28,7 @@ const parseInlineMarkdown = (text: string) => {
 // Markdown content renderer
 const renderFormattedContent = (content: string) => {
   if (!content) return null;
-  
+
   if (content.trim().startsWith("<p>") || content.trim().startsWith("<h2>") || content.trim().includes("</p>") || content.trim().includes("</h2>")) {
     return <div dangerouslySetInnerHTML={{ __html: content }} className="prose dark:prose-invert max-w-none text-[15px] md:text-[17px] text-text-muted leading-relaxed font-normal mb-5 space-y-6" />;
   }
@@ -43,8 +43,8 @@ const renderFormattedContent = (content: string) => {
       elements.push(
         <ul key={`list-${key}`} className="list-disc pl-6 space-y-2.5 my-5 text-[15px] md:text-[17px] text-text-muted font-normal">
           {listItems.map((item, i) => (
-            <li 
-              key={i} 
+            <li
+              key={i}
               className="leading-relaxed"
               dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(item) }}
             />
@@ -58,25 +58,25 @@ const renderFormattedContent = (content: string) => {
 
   lines.forEach((line, idx) => {
     const trimmed = line.trim();
-    
+
     if (trimmed.startsWith("•") || trimmed.startsWith("-") || (trimmed.startsWith("*") && !trimmed.endsWith("*"))) {
       const itemText = trimmed.replace(/^[•\-*]\s*/, "");
       inList = true;
       listItems.push(itemText);
       return;
     }
-    
+
     if (inList && !trimmed.startsWith("•") && !trimmed.startsWith("-") && !trimmed.startsWith("*")) {
       flushList(idx);
     }
-    
+
     if (trimmed === "") return;
-    
+
     if (trimmed.startsWith("###")) {
       const headingText = trimmed.replace(/^###\s*/, "");
       elements.push(
-        <h4 
-          key={`h4-${idx}`} 
+        <h4
+          key={`h4-${idx}`}
           className="text-lg md:text-xl font-bold text-text-title mt-8 mb-4 tracking-tight border-b border-card-border/30 pb-2 font-sans"
           dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(headingText) }}
         />
@@ -84,8 +84,8 @@ const renderFormattedContent = (content: string) => {
     } else if (trimmed.startsWith("##")) {
       const headingText = trimmed.replace(/^##\s*/, "");
       elements.push(
-        <h3 
-          key={`h3-${idx}`} 
+        <h3
+          key={`h3-${idx}`}
           className="text-xl md:text-2xl font-extrabold text-text-title mt-10 mb-4 tracking-tight border-b border-card-border/55 pb-2.5 font-sans"
           dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(headingText) }}
         />
@@ -93,27 +93,27 @@ const renderFormattedContent = (content: string) => {
     } else if (trimmed.startsWith("#")) {
       const headingText = trimmed.replace(/^#\s*/, "");
       elements.push(
-        <h2 
-          key={`h2-${idx}`} 
+        <h2
+          key={`h2-${idx}`}
           className="text-2xl md:text-3xl font-black text-text-title mt-12 mb-6 tracking-tight font-sans"
           dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(headingText) }}
         />
       );
     } else {
       elements.push(
-        <p 
-          key={`p-${idx}`} 
+        <p
+          key={`p-${idx}`}
           className="text-[15px] md:text-[17px] text-text-muted leading-relaxed font-normal mb-5 font-sans"
           dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(trimmed) }}
         />
       );
     }
   });
-  
+
   if (inList) {
     flushList("final");
   }
-  
+
   return <div className="space-y-2">{elements}</div>;
 };
 
@@ -133,7 +133,7 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
 
       try {
         const blogSlug = slug || "";
-        
+
         // 1. Fetch from S3B Global WordPress API by slug
         const res = await fetch(`https://s3bglobal.com/wp-json/wp/v2/posts?slug=${blogSlug}`);
         if (res.ok) {
@@ -143,7 +143,7 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
             const title = wpPost.title?.rendered || "";
             const content = wpPost.content?.rendered || "";
             const excerpt = wpPost.excerpt?.rendered?.replace(/<[^>]*>/g, "") || "";
-            
+
             // Heuristic for category classification
             let category = "Web & Mobile";
             const textToScan = (title + " " + content).toLowerCase();
@@ -233,10 +233,10 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
 
       <main className="flex-1 w-full pt-28 md:pt-32 pb-24 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 space-y-10">
-          
+
           {/* Back Button */}
           <ScrollReveal>
-            <Link 
+            <Link
               href="/blog"
               className="inline-flex items-center space-x-2 text-sm font-semibold text-brand-blue hover:text-brand-blue/80 dark:text-cyan-400 dark:hover:text-cyan-300 transition-colors group cursor-pointer"
             >
@@ -261,7 +261,7 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
               <p className="text-sm text-text-muted max-w-sm mx-auto leading-relaxed">
                 The article you are looking for does not exist or has been removed from the platform.
               </p>
-              <Link 
+              <Link
                 href="/blog"
                 className="inline-block px-5 py-2.5 rounded-full bg-brand-blue hover:bg-brand-blue/90 dark:bg-cyan-400 dark:hover:bg-cyan-500 text-white dark:text-slate-900 font-mono text-xs font-bold transition-all shadow"
               >
@@ -271,7 +271,7 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
           ) : (
             /* Article View */
             <article className="space-y-8">
-              
+
               {/* Header Info */}
               <ScrollReveal className="space-y-4">
                 <div className="flex flex-wrap gap-2.5">
@@ -283,11 +283,11 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
                     <span>{post.date} · {post.readTime}</span>
                   </div>
                 </div>
-                
+
                 <h1 className="text-3xl md:text-5xl font-bold text-text-title tracking-tight leading-tight">
                   {post.title}
                 </h1>
-                
+
                 <div className="flex items-center space-x-2 pt-2 text-[12px] font-mono text-text-muted">
                   <User className="h-4 w-4 text-[#10b981]" />
                   <span>Written by <span className="font-bold text-text-title">{post.author}</span></span>
@@ -297,9 +297,9 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
               {/* Featured Image */}
               <ScrollReveal delay={100}>
                 <div className="relative w-full h-[250px] sm:h-[400px] md:h-[480px] rounded-[2rem] overflow-hidden bg-black/10 border border-card-border/30 shadow-md">
-                  <img 
-                    src={post.image} 
-                    alt={post.title} 
+                  <img
+                    src={post.image}
+                    alt={post.title}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />

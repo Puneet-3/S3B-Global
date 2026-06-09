@@ -424,7 +424,7 @@ function AnimatedCounter({ value }: AnimatedCounterProps) {
   const displayValue = isDecimal ? count.toFixed(1) : Math.round(count).toString();
 
   return (
-    <h3 ref={elementRef} className="text-[20px] font-light text-text-title tracking-tight leading-none tabular-nums">
+    <h3 ref={elementRef} className="text-[28px] font-light text-text-title tracking-tight leading-none tabular-nums">
       {displayValue}{suffix}
     </h3>
   );
@@ -540,7 +540,7 @@ export default function AboutPage() {
                   className="liquid-glass-glowing bg-card-bg/35 border border-card-border p-5 rounded-2xl flex flex-col justify-between items-center text-center hover:-translate-y-0.5"
                 >
                   <div className="space-y-3">
-                    <span className="text-[10px] font-mono font-normal text-primary/80 block">{step.id}</span>
+                    <span className="text-[16px] font-mono font-bold text-primary/80 block">{step.id}</span>
                     <h4 className="text-[24px] font-bold text-text-title tracking-tight leading-tight">{step.name}</h4>
                     <p className="text-[14px] text-text-muted leading-relaxed font-light">
                       {step.desc}
