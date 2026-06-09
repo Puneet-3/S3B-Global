@@ -4,22 +4,22 @@ import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import { 
-  Search, 
-  BookOpen, 
-  MapPin, 
-  Activity, 
-  Sparkles, 
-  Cpu, 
-  Database, 
-  Users, 
-  Workflow, 
-  X, 
-  Send, 
-  CheckCircle2, 
-  AlertCircle, 
-  Terminal, 
-  Lock, 
+import {
+  Search,
+  BookOpen,
+  MapPin,
+  Activity,
+  Sparkles,
+  Cpu,
+  Database,
+  Users,
+  Workflow,
+  X,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Terminal,
+  Lock,
   FileText,
   ArrowRight,
   Clock,
@@ -51,7 +51,7 @@ const CATEGORIES = ["All", "Web & Mobile", "Digital Marketing", "Machine Learnin
 
 const renderFormattedContent = (content: string) => {
   if (!content) return null;
-  
+
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
   let listItems: string[] = [];
@@ -71,8 +71,8 @@ const renderFormattedContent = (content: string) => {
       elements.push(
         <ul key={`list-${key}`} className="list-disc pl-6 space-y-2.5 my-5 text-[15px] md:text-[17px] text-text-muted font-normal">
           {listItems.map((item, i) => (
-            <li 
-              key={i} 
+            <li
+              key={i}
               className="leading-relaxed"
               dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(item) }}
             />
@@ -86,7 +86,7 @@ const renderFormattedContent = (content: string) => {
 
   lines.forEach((line, idx) => {
     const trimmed = line.trim();
-    
+
     // If it's a list item
     if (trimmed.startsWith("•") || trimmed.startsWith("-") || (trimmed.startsWith("*") && !trimmed.endsWith("*"))) {
       const itemText = trimmed.replace(/^[•\-*]\s*/, "");
@@ -94,20 +94,20 @@ const renderFormattedContent = (content: string) => {
       listItems.push(itemText);
       return;
     }
-    
+
     // If we were in a list, but this line is not a list item
     if (inList && !trimmed.startsWith("•") && !trimmed.startsWith("-") && !trimmed.startsWith("*")) {
       flushList(idx);
     }
-    
+
     if (trimmed === "") return;
-    
+
     // Headings
     if (trimmed.startsWith("###")) {
       const headingText = trimmed.replace(/^###\s*/, "");
       elements.push(
-        <h4 
-          key={`h4-${idx}`} 
+        <h4
+          key={`h4-${idx}`}
           className="text-lg md:text-xl font-bold text-text-title mt-8 mb-4 tracking-tight border-b border-card-border/30 pb-2 font-sans"
           dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(headingText) }}
         />
@@ -115,8 +115,8 @@ const renderFormattedContent = (content: string) => {
     } else if (trimmed.startsWith("##")) {
       const headingText = trimmed.replace(/^##\s*/, "");
       elements.push(
-        <h3 
-          key={`h3-${idx}`} 
+        <h3
+          key={`h3-${idx}`}
           className="text-xl md:text-2xl font-extrabold text-text-title mt-10 mb-4 tracking-tight border-b border-card-border/55 pb-2.5 font-sans"
           dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(headingText) }}
         />
@@ -124,8 +124,8 @@ const renderFormattedContent = (content: string) => {
     } else if (trimmed.startsWith("#")) {
       const headingText = trimmed.replace(/^#\s*/, "");
       elements.push(
-        <h2 
-          key={`h2-${idx}`} 
+        <h2
+          key={`h2-${idx}`}
           className="text-2xl md:text-3xl font-black text-text-title mt-12 mb-6 tracking-tight font-sans"
           dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(headingText) }}
         />
@@ -133,35 +133,30 @@ const renderFormattedContent = (content: string) => {
     } else {
       // Regular Paragraph
       elements.push(
-        <p 
-          key={`p-${idx}`} 
+        <p
+          key={`p-${idx}`}
           className="text-[15px] md:text-[17px] text-text-muted leading-relaxed font-normal mb-5 font-sans"
           dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(trimmed) }}
         />
       );
     }
   });
-  
+
   // Flush any remaining list items at the end
   if (inList) {
     flushList("final");
   }
-  
+
   return <div className="space-y-2">{elements}</div>;
 };
 
 export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  
-  const [allPosts, setAllPosts] = useState<BlogPost[]>(() => 
-    BLOG_POSTS.map(p => ({
-      ...p,
-      slug: p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
-    }))
-  );
 
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(() => 
+  const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
+
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(() =>
     [...allPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   );
 
@@ -176,13 +171,13 @@ export default function BlogPage() {
         const res = await fetch("https://s3bglobal.com/wp-json/wp/v2/posts?per_page=100");
         if (!res.ok) return;
         const wpPosts = await res.json();
-        
+
         const mappedLivePosts = wpPosts.map((wpPost: any) => {
           const title = wpPost.title?.rendered || "";
           const content = wpPost.content?.rendered || "";
           const excerpt = wpPost.excerpt?.rendered?.replace(/<[^>]*>/g, "") || "";
           const slug = wpPost.slug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-          
+
           let category: BlogPost["category"] = "Web & Mobile";
           const textToScan = (title + " " + content).toLowerCase();
           if (textToScan.includes("ai") || textToScan.includes("intelligence") || textToScan.includes("learning") || textToScan.includes("model")) {
@@ -240,21 +235,25 @@ export default function BlogPage() {
         });
 
         // Merge and deduplicate by slug
-        setAllPosts(prev => {
-          const uniqueMap = new Map();
-          // Add existing ones first
-          prev.forEach(p => {
-            const s = p.slug || p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-            uniqueMap.set(s, { ...p, slug: s });
-          });
-          // Add fetched ones, overriding if same slug
-          mappedLivePosts.forEach((p: any) => {
+        const uniqueMap = new Map();
+        mappedLivePosts.forEach((p: any) => {
+          if (p.slug && !uniqueMap.has(p.slug)) {
             uniqueMap.set(p.slug, p);
-          });
-          return Array.from(uniqueMap.values());
+          }
         });
+        setAllPosts(Array.from(uniqueMap.values()));
       } catch (err) {
         console.error("Failed to fetch live blogs:", err);
+        // Only fall back to static posts if live fetch failed entirely
+        const staticPosts = BLOG_POSTS.map(p => ({
+          ...p,
+          slug: p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
+        }));
+        const fallbackMap = new Map();
+        staticPosts.forEach(p => {
+          if (!fallbackMap.has(p.slug)) fallbackMap.set(p.slug, p);
+        });
+        setAllPosts(Array.from(fallbackMap.values()));
       }
     };
 
@@ -264,40 +263,40 @@ export default function BlogPage() {
   // Filtering & Sorting Logic
   useEffect(() => {
     let results = allPosts;
-    
+
     // 1. Category filter
     if (selectedCategory !== "All") {
       results = results.filter(post => post.category === selectedCategory);
     }
-    
+
     // 2. Search query filter
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
-      results = results.filter(post => 
+      results = results.filter(post =>
         post.title.toLowerCase().includes(query) ||
         post.excerpt.toLowerCase().includes(query) ||
         post.content.toLowerCase().includes(query) ||
         post.category.toLowerCase().includes(query)
       );
     }
-    
+
     // 3. Sort by date (newest first)
     const sortedResults = [...results].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-    
+
     setFilteredPosts(sortedResults);
   }, [searchQuery, selectedCategory, allPosts]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-white transition-colors duration-300">
-      
+
       {/* 1. Global Navigation Header */}
       <Header />
 
       {/* Main Content Area */}
       <main className="flex-1 w-full pt-24 md:pt-28 transition-colors duration-300">
-        
+
         {/* Curved Header Banner Section */}
         <div className="w-full relative bg-gradient-to-r from-blue-50/50 via-indigo-50/20 to-white dark:from-white/[0.01] dark:via-white/[0.005] dark:to-transparent border-b border-card-border overflow-hidden px-8 py-20 md:py-24 rounded-b-[40px] select-none">
           {/* Nested concentric tracks background */}
@@ -326,23 +325,23 @@ export default function BlogPage() {
 
         {/* Content sections inside standard w-full container */}
         <div className="w-full mx-auto px-6 lg:px-12 py-20 space-y-16">
-          
+
           {/* Section 2: Search & Categorical Category Filters */}
           <ScrollReveal delay={100} className="w-full space-y-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full mx-auto bg-card-bg/25 border border-card-border p-6 rounded-3xl backdrop-blur-md shadow-md">
-              
+
               {/* Dynamic search bar */}
               <div className="relative w-full md:max-w-md">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/40" />
-                <input 
-                  type="text" 
-                  placeholder="Search articles by title or keyword..." 
+                <input
+                  type="text"
+                  placeholder="Search articles by title or keyword..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-11 pr-10 py-3 rounded-full border border-card-border/80 bg-card-bg/60 text-sm font-light text-text-title placeholder-text-muted/75 focus:outline-none focus:border-[#1d70b8] dark:focus:border-cyan-400 focus:ring-1 focus:ring-[#1d70b8]/30 dark:focus:ring-cyan-400/30 transition-all shadow-inner"
                 />
                 {searchQuery && (
-                  <button 
+                  <button
                     onClick={() => setSearchQuery("")}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted/40 hover:text-text-title transition-colors"
                   >
@@ -350,7 +349,7 @@ export default function BlogPage() {
                   </button>
                 )}
               </div>
- 
+
               {/* Articles Count indicator */}
               <div className="shrink-0 font-mono text-xs font-normal text-text-muted bg-card-bg/80 border border-card-border/80 px-4 py-2.5 rounded-full select-none shadow-sm flex items-center gap-2">
                 <span>PUBLISHED INSIGHTS:</span>
@@ -358,7 +357,7 @@ export default function BlogPage() {
                 <span className="font-bold text-[#10b981]">{filteredPosts.length}</span>
               </div>
             </div>
- 
+
             {/* Category Navigation buttons */}
             <div className="flex flex-wrap items-center justify-center gap-2.5 w-full mx-auto">
               {CATEGORIES.map((cat, idx) => {
@@ -367,11 +366,10 @@ export default function BlogPage() {
                   <button
                     key={idx}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-5 py-2.5 rounded-full border text-[11px] font-normal uppercase tracking-wider transition-all duration-300 cursor-pointer select-none font-mono ${
-                      isActive 
-                        ? "bg-[#125492]/10 dark:bg-cyan-400/10 border-[#125492] dark:border-cyan-400 text-[#125492] dark:text-cyan-400 shadow-[0_4px_16px_rgba(34,211,238,0.12)] scale-[1.01]"
-                        : "bg-card-bg/40 border-card-border text-text-muted hover:border-[#125492] dark:hover:border-cyan-400 hover:bg-card-bg-hover hover:text-text-title"
-                    }`}
+                    className={`px-5 py-2.5 rounded-full border text-[11px] font-normal uppercase tracking-wider transition-all duration-300 cursor-pointer select-none font-mono ${isActive
+                      ? "bg-[#125492]/10 dark:bg-cyan-400/10 border-[#125492] dark:border-cyan-400 text-[#125492] dark:text-cyan-400 shadow-[0_4px_16px_rgba(34,211,238,0.12)] scale-[1.01]"
+                      : "bg-card-bg/40 border-card-border text-text-muted hover:border-[#125492] dark:hover:border-cyan-400 hover:bg-card-bg-hover hover:text-text-title"
+                      }`}
                   >
                     {cat}
                   </button>
@@ -379,7 +377,7 @@ export default function BlogPage() {
               })}
             </div>
           </ScrollReveal>
- 
+
           {filteredPosts.length > 0 ? (
             <div className="w-full mx-auto">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full select-none">
@@ -392,13 +390,13 @@ export default function BlogPage() {
                       className="group liquid-glass-glowing bg-card-bg/30 border border-card-border/60 rounded-[2rem] flex flex-col justify-between hover:-translate-y-1 hover:border-card-border-hover/80 hover:shadow-xl text-left relative overflow-hidden transition-all duration-500"
                     >
                       {/* Premium Image Header */}
-                      <a 
+                      <a
                         href={`/blog/${post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`}
                         className="relative w-full aspect-[16/9] overflow-hidden bg-black/10 border-b border-card-border/20 block"
                       >
-                        <img 
-                          src={post.image} 
-                          alt={post.title} 
+                        <img
+                          src={post.image}
+                          alt={post.title}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           loading="lazy"
                         />
@@ -419,7 +417,7 @@ export default function BlogPage() {
 
                           {/* Blog Info */}
                           <div className="space-y-3">
-                            <a 
+                            <a
                               href={`/blog/${post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`}
                               className="block"
                             >
@@ -474,7 +472,7 @@ export default function BlogPage() {
               <p className="text-[14px] text-text-muted max-w-sm mx-auto leading-relaxed font-light">
                 Try searching for other software technologies or reset your filters to browse all published insights.
               </p>
-              <button 
+              <button
                 onClick={() => {
                   setSearchQuery("");
                   setSelectedCategory("All");
