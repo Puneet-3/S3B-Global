@@ -244,12 +244,18 @@
 }
 
 
-/* Global Reset & Body Styles */
+/* Global Reset & Body Styles & Smooth Theme transitions */
+html, body, section, nav, header, footer, button, a, div, h1, h2, h3, h4, p, span, input, textarea, select {
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px; /* Offset for the fixed header */
   background-color: var(--background);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -257,7 +263,6 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* Liquid Glassmorphism Class Utilities */

@@ -167,27 +167,7 @@ export default function ContactPage() {
     }
 
     setFormError("");
-    setIsSubmitting(true);
-    setLogs([`[15:43:57] POST /api/v1/contact/submit HTTP/1.1`]);
-
-    const traceLogs = [
-      `[info] Hostname: secure.s3b-global.com`,
-      `[crypt] Initializing TLS 1.3 cryptographic secure channel...`,
-      `[crypt] AES-256-GCM package keyspace synced successfully.`,
-      `[cloud] Processing contact dossier payload: { sender: "${firstName} ${lastName}" }`,
-      `[database] Synchronizing metadata rows in S3B AWS US-East primary shards...`,
-      `[success] 211 Form Handshake complete. Dispatched direct notification to operations.`
-    ];
-
-    traceLogs.forEach((log, idx) => {
-      setTimeout(() => {
-        setLogs(prev => [...prev, log]);
-        if (idx === traceLogs.length - 1) {
-          setIsSubmitting(false);
-          setIsSubmitted(true);
-        }
-      }, (idx + 1) * 750);
-    });
+    setIsSubmitted(true);
   };
 
   return (
@@ -282,9 +262,9 @@ export default function ContactPage() {
                   <div className="w-14 h-14 rounded-full bg-[#10b981]/15 border border-[#10b981]/40 flex items-center justify-center text-[#10b981] shadow animate-bounce">
                     <CheckCircle2 className="h-7 w-7" />
                   </div>
-                  <h3 className="text-xl font-semibold text-text-title">Dossier securely synced!</h3>
+                  <h3 className="text-xl font-semibold text-text-title">Message Sent!</h3>
                   <p className="text-xs text-text-muted max-w-sm leading-relaxed font-medium">
-                    Thank you, **{firstName}**. Your message has been successfully transmitted and encrypted. An S3B Global partner will reach out within 12 business hours.
+                    Thank you, **{firstName}**. Your message has been successfully received. We will get in touch with you within 12 business hours.
                   </p>
                   <button
                     onClick={() => {
@@ -298,18 +278,16 @@ export default function ContactPage() {
                     }}
                     className="px-5 py-2.5 rounded-full bg-[#1d70b8] hover:bg-blue-600 text-white font-sans font-bold text-xs shadow transition-all cursor-pointer"
                   >
-                    Send Another message
+                    Send Another Message
                   </button>
                 </div>
               ) : isSubmitting ? (
-                /* Inline Console Terminal Logger */
-                <div className="rounded-xl border border-card-border bg-black/90 p-4 font-mono text-[9px] text-[#10b981] space-y-1 shadow-inner h-[210px] overflow-y-auto select-none">
-                  {logs.map((log, idx) => (
-                    <div key={idx} className="leading-relaxed animate-fade-in">
-                      {log}
-                    </div>
-                  ))}
-                  <div className="w-1.5 h-3.5 bg-[#10b981] inline-block animate-pulse" />
+                /* Premium loading spinner */
+                <div className="py-20 flex flex-col items-center justify-center text-center space-y-4 animate-fade-in select-none">
+                  <div className="inline-block w-8 h-8 border-4 border-[#1d70b8]/30 border-t-[#1d70b8] dark:border-cyan-400/30 dark:border-t-cyan-400 rounded-full animate-spin" />
+                  <p className="text-text-muted font-mono text-xs uppercase tracking-wider animate-pulse">
+                    Sending message...
+                  </p>
                 </div>
               ) : (
                 /* The Contact form matching screenshot */

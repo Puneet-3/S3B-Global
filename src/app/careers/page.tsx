@@ -21,7 +21,9 @@ import {
   Terminal, 
   Lock, 
   FileText,
-  ArrowRight
+  ArrowRight,
+  Upload,
+  Link2
 } from "lucide-react";
 
 // Job opening interface
@@ -471,6 +473,30 @@ export default function CareersPage() {
   const [logs, setLogs] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
+  
+  // File Upload states & refs
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      if (file.size > 5 * 1024 * 1024) {
+        setFormError("File size exceeds 5MB limit.");
+        return;
+      }
+      setUploadedFile(file);
+      setResumeUrl(""); // Clear link if they upload a file
+      setFormError("");
+    }
+  };
+
+  const handleRemoveFile = () => {
+    setUploadedFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   // Filtering Logic
   useEffect(() => {
@@ -500,6 +526,10 @@ export default function CareersPage() {
     setFullName("");
     setEmail("");
     setResumeUrl("");
+    setUploadedFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
     setNotes("");
     setFormError("");
     setIsSubmitted(false);
@@ -509,42 +539,23 @@ export default function CareersPage() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName.trim() || !email.trim() || !resumeUrl.trim()) {
-      setFormError("All marked fields (*) are required.");
+    if (!fullName.trim() || !email.trim() || (!resumeUrl.trim() && !uploadedFile)) {
+      setFormError("All marked fields (*) are required. Please upload a resume or provide a link.");
       return;
     }
     if (!/\S+@\S+\.\S+/.test(email)) {
       setFormError("Please enter a valid email address.");
       return;
     }
-    if (!resumeUrl.toLowerCase().startsWith("http://") && !resumeUrl.toLowerCase().startsWith("https://")) {
-      setFormError("Please enter a valid HTTP/HTTPS URL to your resume.");
-      return;
+    if (!uploadedFile && resumeUrl.trim()) {
+      if (!resumeUrl.toLowerCase().startsWith("http://") && !resumeUrl.toLowerCase().startsWith("https://")) {
+        setFormError("Please enter a valid HTTP/HTTPS URL to your resume.");
+        return;
+      }
     }
 
     setFormError("");
-    setIsSubmitting(true);
-    setLogs([`[18:37:49] POST /api/v1/careers/apply?jobId=${selectedJobForModal?.id} HTTP/1.1`]);
-
-    const traceLogs = [
-      `[info] Hostname: secure.s3b-global.com`,
-      `[crypt] Initializing dynamic handshake on secure TLS 1.3 channel...`,
-      `[crypt] AES-256-GCM package keyspace synced successfully.`,
-      `[cloud] Processing candidate profile package: { name: "${fullName}" }`,
-      `[cloud] Attaching cryptographically-signed file reference: ${resumeUrl}`,
-      `[database] Inserting secure applicant payload in AWS Shards (US-East)...`,
-      `[success] 201 Created. Handshake complete! Notification dispatched to S3B HR.`
-    ];
-
-    traceLogs.forEach((log, idx) => {
-      setTimeout(() => {
-        setLogs(prev => [...prev, log]);
-        if (idx === traceLogs.length - 1) {
-          setIsSubmitting(false);
-          setIsSubmitted(true);
-        }
-      }, (idx + 1) * 750);
-    });
+    setIsSubmitted(true);
   };
 
   return (
@@ -761,9 +772,9 @@ export default function CareersPage() {
                 <div className="w-14 h-14 rounded-full bg-[#10b981]/15 border border-[#10b981]/40 flex items-center justify-center text-[#10b981] shadow animate-bounce">
                   <CheckCircle2 className="h-7 w-7" />
                 </div>
-                <h4 className="text-[24px] font-bold text-text-title">Application Transmitted!</h4>
+                <h4 className="text-[24px] font-bold text-text-title">Application Submitted!</h4>
                 <p className="text-[14px] text-text-muted leading-relaxed font-light max-w-sm">
-                  Thank you, **{fullName}**. Your dossier and resume have been securely synced. S3B Human Resources will review your credentials and contact you within 48 business hours.
+                  Thank you, **{fullName}**. Your application has been successfully received. S3B Human Resources will review your details and contact you within 48 business hours.
                 </p>
                 <button
                   onClick={() => setSelectedJobForModal(null)}
@@ -773,14 +784,12 @@ export default function CareersPage() {
                 </button>
               </div>
             ) : isSubmitting ? (
-              /* High-fidelity Inline Terminal Logger Animation */
-              <div className="rounded-xl border border-card-border bg-black/90 p-4 font-mono text-[9px] text-[#10b981] space-y-1 shadow-inner h-[160px] overflow-y-auto select-none select-none">
-                {logs.map((log, idx) => (
-                  <div key={idx} className="leading-relaxed animate-fade-in">
-                    {log}
-                  </div>
-                ))}
-                <div className="w-1.5 h-3.5 bg-[#10b981] inline-block animate-pulse" />
+              /* Premium loading spinner */
+              <div className="py-10 flex flex-col items-center justify-center text-center space-y-4 animate-fade-in select-none">
+                <div className="inline-block w-8 h-8 border-4 border-[#1d70b8]/30 border-t-[#1d70b8] dark:border-cyan-400/30 dark:border-t-cyan-400 rounded-full animate-spin" />
+                <p className="text-text-muted font-mono text-xs uppercase tracking-wider animate-pulse">
+                  Submitting application...
+                </p>
               </div>
             ) : (
               /* The Intake Form Fields */
@@ -807,20 +816,67 @@ export default function CareersPage() {
                   />
                 </div>
 
-                <div className="space-y-1 text-left">
-                  <div className="flex items-center justify-between">
-                    <label className="text-[9px] font-mono font-bold text-text-muted block uppercase select-none">Resume URL Link *</label>
-                    <span className="text-[8px] font-mono text-text-muted/50 block font-bold">LINK GOOGLE DRIVE/DROPBOX</span>
+                <div className="space-y-2 text-left">
+                  <div className="flex items-center justify-between select-none">
+                    <label className="text-[9px] font-mono font-bold text-text-muted block uppercase">Resume / CV *</label>
                   </div>
-                  <div className="relative">
-                    <FileText className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-text-muted/40" />
-                    <input 
-                      type="text" 
-                      placeholder="e.g. https://drive.google.com/file/..."
-                      value={resumeUrl}
-                      onChange={(e) => setResumeUrl(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2.5 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
-                    />
+                  
+                  <div className="grid grid-cols-1 gap-3">
+                    {!uploadedFile ? (
+                      <div 
+                        onClick={() => fileInputRef.current?.click()}
+                        className="border border-dashed border-card-border hover:border-[#1d70b8]/60 dark:hover:border-cyan-400/60 bg-slate-100/40 dark:bg-black/10 rounded-lg p-3 flex flex-col items-center justify-center gap-1 cursor-pointer transition-all duration-300 group"
+                      >
+                        <Upload className="h-4.5 w-4.5 text-text-muted/40 group-hover:text-[#1d70b8] dark:group-hover:text-cyan-400 transition-colors" />
+                        <span className="text-[10px] font-bold text-text-title">Upload PDF, DOCX (Max 5MB)</span>
+                        <span className="text-[8px] text-text-muted/40 font-mono">or click to browse</span>
+                        <input 
+                          type="file"
+                          ref={fileInputRef}
+                          onChange={handleFileChange}
+                          accept=".pdf,.doc,.docx"
+                          className="hidden"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-between p-2.5 rounded-lg border border-[#1d70b8]/30 dark:border-cyan-400/30 bg-[#1d70b8]/5 dark:bg-cyan-400/5 text-[11px]">
+                        <div className="flex items-center gap-2 truncate">
+                          <FileText className="h-4 w-4 text-[#1d70b8] dark:text-cyan-400 shrink-0" />
+                          <div className="truncate text-left">
+                            <p className="font-semibold text-text-title truncate">{uploadedFile.name}</p>
+                            <p className="text-[8px] text-text-muted/50 font-mono">{(uploadedFile.size / 1024 / 1024).toFixed(2)} MB</p>
+                          </div>
+                        </div>
+                        <button 
+                          type="button"
+                          onClick={handleRemoveFile}
+                          className="p-1 rounded-full hover:bg-foreground/5 text-text-muted hover:text-red-400 transition-colors cursor-pointer"
+                        >
+                          <X className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    )}
+
+                    {!uploadedFile && (
+                      <>
+                        <div className="flex items-center justify-center gap-2.5 py-0.5 select-none">
+                          <span className="h-[1px] bg-card-border/30 flex-1"></span>
+                          <span className="text-[8px] font-mono font-bold text-text-muted/30 uppercase">OR PROVIDE LINK</span>
+                          <span className="h-[1px] bg-card-border/30 flex-1"></span>
+                        </div>
+
+                        <div className="relative">
+                          <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-text-muted/40" />
+                          <input 
+                            type="text" 
+                            placeholder="e.g. https://drive.google.com/file/..."
+                            value={resumeUrl}
+                            onChange={(e) => setResumeUrl(e.target.value)}
+                            className="w-full pl-9 pr-4 py-2.5 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -842,13 +898,13 @@ export default function CareersPage() {
                   </div>
                 )}
 
-                {/* Secure warning indicators */}
+                 {/* Secure warning indicators */}
                 <div className="flex items-center justify-between text-[8px] font-mono font-bold text-text-muted/50 pt-2 uppercase select-none">
                   <span className="flex items-center space-x-1">
                     <Lock className="h-3 w-3 text-text-muted/40 shrink-0" />
-                    <span>AES-256 Crypto Transmission</span>
+                    <span>Secure Encryption</span>
                   </span>
-                  <span>* Required Files</span>
+                  <span>* Required Fields</span>
                 </div>
 
                 {/* Form Buttons */}
@@ -865,7 +921,7 @@ export default function CareersPage() {
                     className="relative inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                   >
                     <span className="relative z-10 flex items-center space-x-1.5">
-                      <span>Transmit File</span>
+                      <span>Submit Application</span>
                       <Send className="h-3.5 w-3.5" />
                     </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />

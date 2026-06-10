@@ -90,12 +90,12 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
           <div className="max-w-5xl mx-auto space-y-4 text-left">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-card-bg border border-card-border shadow-sm">
               <BookOpen className="h-3.5 w-3.5 text-[#10b981]" />
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-text-muted">
+              <span className="text-[15px] font-mono font-bold uppercase tracking-wider text-text-muted">
                 NEWS & INSIGHTS
               </span>
             </div>
             <h1 className="text-3xl md:text-[54.4px] font-light text-[#0A0D53] dark:text-white tracking-tight leading-tight">
-              S3B Global Blog
+              Blog
             </h1>
             <p className="text-[16px] text-text-muted leading-relaxed max-w-2xl font-light">
               Stay informed on current trends in the IT world. Discover our latest software engineering milestones, full-stack development tutorials, digital marketing insights, and AI capabilities.
