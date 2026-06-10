@@ -145,26 +145,6 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <style dangerouslySetInnerHTML={{
-            __html: `
-            @keyframes marquee {
-              0% {
-                transform: translate3d(0, 0, 0);
-              }
-              100% {
-                transform: translate3d(-50%, 0, 0);
-              }
-            }
-            .animate-marquee {
-              display: flex;
-              width: max-content;
-              animation: marquee 30s linear infinite;
-              will-change: transform;
-            }
-            .animate-marquee:hover {
-              animation-play-state: paused;
-            }
-          `}} />
         </ScrollReveal>
 
       </div>
