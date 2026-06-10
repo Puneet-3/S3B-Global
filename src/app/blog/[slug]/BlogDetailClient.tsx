@@ -5,7 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import { BLOG_POSTS } from "../postsData";
+import { BLOG_POSTS, type BlogPost } from "../postsData";
 import {
   Clock,
   User,
@@ -119,15 +119,24 @@ const renderFormattedContent = (content: string) => {
 
 interface BlogDetailClientProps {
   slug: string;
+  initialPost?: BlogPost;
 }
 
-export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
-  const [post, setPost] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+export default function BlogDetailClient({ slug, initialPost }: BlogDetailClientProps) {
+  const [post, setPost] = useState<any>(initialPost || null);
+  const [loading, setLoading] = useState(!initialPost);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const loadPost = async () => {
+      if (initialPost && (initialPost.slug === slug || !slug)) {
+        setPost(initialPost);
+        setLoading(false);
+        if (typeof document !== "undefined") {
+          document.title = `${initialPost.title} - S3B Global`;
+        }
+        return;
+      }
       setLoading(true);
       setError(false);
 

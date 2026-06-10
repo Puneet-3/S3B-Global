@@ -61,31 +61,11 @@ function GlobalNetworkMap() {
     window.addEventListener("resize", handleResize);
     // 10-City connection map node coordinates (aligned to high-fidelity background image)
     const nodes = [
-      { name: "San Francisco", label: "San Francisco (USA)", x: 63, y: 108, r: 3.5, pulsePhase: 0 },
-      { name: "Alpharetta", label: "Alpharetta, GA (USA)", x: 106, y: 111, r: 4.5, pulsePhase: Math.PI / 5 },
-      { name: "São Paulo", label: "São Paulo (Brazil)", x: 134, y: 158, r: 3.5, pulsePhase: Math.PI / 4 },
-      { name: "London", label: "London (UK)", x: 187, y: 94, r: 4.0, pulsePhase: Math.PI / 3 },
-      { name: "Cape Town", label: "Cape Town (South Africa)", x: 215, y: 160, r: 3.5, pulsePhase: Math.PI / 2 },
-      { name: "India", label: "India", x: 278, y: 128, r: 4.0, pulsePhase: Math.PI * (2 / 3) },
-      { name: "Singapore", label: "Singapore", x: 312, y: 143, r: 3.5, pulsePhase: Math.PI * (3 / 4) },
-      { name: "Tokyo", label: "Tokyo (Japan)", x: 349, y: 110, r: 4.0, pulsePhase: Math.PI * (4 / 5) },
-      { name: "Sydney", label: "Sydney (Australia)", x: 352, y: 170, r: 4.0, pulsePhase: Math.PI * (5 / 6) },
-      { name: "Auckland", label: "Auckland (New Zealand)", x: 383, y: 173, r: 4.5, pulsePhase: Math.PI }
+      { name: "Alpharetta", label: "Alpharetta, GA (USA)", x: 106, y: 111, r: 4.5, pulsePhase: Math.PI / 5 }
     ];
 
     // Highly connected transit tracks with arrow indications
-    const networkPaths = [
-      { from: 0, to: 7, progress: 0.1, speed: 0.005 }, // San Francisco -> Tokyo (Transpacific)
-      { from: 1, to: 3, progress: 0.3, speed: 0.004 }, // Alpharetta -> London (Transatlantic)
-      { from: 2, to: 1, progress: 0.5, speed: 0.006 }, // São Paulo -> Alpharetta (Americas)
-      { from: 3, to: 5, progress: 0.2, speed: 0.005 }, // London -> India (Eurasian Link)
-      { from: 4, to: 3, progress: 0.7, speed: 0.004 }, // Cape Town -> London (Euro-African)
-      { from: 5, to: 6, progress: 0.4, speed: 0.006 }, // India -> Singapore (Asian Transit)
-      { from: 6, to: 7, progress: 0.0, speed: 0.007 }, // Singapore -> Tokyo (East Asian)
-      { from: 6, to: 8, progress: 0.6, speed: 0.005 }, // Singapore -> Sydney (Oceania Link)
-      { from: 7, to: 8, progress: 0.2, speed: 0.006 }, // Tokyo -> Sydney (Pacific Rim)
-      { from: 8, to: 9, progress: 0.8, speed: 0.008 }  // Sydney -> Auckland (Tasman Corridor)
-    ];
+    const networkPaths: any[] = [];
 
     // High-tech geometric polygon outlines for all major global continents
     const northAmerica = [

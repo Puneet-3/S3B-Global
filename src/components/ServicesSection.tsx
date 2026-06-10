@@ -200,52 +200,43 @@ export default function ServicesSection() {
 
         </div>
 
-        {/* Client Testimonial Card (Gray Card) */}
-        <ScrollReveal delay={150}>
-          <div 
-            className="relative overflow-hidden rounded-3xl bg-card-bg/40 border border-card-border p-6 sm:p-8 shadow-md backdrop-blur-md"
-            style={{ borderColor: isDarkMode ? "rgba(34, 211, 238, 0.2)" : undefined }}
-          >
+        {/* Testimonials Section */}
+        <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
+          <ScrollReveal className="space-y-4">
+            <h2 className="text-3xl md:text-[44px] font-semibold tracking-tight text-text-title uppercase">
+              The Trust We've Earned
+            </h2>
+          </ScrollReveal>
 
-            <div className="absolute right-6 top-4 opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none text-[7rem] leading-none font-serif text-foreground font-light">
-              ”
-            </div>
+          <ScrollReveal delay={100} className="relative max-w-4xl mx-auto">
+            <div 
+              className="relative overflow-hidden rounded-[2.2rem] border border-card-border bg-card-bg shadow-sm p-8 md:p-14 min-h-[260px] flex flex-col justify-between text-left"
+              style={{ borderColor: isDarkMode ? "rgba(34, 211, 238, 0.2)" : undefined }}
+            >
+              <div className="absolute -top-12 -left-12 w-40 h-40 bg-[#10b981]/5 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none" />
 
-            <div className="relative z-10 max-w-4xl">
-
-              <div className="inline-flex items-center space-x-2 mb-6">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
-                </span>
-
-                <span className="text-[10px] md:text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#125492] dark:text-cyan-400">
-                  CLIENT TESTIMONIAL
-                </span>
-              </div>
-
-              <div className="relative min-h-[240px] sm:min-h-[160px] md:min-h-[120px] w-full">
+              <div className="grid grid-cols-1 grid-rows-1 text-left w-full h-full items-center">
                 {testimonials.map((item, index) => {
                   const isActive = current === index;
                   return (
                     <div
                       key={index}
-                      className={`absolute inset-x-0 top-0 w-full transition-all duration-700 ease-in-out ${
-                        isActive
-                          ? "opacity-100 translate-y-0 pointer-events-auto z-10"
-                          : "opacity-0 -translate-y-2 pointer-events-none z-0"
-                      }`}
+                      className={`col-start-1 row-start-1 transition-all duration-700 ease-in-out ${isActive
+                        ? "opacity-100 translate-y-0 pointer-events-auto z-10 scale-100"
+                        : "opacity-0 pointer-events-none translate-y-8 scale-95"
+                        }`}
                     >
-                      <p className="text-[17px] font-normal leading-relaxed text-text-title">
+                      <blockquote className="text-lg md:text-xl font-normal text-text-title italic leading-relaxed mb-6 font-sans">
                         "{item.quote}"
-                      </p>
-                      <div className="pt-4">
-                        <h4 className="text-[17px] font-semibold text-text-title">
+                      </blockquote>
+                      <div className="space-y-1">
+                        <cite className="not-italic font-medium text-[16px] text-text-title block font-sans">
                           {item.name}
-                        </h4>
-                        <p className="text-[13px] font-mono text-text-muted uppercase tracking-wider font-normal">
+                        </cite>
+                        <span className="text-xs font-mono uppercase tracking-wider text-text-muted">
                           {item.role}
-                        </p>
+                        </span>
                       </div>
                     </div>
                   );
@@ -253,43 +244,40 @@ export default function ServicesSection() {
               </div>
 
               {/* Controls */}
-
-              <div className="flex items-center justify-between mt-5">
-
-                <div className="flex gap-2">
+              <div className="flex justify-between items-center mt-8 pt-6 border-t border-card-border/30">
+                <div className="flex space-x-2">
                   {testimonials.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrent(index)}
-                      className={`h-2 rounded-full transition-all duration-300 ${current === index
-                        ? "w-8 bg-cyan-400"
-                        : "w-2 bg-gray-500"
+                      className={`h-1.5 rounded-full transition-all duration-300 ${index === current ? "w-6 bg-[#10b981]" : "w-1.5 bg-card-border"
                         }`}
+                      aria-label={`Go to testimonial ${index + 1}`}
                     />
                   ))}
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex space-x-3">
                   <button
                     onClick={prevSlide}
-                    className="w-10 h-10 rounded-full border border-card-border hover:bg-card-bg-hover transition"
+                    className="p-2.5 rounded-full border border-card-border bg-white/[0.02] hover:bg-white/[0.06] text-text-title transition-colors cursor-pointer"
+                    aria-label="Previous testimonial"
                   >
-                    ←
+                    <ArrowRight className="h-4 w-4 rotate-180" />
                   </button>
-
                   <button
                     onClick={nextSlide}
-                    className="w-10 h-10 rounded-full border border-card-border hover:bg-card-bg-hover transition"
+                    className="p-2.5 rounded-full border border-card-border bg-white/[0.02] hover:bg-white/[0.06] text-text-title transition-colors cursor-pointer"
+                    aria-label="Next testimonial"
                   >
-                    →
+                    <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
-
               </div>
 
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
       </div>
     </section>
   );

@@ -263,9 +263,11 @@ export default function ContactPage() {
                   <Mail className="h-4.5 w-4.5 text-[#1d70b8] shrink-0 mt-0.5" />
                   <div className="space-y-1">
                     <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">Email:</span>
-                    <a href="mailto:info@s3bglobal.com" className="hover:text-primary transition-colors text-text-muted">
-                      info@s3bglobal.com
-                    </a>
+                    <p className="leading-relaxed text-text-muted">
+                      <a href="mailto:info@s3bglobal.com" className="hover:text-primary transition-colors text-text-muted">
+                        info@s3bglobal.com
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>

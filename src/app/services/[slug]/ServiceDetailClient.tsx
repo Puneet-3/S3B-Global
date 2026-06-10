@@ -932,8 +932,8 @@ const TESTIMONIALS_LIST = [
   {
     quote:
       "Collaborating with S3B Global has transformed our growth path. They crafted a strategic, highly professional digital platform and database. Their data-driven approach, clear communication, and commitment to our success have been a game-changer for our team.",
-    name: "Amie Tremblay",
-    role: "Founder, BuzzBound",
+    name: "Amin Toussaint",
+    role: "Founder, BuzzBreach",
   },
   {
     quote:
@@ -1375,12 +1375,12 @@ const SERVICES_DATA: Record<string, {
         {
           title: "Intelligence with Purpose",
           desc: "Align AI, data, and technology investments with real business objectives to create measurable value, not just innovation for innovation's sake.",
-          badge: "ALIGN & SCALE"
+          badge: "ALIGN"
         },
         {
           title: "Flexible Digital Foundations",
           desc: "Create flexible digital foundations that adapt to changing business needs, support growth, and accelerate transformation at every stage.",
-          badge: "ALIGN & SCALE"
+          badge: "SCALE"
         }
       ],
       buttonText: "GET STARTED",
@@ -1839,8 +1839,8 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                   </div>
                 ) : (
                   /* Inline Email Input Form */
-                  <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-stretch gap-3 w-full">
-                    <div className="relative flex-1">
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
+                    <div className="relative w-full">
                       <input
                         type="email"
                         required
@@ -1857,7 +1857,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="relative inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer disabled:opacity-50"
+                      className="relative inline-flex items-center justify-center w-full px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer disabled:opacity-50"
                     >
                       <span className="relative z-10 flex items-center justify-center space-x-2">
                         <span>GET STARTED</span>

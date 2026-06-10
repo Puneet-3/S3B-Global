@@ -13,7 +13,7 @@ const LinkedinIcon = () => (
 
 export default function Footer() {
   return (
-    <footer className="relative bg-background text-foreground border-t border-card-border pt-24 pb-20 overflow-hidden select-none transition-colors duration-300">
+    <footer className="relative bg-background text-foreground border-t border-card-border pt-24 pb-12 overflow-hidden select-none transition-colors duration-300">
       {/* Decorative blurs */}
       <div className="absolute bottom-0 right-1/4 w-[350px] h-[350px] rounded-full bg-primary/4 blur-[130px] pointer-events-none -z-10 animate-pulse" />
       <div className="absolute top-0 left-1/4 w-[250px] h-[250px] rounded-full bg-secondary/3 blur-[120px] pointer-events-none -z-10 animate-pulse" />
@@ -102,7 +102,7 @@ export default function Footer() {
               <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
                 ADDRESS
               </h4>
-              <div className="flex items-start justify-center md:justify-start text-[15px] text-text-muted font-semibold">
+              <div className="flex items-start justify-center md:justify-start text-[14px] text-text-muted font-normal">
                 <p className="leading-relaxed max-w-xs">
                   8000 Avalon Boulevard Suites 100 And 200, Alpharetta, GA 30009, United States
                 </p>
@@ -125,7 +125,7 @@ export default function Footer() {
         </div>
 
         {/* Footer bottom bar */}
-        <div className="pt-10 border-t border-card-border flex flex-col md:flex-row items-center justify-between gap-6 select-none">
+        <div className="!mt-12 pt-6 border-t border-card-border flex flex-col md:flex-row items-center justify-start select-none">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-foreground/[0.03] border border-foreground/10 flex items-center justify-center text-xs font-mono font-black text-foreground shadow-sm shrink-0">
               S3B
@@ -134,9 +134,6 @@ export default function Footer() {
               © 2026.S3B GLOBAL
             </span>
           </div>
-          <span className="text-[13px] font-mono font-bold uppercase tracking-widest text-brand-blue animate-pulse md:text-right">
-            ENERGY. SPEED. SOLUTIONS FOR BUSINESS.
-          </span>
         </div>
 
       </div>

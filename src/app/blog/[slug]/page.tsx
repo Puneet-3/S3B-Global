@@ -1,6 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import BlogDetailClient from "./BlogDetailClient";
+import { getWordPressPostBySlug } from "../lib/getPosts";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -11,7 +12,12 @@ export async function generateStaticParams() {
   try {
     const res = await fetch(
       "https://s3bglobal.com/wp-json/wp/v2/posts?per_page=100&_fields=slug",
-      { next: { revalidate: 3600 } }
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        },
+        next: { revalidate: 3600 }
+      }
     );
     if (!res.ok) return [];
     const posts = await res.json();
@@ -30,7 +36,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   try {
     const res = await fetch(
       `https://s3bglobal.com/wp-json/wp/v2/posts?slug=${slug}&_fields=title,excerpt,yoast_head_json`,
-      { next: { revalidate: 3600 } }
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        },
+        next: { revalidate: 3600 }
+      }
     );
     if (!res.ok) throw new Error();
     const posts = await res.json();
@@ -71,5 +82,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // 3. Dynamic Page Entry Component
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
-  return <BlogDetailClient slug={resolvedParams.slug} />;
+  const post = await getWordPressPostBySlug(resolvedParams.slug);
+  return <BlogDetailClient slug={resolvedParams.slug} initialPost={post || undefined} />;
 }

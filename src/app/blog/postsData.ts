@@ -13,7 +13,7 @@ export interface BlogPost {
   readTime: string;
   color: string;
   accent: string;
-  icon: React.ElementType;
+  icon?: React.ElementType;
   image: string;
   slug?: string;
 }
