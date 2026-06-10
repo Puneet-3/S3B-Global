@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import BlogDetailClient from "./BlogDetailClient";
-import { getWordPressPostBySlug } from "../lib/getPosts";
+import { getWordPressPostBySlug, fetchWithRetry } from "../lib/getPosts";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -10,7 +10,7 @@ interface PageProps {
 // 1. Pre-render static paths — pulls real slugs from WordPress every 1 hour
 export async function generateStaticParams() {
   try {
-    const res = await fetch(
+    const res = await fetchWithRetry(
       "https://s3bglobal.com/wp-json/wp/v2/posts?per_page=100&_fields=slug",
       {
         headers: {
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
 
   try {
-    const res = await fetch(
+    const res = await fetchWithRetry(
       `https://s3bglobal.com/wp-json/wp/v2/posts?slug=${slug}&_fields=title,excerpt,yoast_head_json`,
       {
         headers: {
@@ -43,6 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         next: { revalidate: 3600 }
       }
     );
+
     if (!res.ok) throw new Error();
     const posts = await res.json();
     if (!posts.length) throw new Error();

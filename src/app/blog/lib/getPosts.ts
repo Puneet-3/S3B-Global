@@ -1,9 +1,17 @@
 import { BlogPost } from "../postsData";
 
-// Helper function to fetch URLs with retry logic and exponential backoff
-async function fetchWithRetry(url: string, options: RequestInit, retries = 3, delay = 1000): Promise<Response> {
+// Helper function to fetch URLs with retry logic, exponential backoff, and a timeout
+export async function fetchWithRetry(url: string, options: RequestInit = {}, retries = 2, delay = 500): Promise<Response> {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000); // 4 seconds timeout limit per request
+
     try {
-        const res = await fetch(url, options);
+        const res = await fetch(url, {
+            ...options,
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
         if (!res.ok && retries > 0) {
             console.warn(`Fetch to ${url} returned status ${res.status}. Retrying in ${delay}ms... (${retries} attempts left)`);
             await new Promise(resolve => setTimeout(resolve, delay));
@@ -11,14 +19,17 @@ async function fetchWithRetry(url: string, options: RequestInit, retries = 3, de
         }
         return res;
     } catch (err) {
+        clearTimeout(timeoutId);
+        const isTimeout = err instanceof Error && err.name === "AbortError";
         if (retries > 0) {
-            console.warn(`Fetch to ${url} failed with error: ${err}. Retrying in ${delay}ms... (${retries} attempts left)`);
+            console.warn(`Fetch to ${url} failed ${isTimeout ? "due to timeout" : "with error: " + err}. Retrying in ${delay}ms... (${retries} attempts left)`);
             await new Promise(resolve => setTimeout(resolve, delay));
             return fetchWithRetry(url, options, retries - 1, delay * 1.5);
         }
         throw err;
     }
 }
+
 
 export async function getWordPressPosts(): Promise<BlogPost[]> {
     try {
