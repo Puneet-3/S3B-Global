@@ -4,6 +4,70 @@ import React, { useState, useEffect } from "react";
 import { Brain, Cloud, Database, MonitorPlay, Briefcase, ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
+const capabilitiesList = [
+  {
+    num: "01",
+    name: "AI Transformation",
+    href: "/services/ai-transformation",
+    icon: Brain,
+    color: "rgba(16, 185, 129, 1)", // Emerald
+    borderColor: "group-hover:border-emerald-500/40"
+  },
+  {
+    num: "02",
+    name: "Cloud + Infrastructure",
+    href: "/services/cloud-infrastructure",
+    icon: Cloud,
+    color: "rgba(6, 182, 212, 1)", // Cyan
+    borderColor: "group-hover:border-cyan-500/40"
+  },
+  {
+    num: "03",
+    name: "Data + AI",
+    href: "/services/data-ai",
+    icon: Database,
+    color: "rgba(245, 158, 11, 1)", // Amber
+    borderColor: "group-hover:border-amber-500/40"
+  },
+  {
+    num: "04",
+    name: "Digital Product Experience",
+    href: "/services/digital-product-experience",
+    icon: MonitorPlay,
+    color: "rgba(168, 85, 247, 1)", // Purple
+    borderColor: "group-hover:border-purple-500/40"
+  },
+  {
+    num: "05",
+    name: "Enterprise IT Solutions + Services",
+    href: "/services/enterprise-services",
+    icon: Briefcase,
+    color: "rgba(59, 130, 246, 1)", // Blue
+    borderColor: "group-hover:border-blue-500/40"
+  }
+];
+
+const testimonials = [
+  {
+    quote:
+      "Collaborating with S3B Global has transformed our growth path. They crafted a strategic, highly professional digital platform and database. Their data-driven approach, clear communication, and commitment to our success have been a game-changer for our team.",
+    name: "Amin Toussaint",
+    role: "Founder, BuzzBreach",
+  },
+  {
+    quote:
+      "S3B Global has been key to driving our digital transformation, turning complex challenges into scalable solutions with ease. Their innovation, professionalism, and responsiveness make them an invaluable technology partner.",
+    name: "Satya Katakam",
+    role: "Founder & CEO, iPivot",
+  },
+  {
+    quote:
+      "Partnering with S3B Global has significantly boosted our operational efficiency through their deep domain expertise and technical precision. Their result-driven approach and clear communication made them a trusted extension of our team.",
+    name: "Sourabh Yadav",
+    role: "Regional Head, Rocksensor",
+  },
+];
+
 export default function ServicesSection() {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
@@ -16,69 +80,6 @@ export default function ServicesSection() {
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
   }, []);
-
-  const capabilitiesList = [
-    {
-      num: "01",
-      name: "AI Transformation",
-      href: "/services/ai-transformation",
-      icon: Brain,
-      color: "rgba(16, 185, 129, 1)", // Emerald
-      borderColor: "group-hover:border-emerald-500/40"
-    },
-    {
-      num: "02",
-      name: "Cloud + Infrastructure",
-      href: "/services/cloud-infrastructure",
-      icon: Cloud,
-      color: "rgba(6, 182, 212, 1)", // Cyan
-      borderColor: "group-hover:border-cyan-500/40"
-    },
-    {
-      num: "03",
-      name: "Data + AI",
-      href: "/services/data-ai",
-      icon: Database,
-      color: "rgba(245, 158, 11, 1)", // Amber
-      borderColor: "group-hover:border-amber-500/40"
-    },
-    {
-      num: "04",
-      name: "Digital Product Experience",
-      href: "/services/digital-product-experience",
-      icon: MonitorPlay,
-      color: "rgba(168, 85, 247, 1)", // Purple
-      borderColor: "group-hover:border-purple-500/40"
-    },
-    {
-      num: "05",
-      name: "Enterprise IT Solutions + Services",
-      href: "/services/enterprise-services",
-      icon: Briefcase,
-      color: "rgba(59, 130, 246, 1)", // Blue
-      borderColor: "group-hover:border-blue-500/40"
-    }
-  ];
-  const testimonials = [
-    {
-      quote:
-        "Collaborating with S3B Global has transformed our growth path. They crafted a strategic, highly professional digital platform and database. Their data-driven approach, clear communication, and commitment to our success have been a game-changer for our team.",
-      name: "Amin Toussaint",
-      role: "Founder, BuzzBreach",
-    },
-    {
-      quote:
-        "S3B Global has been key to driving our digital transformation, turning complex challenges into scalable solutions with ease. Their innovation, professionalism, and responsiveness make them an invaluable technology partner.",
-      name: "Satya Katakam",
-      role: "Founder & CEO, iPivot",
-    },
-    {
-      quote:
-        "Partnering with S3B Global has significantly boosted our operational efficiency through their deep domain expertise and technical precision. Their result-driven approach and clear communication made them a trusted extension of our team.",
-      name: "Sourabh Yadav",
-      role: "Regional Head, Rocksensor",
-    },
-  ];
 
   const [current, setCurrent] = useState(0);
 
@@ -204,7 +205,7 @@ export default function ServicesSection() {
         <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
           <ScrollReveal className="space-y-4">
             <h2 className="text-3xl md:text-[44px] font-semibold tracking-tight text-text-title uppercase">
-              The Trust We've Earned
+              The Trust We&apos;ve Earned
             </h2>
           </ScrollReveal>
 
@@ -228,7 +229,7 @@ export default function ServicesSection() {
                         }`}
                     >
                       <blockquote className="text-lg md:text-xl font-normal text-text-title italic leading-relaxed mb-6 font-sans">
-                        "{item.quote}"
+                        &ldquo;{item.quote}&rdquo;
                       </blockquote>
                       <div className="space-y-1">
                         <cite className="not-italic font-medium text-[16px] text-text-title block font-sans">

@@ -9,15 +9,7 @@ import {
   Globe,
   TrendingUp,
   Eye,
-  Target,
-  Sparkles,
-  Activity,
-  ArrowRight,
-  Compass,
-  Cpu,
-  Layers,
-  Workflow,
-  Server
+  Target
 } from "lucide-react";
 
 // Interactive global map canvas representing S3B Edge node handshakes
@@ -65,65 +57,7 @@ function GlobalNetworkMap() {
     ];
 
     // Highly connected transit tracks with arrow indications
-    const networkPaths: any[] = [];
-
-    // High-tech geometric polygon outlines for all major global continents
-    const northAmerica = [
-      { x: 25, y: 45 }, { x: 50, y: 40 }, { x: 90, y: 35 }, { x: 130, y: 60 },
-      { x: 105, y: 72 }, { x: 100, y: 85 }, { x: 92, y: 92 }, { x: 80, y: 88 },
-      { x: 74, y: 110 }, { x: 65, y: 110 }, { x: 50, y: 90 }, { x: 40, y: 70 }
-    ];
-
-    const southAmerica = [
-      { x: 112, y: 122 }, { x: 125, y: 125 }, { x: 145, y: 145 }, { x: 140, y: 165 },
-      { x: 125, y: 200 }, { x: 115, y: 195 }, { x: 105, y: 150 }, { x: 103, y: 132 }
-    ];
-
-    const eurasia = [
-      { x: 160, y: 55 }, { x: 175, y: 35 }, { x: 200, y: 38 }, { x: 250, y: 35 },
-      { x: 310, y: 40 }, { x: 345, y: 45 }, { x: 330, y: 70 }, { x: 310, y: 76 },
-      { x: 295, y: 110 }, { x: 275, y: 115 }, { x: 255, y: 105 }, { x: 245, y: 112 },
-      { x: 235, y: 100 }, { x: 215, y: 102 }, { x: 210, y: 90 }, { x: 190, y: 88 },
-      { x: 180, y: 75 }, { x: 165, y: 72 }
-    ];
-
-    const africa = [
-      { x: 170, y: 102 }, { x: 212, y: 100 }, { x: 220, y: 115 }, { x: 208, y: 180 },
-      { x: 198, y: 175 }, { x: 175, y: 140 }, { x: 162, y: 125 }
-    ];
-
-    const australia = [
-      { x: 315, y: 165 }, { x: 340, y: 155 }, { x: 355, y: 162 }, { x: 360, y: 182 },
-      { x: 345, y: 195 }, { x: 320, y: 190 }
-    ];
-
-    const japan = [
-      { x: 316, y: 80 }, { x: 324, y: 86 }, { x: 320, y: 94 }, { x: 312, y: 88 }
-    ];
-
-    const southeastAsia = [
-      { x: 280, y: 132 }, { x: 295, y: 135 }, { x: 300, y: 145 }, { x: 285, y: 148 }
-    ];
-
-    const uk = [
-      { x: 165, y: 55 }, { x: 172, y: 52 }, { x: 170, y: 60 }
-    ];
-
-    const nz = [
-      { x: 370, y: 192 }, { x: 378, y: 196 }, { x: 374, y: 204 }
-    ];
-
-    const continents = [northAmerica, southAmerica, eurasia, africa, australia, japan, southeastAsia, uk, nz];
-
-    const drawPolygon = (c: CanvasRenderingContext2D, points: { x: number; y: number }[]) => {
-      if (points.length === 0) return;
-      c.beginPath();
-      c.moveTo(points[0].x, points[0].y);
-      for (let i = 1; i < points.length; i++) {
-        c.lineTo(points[i].x, points[i].y);
-      }
-      c.closePath();
-    };
+    const networkPaths: Array<{ from: number; to: number; progress: number; speed: number }> = [];
 
     // Pre-calculate continental world outline dots inside shapes to completely eliminate 60fps flickering noise
     const staticDots: { x: number; y: number }[] = [];
@@ -345,7 +279,7 @@ function AnimatedCounter({ value }: AnimatedCounterProps) {
     if (!element) return;
 
     let animationFrameId: number;
-    let timeoutId: any;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
     const startAnimationLoop = () => {
       let startTimestamp: number | null = null;

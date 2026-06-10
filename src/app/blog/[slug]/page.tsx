@@ -22,8 +22,8 @@ export async function generateStaticParams() {
     if (!res.ok) return [];
     const posts = await res.json();
     return posts
-      .filter((p: any) => !!p.slug)
-      .map((p: any) => ({ slug: p.slug }));
+      .filter((p: { slug?: string }) => !!p.slug)
+      .map((p: { slug: string }) => ({ slug: p.slug }));
   } catch {
     return [];
   }

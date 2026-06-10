@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -173,11 +174,12 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
                         href={postUrl}
                         className="relative w-full aspect-[16/9] overflow-hidden bg-black/10 border-b border-card-border/20 block"
                       >
-                        <img
+                        <Image
                           src={post.image}
                           alt={post.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          loading="lazy"
+                          fill
+                          unoptimized
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent opacity-60 pointer-events-none" />
                         <span className="absolute top-4 right-4 text-[9px] font-mono font-medium uppercase tracking-widest text-text-title bg-background/85 border border-card-border/80 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">

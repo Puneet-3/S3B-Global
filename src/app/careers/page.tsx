@@ -18,7 +18,6 @@ import {
   Send, 
   CheckCircle2, 
   AlertCircle, 
-  Terminal, 
   Lock, 
   FileText,
   ArrowRight,
@@ -461,7 +460,29 @@ export default function CareersPage() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDept, setSelectedDept] = useState<string>("All");
-  const [filteredJobs, setFilteredJobs] = useState<Job[]>(JOBS_DATA);
+  
+  // Compute filtered jobs dynamically on render to satisfy react-hooks guidelines
+  const filteredJobs = (() => {
+    let results = JOBS_DATA;
+    
+    // 1. Department filter
+    if (selectedDept !== "All") {
+      results = results.filter(job => job.department === selectedDept);
+    }
+    
+    // 2. Search query filter
+    if (searchQuery.trim() !== "") {
+      const query = searchQuery.toLowerCase();
+      results = results.filter(job => 
+        job.title.toLowerCase().includes(query) ||
+        job.skills.some(skill => skill.toLowerCase().includes(query)) ||
+        job.experience.toLowerCase().includes(query) ||
+        job.location.toLowerCase().includes(query)
+      );
+    }
+    
+    return results;
+  })();
   
   // Modal states for applying
   const [selectedJobForModal, setSelectedJobForModal] = useState<Job | null>(null);
@@ -470,7 +491,6 @@ export default function CareersPage() {
   const [resumeUrl, setResumeUrl] = useState("");
   const [notes, setNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
   
@@ -498,29 +518,6 @@ export default function CareersPage() {
     }
   };
 
-  // Filtering Logic
-  useEffect(() => {
-    let results = JOBS_DATA;
-    
-    // 1. Department filter
-    if (selectedDept !== "All") {
-      results = results.filter(job => job.department === selectedDept);
-    }
-    
-    // 2. Search query filter
-    if (searchQuery.trim() !== "") {
-      const query = searchQuery.toLowerCase();
-      results = results.filter(job => 
-        job.title.toLowerCase().includes(query) ||
-        job.skills.some(skill => skill.toLowerCase().includes(query)) ||
-        job.experience.toLowerCase().includes(query) ||
-        job.location.toLowerCase().includes(query)
-      );
-    }
-    
-    setFilteredJobs(results);
-  }, [searchQuery, selectedDept]);
-
   const handleApplyClick = (job: Job) => {
     setSelectedJobForModal(job);
     setFullName("");
@@ -534,7 +531,6 @@ export default function CareersPage() {
     setFormError("");
     setIsSubmitted(false);
     setIsSubmitting(false);
-    setLogs([]);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {

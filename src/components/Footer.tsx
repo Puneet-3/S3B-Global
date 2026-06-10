@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Mail } from "lucide-react";
 import { S3BLogoFull } from "@/components/S3BLogo";
 import Link from "next/link";
@@ -27,11 +26,11 @@ export default function Footer() {
           {/* Column 1: Logo & Slogan & Follow Us (lg:col-span-4) */}
           <div className="lg:col-span-4 space-y-5 text-center md:text-left flex flex-col items-center md:items-start">
             <Link href="/">
-              <S3BLogoFull isFooter={true} />
+              <S3BLogoFull />
             </Link>
 
             <p className="text-[15px] text-text-muted leading-relaxed max-w-xs font-semibold">
-              Accelerate your digital future with S3B Global's Cloud, AI & Integration expertise.
+              Accelerate your digital future with S3B Global&apos;s Cloud, AI & Integration expertise.
             </p>
 
             <div className="space-y-2 pt-2 flex flex-col items-center md:items-start">

@@ -1,5 +1,4 @@
 import React from "react";
-import { Laptop, BarChart, Workflow, ShieldCheck } from "lucide-react";
 
 export interface BlogPost {
   id: number;

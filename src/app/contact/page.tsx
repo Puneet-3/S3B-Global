@@ -11,8 +11,6 @@ import {
   ArrowRight, 
   CheckCircle2, 
   AlertCircle, 
-  Terminal,
-  Send,
   Eye,
   Hexagon,
   Zap
@@ -48,7 +46,7 @@ function AnimatedCounter({ value, className }: AnimatedCounterProps) {
     if (!element) return;
 
     let animationFrameId: number;
-    let timeoutId: any;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
     const startAnimationLoop = () => {
       let startTimestamp: number | null = null;
@@ -150,9 +148,8 @@ export default function ContactPage() {
   const [comments, setComments] = useState("");
 
   // Submit states
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
   const [formError, setFormError] = useState("");
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -274,7 +271,6 @@ export default function ContactPage() {
                       setEmail("");
                       setTelephone("");
                       setComments("");
-                      setLogs([]);
                     }}
                     className="px-5 py-2.5 rounded-full bg-[#1d70b8] hover:bg-blue-600 text-white font-sans font-bold text-xs shadow transition-all cursor-pointer"
                   >
@@ -472,7 +468,7 @@ export default function ContactPage() {
                     Client-Centric Innovation
                   </h3>
                   <p className="text-[14px] text-text-muted leading-relaxed font-light">
-                    We begin by deeply understanding our clients' business intricacies. Using collaborative workshops, deep industry expertise, and rapid prototyping, we craft solutions that not only bring clarity and alignment but also drive meaningful, long-term value.
+                    We begin by deeply understanding our clients&apos; business intricacies. Using collaborative workshops, deep industry expertise, and rapid prototyping, we craft solutions that not only bring clarity and alignment but also drive meaningful, long-term value.
                   </p>
                 </div>
               </div>
@@ -595,7 +591,7 @@ export default function ContactPage() {
                 GET IN TOUCH
               </h2>
               <p className="text-base md:text-lg text-zinc-300 leading-relaxed font-light">
-                Let's talk about your upcoming initiatives and how we can help.
+                Let&apos;s talk about your upcoming initiatives and how we can help.
               </p>
             </div>
             

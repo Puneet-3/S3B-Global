@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -123,7 +124,7 @@ interface BlogDetailClientProps {
 }
 
 export default function BlogDetailClient({ slug, initialPost }: BlogDetailClientProps) {
-  const [post, setPost] = useState<any>(initialPost || null);
+  const [post, setPost] = useState<BlogPost | null>(initialPost || null);
   const [loading, setLoading] = useState(!initialPost);
   const [error, setError] = useState(false);
 
@@ -154,7 +155,7 @@ export default function BlogDetailClient({ slug, initialPost }: BlogDetailClient
             const excerpt = wpPost.excerpt?.rendered?.replace(/<[^>]*>/g, "") || "";
 
             // Heuristic for category classification
-            let category = "Web & Mobile";
+            let category: BlogPost["category"] = "Web & Mobile";
             const textToScan = (title + " " + content).toLowerCase();
             if (textToScan.includes("ai") || textToScan.includes("intelligence") || textToScan.includes("learning") || textToScan.includes("model")) {
               category = "Machine Learning";
@@ -200,6 +201,7 @@ export default function BlogDetailClient({ slug, initialPost }: BlogDetailClient
               category,
               date: dateStr,
               author: "admin",
+              url: wpPost.link || "https://s3bglobal.com/",
               readTime,
               color,
               accent,
@@ -234,7 +236,7 @@ export default function BlogDetailClient({ slug, initialPost }: BlogDetailClient
     };
 
     loadPost();
-  }, [slug]);
+  }, [slug, initialPost]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-white transition-colors duration-300">
@@ -306,10 +308,12 @@ export default function BlogDetailClient({ slug, initialPost }: BlogDetailClient
               {/* Featured Image */}
               <ScrollReveal delay={100}>
                 <div className="relative w-full h-[250px] sm:h-[400px] md:h-[480px] rounded-[2rem] overflow-hidden bg-black/10 border border-card-border/30 shadow-md">
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    unoptimized
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                 </div>

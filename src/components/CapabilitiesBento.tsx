@@ -138,7 +138,7 @@ export default function CapabilitiesBento() {
               <span className="text-brand-blue animate-spin-slow text-2xl md:text-3xl select-none leading-none">✸</span>
             </h2>
             <p className="text-[16px] text-slate-800 dark:text-zinc-300 font-light font-serif italic max-w-2xl leading-relaxed text-center pt-2">
-              "We help businesses grow and scale with custom autonomous AI agents, automated workflow routing, and smart AI solutions designed specifically for your needs."
+              &ldquo;We help businesses grow and scale with custom autonomous AI agents, automated workflow routing, and smart AI solutions designed specifically for your needs.&rdquo;
             </p>
           </ScrollReveal>
 

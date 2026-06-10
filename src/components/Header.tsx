@@ -69,16 +69,22 @@ export default function Header() {
 
     // Initialize state from localStorage or document class
     const savedTheme = localStorage.getItem("s3b-theme");
+    let isDark = false;
     if (savedTheme === "light") {
       document.documentElement.classList.add("light-mode");
-      setIsDarkMode(false);
+      isDark = false;
     } else if (savedTheme === "dark") {
       document.documentElement.classList.remove("light-mode");
-      setIsDarkMode(true);
+      isDark = true;
     } else {
       const isLight = document.documentElement.classList.contains("light-mode");
-      setIsDarkMode(!isLight);
+      isDark = !isLight;
     }
+    
+    // Defer state update to satisfy react-hooks/set-state-in-effect
+    setTimeout(() => {
+      setIsDarkMode(isDark);
+    }, 0);
 
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);

@@ -6,35 +6,18 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import {
-  Cloud,
-  Cpu,
   Database,
   ShieldCheck,
   CheckCircle2,
-  Sparkles,
-  Send,
   ArrowRight,
-  Terminal,
-  Settings,
-  AlertCircle,
-  Fingerprint,
   Lock,
-  Server,
-  Activity,
   Workflow,
-  Layers,
-  Binary,
-  GitBranch,
-  Users,
   Rocket,
-  BarChart,
-  RefreshCw,
-  Search,
-  Target,
   Heart,
   Clock,
   TrendingUp,
-  Brain
+  Brain,
+  BarChart
 } from "lucide-react";
 
 // Types for cloud transformation particles
@@ -101,9 +84,8 @@ interface DatabaseShard {
 }
 
 // Canvas Component that handles all 4 interactive service illustrations
-function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string }) {
+function ServiceCanvas({ slug }: { slug: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, active: false });
 
   useEffect(() => {
@@ -414,7 +396,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
 
           let dx = node.ox + node.vx * breath - cx;
           let dy = node.oy + node.vy * breath - cy;
-          let dz = node.oz + node.vz * breath;
+          const dz = node.oz + node.vz * breath;
 
           // Push nodes away from mouse in 2D perspective
           if (isMouseActive) {
@@ -655,7 +637,7 @@ function ServiceCanvas({ slug, themeColor }: { slug: string; themeColor: string 
       // ----------------------------------------------------
       if (isData) {
         // Draw relational flowing data pipelines
-        dataTracks.forEach((track, trackIdx) => {
+        dataTracks.forEach((track) => {
           ctx.beginPath();
           ctx.lineWidth = isLightMode ? 1.2 : 0.8;
           ctx.strokeStyle = isLightMode ? "rgba(194, 120, 3, 0.18)" : "rgba(245, 158, 11, 0.08)";
@@ -965,7 +947,7 @@ const SERVICES_DATA: Record<string, {
   solutions: {
     title: string;
     desc: string;
-    icon: React.ComponentType<any>;
+    icon: React.ElementType;
     items: string[];
   }[];
   accelerator?: {
@@ -1526,6 +1508,9 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                     sizes="(max-w-768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 z-10 pointer-events-auto">
+                    <ServiceCanvas slug={slug} />
+                  </div>
                 </div>
               </ScrollReveal>
             </div>
@@ -1629,7 +1614,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                 className="relative inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/50 hover:border-[#1d70b8] dark:border-cyan-400/60 dark:hover:border-cyan-300 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-white shadow-none dark:shadow-[0_0_18px_rgba(34,211,238,0.22)] dark:hover:shadow-[0_0_28px_rgba(34,211,238,0.45)] hover:shadow-md transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer select-none tracking-wider"
               >
                 <span className="relative z-10 flex items-center space-x-2">
-                  <span>LET'S GET STARTED</span>
+                  <span>LET&apos;S GET STARTED</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
@@ -1728,7 +1713,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
             <div className="max-w-5xl mx-auto pt-16 border-t border-card-border/40 text-center space-y-12">
               <ScrollReveal className="space-y-4">
                 <h2 className="text-3xl md:text-[44px] font-semibold tracking-tight text-text-title">
-                  The Trust We've Earned
+                  The Trust We&apos;ve Earned
                 </h2>
               </ScrollReveal>
 
@@ -1744,12 +1729,12 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                         <div
                           key={idx}
                           className={`col-start-1 row-start-1 transition-all duration-700 ease-in-out ${isActive
-                            ? "opacity-100 translate-x-0 z-10 scale-100 pointer-events-auto"
-                            : "opacity-0 pointer-events-none translate-x-8 scale-95"
+                            ? "opacity-100 translate-y-0 z-10 scale-100 pointer-events-auto"
+                            : "opacity-0 pointer-events-none translate-y-8 scale-95"
                             }`}
                         >
                           <blockquote className="text-lg md:text-xl font-normal text-text-title italic leading-relaxed mb-6 font-sans">
-                            "{t.quote}"
+                            &ldquo;{t.quote}&rdquo;
                           </blockquote>
                           <div className="space-y-1">
                             <cite className="not-italic font-medium text-[16px] text-text-title block font-sans">
