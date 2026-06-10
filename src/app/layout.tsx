@@ -32,8 +32,27 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`light-mode ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const savedTheme = localStorage.getItem("s3b-theme");
+                  if (savedTheme === "dark") {
+                    document.documentElement.classList.remove("light-mode");
+                  } else if (savedTheme === "light") {
+                    document.documentElement.classList.add("light-mode");
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
         {children}
       </body>

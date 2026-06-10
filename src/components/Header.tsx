@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Sun, Moon, Menu, X, ArrowRight, ChevronDown, Cloud, Brain, Database, MonitorPlay, Briefcase } from "lucide-react";
 import { S3BLogoFull } from "@/components/S3BLogo";
+import Link from "next/link";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -132,26 +133,26 @@ export default function Header() {
     >
       <div className="w-full px-6 lg:px-12 flex items-center justify-between">
         {/* Futuristic Official Logo */}
-        <a href="/">
+        <Link href="/">
           <S3BLogoFull />
-        </a>
+        </Link>
 
         {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center space-x-10 text-[16px] font-semibold text-text-muted">
-          <a
+          <Link
             href="/"
             className="relative py-1 transition-colors hover:text-text-title group"
           >
             Home
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="/about"
             className="relative py-1 transition-colors hover:text-text-title group"
           >
             About us
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </a>
+          </Link>
 
           {/* Services Nav with Hover & Click Dropdown */}
           <div
@@ -190,7 +191,7 @@ export default function Header() {
                 {servicesList.map((item, idx) => {
                   const Icon = item.icon;
                   return (
-                    <a
+                    <Link
                       key={idx}
                       href={item.href}
                       onClick={() => setIsServicesOpen(false)}
@@ -198,7 +199,7 @@ export default function Header() {
                     >
                       {/* Stylized Icon container */}
                       <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-300 group-hover/item:scale-105 ${item.color}`}>
-                        <Icon className="h-4.5 w-4.5" />
+                        <Icon className="h-5.5 w-5.5" />
                       </div>
                       {/* Copy details */}
                       <div>
@@ -206,34 +207,34 @@ export default function Header() {
                           {item.title}
                         </h4>
                       </div>
-                    </a>
+                    </Link>
                   );
                 })}
               </div>
             </div>
           </div>
 
-          <a
+          <Link
             href="/blog"
             className="relative py-1 transition-colors hover:text-text-title group"
           >
             Blog
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="/careers"
             className="relative py-1 transition-colors hover:text-text-title group"
           >
             Careers
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="/contact"
             className="relative py-1 transition-colors hover:text-text-title group"
           >
             Contact us
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </a>
+          </Link>
         </nav>
 
         {/* Controls & CTA */}
@@ -252,7 +253,7 @@ export default function Header() {
           </button>
 
           {/* Book Consultation Button */}
-          <a
+          <Link
             href="/contact"
             className="relative inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden"
           >
@@ -262,7 +263,7 @@ export default function Header() {
             </span>
             {/* Hover Background Gradient Fill */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -290,20 +291,20 @@ export default function Header() {
       {isMobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 top-[81px] z-30 bg-background border-t border-card-border animate-fade-in overflow-y-auto">
           <nav className="flex flex-col p-8 space-y-6 text-lg font-medium text-text-muted">
-            <a
+            <Link
               href="/"
               onClick={() => setIsMobileMenuOpen(false)}
               className="hover:text-text-title transition-colors text-left"
             >
               Home
-            </a>
-            <a
+            </Link>
+            <Link
               href="/about"
               onClick={() => setIsMobileMenuOpen(false)}
               className="hover:text-text-title transition-colors text-left"
             >
               About us
-            </a>
+            </Link>
 
             {/* Mobile Collapsible Services Accordion */}
             <div className="space-y-2 text-left">
@@ -319,40 +320,40 @@ export default function Header() {
                   }`}
               >
                 {servicesList.map((item, idx) => (
-                  <a
+                  <Link
                     key={idx}
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block text-sm font-semibold text-text-muted hover:text-text-title py-1"
                   >
                     {item.title}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
 
-            <a
+            <Link
               href="/blog"
               onClick={() => setIsMobileMenuOpen(false)}
               className="hover:text-text-title transition-colors text-left"
             >
               Blog
-            </a>
-            <a
+            </Link>
+            <Link
               href="/careers"
               onClick={() => setIsMobileMenuOpen(false)}
               className="hover:text-text-title transition-colors text-left"
             >
               Careers
-            </a>
-            <a
+            </Link>
+            <Link
               href="/contact"
               onClick={() => setIsMobileMenuOpen(false)}
               className="hover:text-text-title transition-colors text-left"
             >
               Contact us
-            </a>
-            <a
+            </Link>
+            <Link
               href="/contact"
               onClick={() => setIsMobileMenuOpen(false)}
               className="relative inline-flex items-center justify-center w-full px-5 py-3 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden text-center"
@@ -363,7 +364,7 @@ export default function Header() {
               </span>
               {/* Hover Background Gradient Fill */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
-            </a>
+            </Link>
           </nav>
         </div>
       )}

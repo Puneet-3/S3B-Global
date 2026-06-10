@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Mail } from "lucide-react";
 import { S3BLogoFull } from "@/components/S3BLogo";
+import Link from "next/link";
 
 // Inline vector brand icons to avoid version dependencies
 const LinkedinIcon = () => (
@@ -25,9 +26,9 @@ export default function Footer() {
 
           {/* Column 1: Logo & Slogan & Follow Us (lg:col-span-4) */}
           <div className="lg:col-span-4 space-y-5 text-center md:text-left flex flex-col items-center md:items-start">
-            <a href="/">
+            <Link href="/">
               <S3BLogoFull isFooter={true} />
-            </a>
+            </Link>
 
             <p className="text-[15px] text-text-muted leading-relaxed max-w-xs font-semibold">
               Accelerate your digital future with S3B Global's Cloud, AI & Integration expertise.
@@ -55,19 +56,19 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3.5 text-[15px] text-text-muted font-semibold">
               <li>
-                <a href="/" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Home</a>
+                <Link href="/" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Home</Link>
               </li>
               <li>
-                <a href="/about" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">About us</a>
+                <Link href="/about" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">About us</Link>
               </li>
               <li>
-                <a href="/#services" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Services</a>
+                <Link href="/#services" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Services</Link>
               </li>
               <li>
-                <a href="/blog" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Blog</a>
+                <Link href="/blog" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Blog</Link>
               </li>
               <li>
-                <a href="/contact" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Contact Us</a>
+                <Link href="/contact" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -79,19 +80,19 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3.5 text-[15px] text-text-muted font-semibold">
               <li>
-                <a href="/services/ai-transformation" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">AI Transformation</a>
+                <Link href="/services/ai-transformation" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">AI Transformation</Link>
               </li>
               <li>
-                <a href="/services/cloud-infrastructure" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Cloud + Infrastructure</a>
+                <Link href="/services/cloud-infrastructure" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Cloud + Infrastructure</Link>
               </li>
               <li>
-                <a href="/services/data-ai" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Data + AI</a>
+                <Link href="/services/data-ai" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Data + AI</Link>
               </li>
               <li>
-                <a href="/services/digital-product-experience" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Digital Product Experience</a>
+                <Link href="/services/digital-product-experience" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Digital Product Experience</Link>
               </li>
               <li>
-                <a href="/services/enterprise-services" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Enterprise IT Solutions + Services</a>
+                <Link href="/services/enterprise-services" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Enterprise IT Solutions + Services</Link>
               </li>
             </ul>
           </div>
