@@ -252,6 +252,34 @@ html, body, section, nav, header, footer, button, a, div, h1, h2, h3, h4, p, spa
               box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Bento Grid Cards Premium Smooth Transitions */
+.bento-card {
+  flex: 1 1 0% !important;
+  transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  will-change: flex;
+}
+
+.bento-card-active {
+  flex: 2.8 1 0% !important;
+}
+
+.bento-content-transition {
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform;
+}
+
+.bento-fade-in {
+  transition-delay: 150ms !important;
+}
+
+.bento-fade-out {
+  transition-delay: 0ms !important;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px; /* Offset for the fixed header */

@@ -158,9 +158,9 @@ export default function CapabilitiesBento() {
                   <div
                     key={item.id}
                     onMouseEnter={() => setActiveIndex(index)}
-                    className={`group relative rounded-[2rem] border overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] h-full cursor-pointer ${isActive
-                      ? "flex-[2.8] border-slate-300 dark:border-zinc-800 shadow-2xl z-10"
-                      : "flex-1 bg-slate-100/40 dark:bg-card-bg border-slate-200/60 dark:border-card-border hover:bg-slate-100/70 dark:hover:bg-card-bg-hover hover:border-slate-300 dark:hover:border-card-border-hover z-0"
+                    className={`group relative rounded-[2rem] border overflow-hidden h-full cursor-pointer ${isActive
+                      ? "bento-card bento-card-active border-slate-300 dark:border-zinc-800 shadow-2xl z-10"
+                      : "bento-card bg-slate-100/40 dark:bg-card-bg border-slate-200/60 dark:border-card-border hover:bg-slate-100/70 dark:hover:bg-card-bg-hover hover:border-slate-300 dark:hover:border-card-border-hover z-0"
                       }`}
                     style={{
                       boxShadow: isActive ? `0 25px 50px -12px ${item.glow}` : "none",
@@ -169,7 +169,7 @@ export default function CapabilitiesBento() {
                     }}
                   >
                     {/* EXPANDED CONTENT CARD VIEW */}
-                    <div className={`absolute inset-0 w-full h-full p-10 flex flex-row gap-6 justify-between text-left transition-all duration-500 ${isActive ? "opacity-100 translate-y-0 scale-100 z-10" : "opacity-0 translate-y-4 scale-95 pointer-events-none z-0"
+                    <div className={`absolute inset-0 w-full h-full p-10 flex flex-row gap-6 justify-between text-left bento-content-transition ${isActive ? "opacity-100 translate-y-0 scale-100 z-10 bento-fade-in" : "opacity-0 translate-y-4 scale-95 pointer-events-none z-0 bento-fade-out"
                       }`}>
                       {/* Background decorative glow circle */}
                       <div
@@ -225,7 +225,7 @@ export default function CapabilitiesBento() {
                     </div>
 
                     {/* COLLAPSED HORIZONTAL TEXT VIEW */}
-                    <div className={`absolute inset-0 w-full h-full py-8 flex flex-col items-center justify-between transition-all duration-500 ${!isActive ? "opacity-100 translate-y-0 scale-100 z-10" : "opacity-0 -translate-y-4 scale-95 pointer-events-none z-0"
+                    <div className={`absolute inset-0 w-full h-full py-8 flex flex-col items-center justify-between bento-content-transition ${!isActive ? "opacity-100 translate-y-0 scale-100 z-10 bento-fade-in" : "opacity-0 -translate-y-4 scale-95 pointer-events-none z-0 bento-fade-out"
                       }`}>
                       <span className="font-mono text-sm xl:text-base font-bold text-slate-500 dark:text-zinc-400">
                         {item.number}
