@@ -8,8 +8,7 @@ export const metadata: Metadata = {
   description: "Stay informed on current trends in the IT world. Discover our latest software engineering milestones, full-stack development tutorials, digital marketing insights, and AI capabilities.",
 };
 
-// Next.js static generation options: revalidate the data every 1 hour (ISR)
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function Page() {
   // Fetch WP blog posts on the server

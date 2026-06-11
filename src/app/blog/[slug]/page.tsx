@@ -7,27 +7,7 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-// 1. Pre-render static paths — pulls real slugs from WordPress every 1 hour
-export async function generateStaticParams() {
-  try {
-    const res = await fetchWithRetry(
-      "https://s3bglobal.com/wp-json/wp/v2/posts?per_page=100&_fields=slug",
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        },
-        next: { revalidate: 3600 }
-      }
-    );
-    if (!res.ok) return [];
-    const posts = await res.json();
-    return posts
-      .filter((p: { slug?: string }) => !!p.slug)
-      .map((p: { slug: string }) => ({ slug: p.slug }));
-  } catch {
-    return [];
-  }
-}
+export const dynamic = "force-dynamic";
 
 // 2. Generate Metadata — pulls Yoast SEO data directly from WordPress
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
