@@ -1,4 +1,4 @@
-import { BlogPost } from "../postsData";
+import { BlogPost, BLOG_POSTS } from "../postsData";
 
 // Helper function to fetch URLs with retry logic, exponential backoff, and a timeout
 export async function fetchWithRetry(url: string, options: RequestInit = {}, retries = 2, delay = 500): Promise<Response> {
@@ -42,8 +42,15 @@ export async function getWordPressPosts(): Promise<BlogPost[]> {
                 next: { revalidate: 3600 }, // cache for 1 hour on server
             }
         );
-        if (!res.ok) return [];
+        if (!res.ok) {
+            console.warn("WordPress API response not OK. Falling back to local BLOG_POSTS.");
+            return BLOG_POSTS;
+        }
         const wpPosts = await res.json();
+        if (!wpPosts || wpPosts.length === 0) {
+            console.warn("WordPress API returned empty posts list. Falling back to local BLOG_POSTS.");
+            return BLOG_POSTS;
+        }
 
         const seen = new Set<string>();
         const mapped: BlogPost[] = [];
@@ -123,7 +130,8 @@ export async function getWordPressPosts(): Promise<BlogPost[]> {
         return mapped;
     } catch (err) {
         console.error("Failed to fetch WP posts:", err);
-        return [];
+        console.warn("Falling back to local BLOG_POSTS.");
+        return BLOG_POSTS;
     }
 }
 
@@ -138,9 +146,23 @@ export async function getWordPressPostBySlug(slug: string): Promise<BlogPost | n
                 next: { revalidate: 3600 }, // cache for 1 hour on server
             }
         );
-        if (!res.ok) return null;
+        if (!res.ok) {
+            console.warn(`WordPress API by slug not OK. Falling back to local BLOG_POSTS for slug: ${slug}`);
+            const matchedStaticPost = BLOG_POSTS.find(p => {
+                const postSlug = p.slug || p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+                return postSlug === slug;
+            });
+            return matchedStaticPost || null;
+        }
         const wpPosts = await res.json();
-        if (wpPosts.length === 0) return null;
+        if (wpPosts.length === 0) {
+            console.warn(`WordPress API returned 0 posts for slug: ${slug}. Falling back to local BLOG_POSTS.`);
+            const matchedStaticPost = BLOG_POSTS.find(p => {
+                const postSlug = p.slug || p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+                return postSlug === slug;
+            });
+            return matchedStaticPost || null;
+        }
 
         const wp = wpPosts[0];
         const title = wp.title?.rendered || "";
@@ -210,6 +232,11 @@ export async function getWordPressPostBySlug(slug: string): Promise<BlogPost | n
         };
     } catch (err) {
         console.error(`Failed to fetch WP post by slug ${slug}:`, err);
-        return null;
+        console.warn(`Falling back to local BLOG_POSTS for slug: ${slug}`);
+        const matchedStaticPost = BLOG_POSTS.find(p => {
+            const postSlug = p.slug || p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+            return postSlug === slug;
+        });
+        return matchedStaticPost || null;
     }
 }
