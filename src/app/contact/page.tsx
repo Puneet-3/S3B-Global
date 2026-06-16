@@ -208,9 +208,9 @@ export default function ContactPage() {
 
               {/* Physical Contact Details inline */}
               <div className="space-y-4 pt-6 border-t border-card-border/40 select-none">
-                <div className="flex items-start space-x-3 text-xs font-semibold">
+                <div className="flex items-start space-x-3 text-xs font-normal">
                   <MapPin className="h-4.5 w-4.5 text-[#1d70b8] shrink-0 mt-0.5" />
-                  <div className="space-y-3 text-xs font-semibold">
+                  <div className="space-y-3 text-xs font-normal">
                     <div className="space-y-1">
                       <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">US Office Address:</span>
                       <span className="leading-relaxed text-black dark:text-zinc-300 block">
@@ -226,7 +226,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-3 text-xs font-semibold">
+                <div className="flex items-start space-x-3 text-xs font-normal">
                   <Mail className="h-4.5 w-4.5 text-[#1d70b8] shrink-0 mt-0.5" />
                   <div className="space-y-1">
                     <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">Email:</span>
@@ -545,7 +545,7 @@ export default function ContactPage() {
 
             {/* Dynamically active office coordinate detail label */}
             <div className="space-y-4 animate-fade-in text-center pt-2">
-              <p className="text-xs md:text-sm font-semibold text-text-title max-w-xl mx-auto">
+              <p className="text-xs md:text-sm font-normal text-text-title max-w-xl mx-auto">
                 {activeOffice.address}
               </p>
 

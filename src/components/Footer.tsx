@@ -29,7 +29,7 @@ export default function Footer() {
               <S3BLogoFull />
             </Link>
 
-            <span className="text-[15px] text-text-muted leading-relaxed max-w-xs font-semibold block">
+            <span className="text-[15px] text-text-muted leading-relaxed max-w-xs font-normal block">
               Accelerate your digital future with S3B Global&apos;s Cloud, AI & Integration expertise.
             </span>
 
@@ -53,7 +53,7 @@ export default function Footer() {
             <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
               Quick Links
             </h4>
-            <ul className="space-y-3.5 text-[15px] text-text-muted font-semibold">
+            <ul className="space-y-3.5 text-[15px] text-text-muted font-normal">
               <li>
                 <Link href="/" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Home</Link>
               </li>
@@ -77,7 +77,7 @@ export default function Footer() {
             <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
               SERVICES
             </h4>
-            <ul className="space-y-3.5 text-[15px] text-text-muted font-semibold">
+            <ul className="space-y-3.5 text-[15px] text-text-muted font-normal">
               <li>
                 <Link href="/services/ai-transformation" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">AI Transformation</Link>
               </li>
@@ -102,15 +102,15 @@ export default function Footer() {
               <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
                 ADDRESS
               </h4>
-              <div className="space-y-4 text-[15px] text-text-muted font-semibold text-center md:text-left flex flex-col items-center md:items-start">
+              <div className="space-y-4 text-[15px] text-text-muted font-normal text-center md:text-left flex flex-col items-center md:items-start">
                 <div className="space-y-0.5">
-                  <span className="text-[15px] font-mono font-bold tracking-wider text-black dark:text-white uppercase block">US Office</span>
+                  <span className="text-[15px] font-mono tracking-wider text-black dark:text-white uppercase block">US Office</span>
                   <span className="leading-relaxed max-w-xs block text-black dark:text-zinc-300">
                     8000 Avalon Boulevard Suites 100 and 200, Alpharetta, GA 30009, United States
                   </span>
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[15px] font-mono font-bold tracking-wider text-black dark:text-white uppercase block">India Office</span>
+                  <span className="text-[15px] font-mono tracking-wider text-black dark:text-white uppercase block">India Office</span>
                   <span className="leading-relaxed max-w-xs block text-black dark:text-zinc-300">
                     Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309
                   </span>
@@ -122,7 +122,7 @@ export default function Footer() {
               <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
                 CONTACT
               </h4>
-              <div className="flex items-center justify-center md:justify-start space-x-2.5 text-[15px] text-text-muted font-semibold font-sans">
+              <div className="flex items-center justify-center md:justify-start space-x-2.5 text-[15px] text-text-muted font-normal font-sans">
                 <Mail className="h-4.5 w-4.5 text-brand-blue shrink-0" />
                 <a href="mailto:info@s3bglobal.com" className="hover:text-brand-blue transition-colors break-all">
                   info@s3bglobal.com
@@ -139,7 +139,7 @@ export default function Footer() {
             <div className="h-10 w-10 rounded-full bg-foreground/[0.03] border border-foreground/10 flex items-center justify-center text-xs font-mono font-black text-foreground shadow-sm shrink-0">
               S3B
             </div>
-            <span className="text-[13px] font-mono font-bold uppercase tracking-wider text-text-muted">
+            <span className="text-[13px] font-mono font-normal uppercase tracking-wider text-text-muted">
               © 2026.S3B GLOBAL
             </span>
           </div>
