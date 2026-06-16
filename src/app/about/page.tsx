@@ -53,7 +53,8 @@ function GlobalNetworkMap() {
     window.addEventListener("resize", handleResize);
     // 10-City connection map node coordinates (aligned to high-fidelity background image)
     const nodes = [
-      { name: "Alpharetta", label: "Alpharetta, GA (USA)", x: 106, y: 111, r: 4.5, pulsePhase: Math.PI / 5 }
+      { name: "Alpharetta", label: "Alpharetta, GA (USA)", x: 106, y: 111, r: 4.5, pulsePhase: Math.PI / 5 },
+      { name: "Noida", label: "Noida, UP (India)", x: 278, y: 116, r: 4.5, pulsePhase: Math.PI / 3 }
     ];
 
     // Highly connected transit tracks with arrow indications
@@ -157,21 +158,6 @@ function GlobalNetworkMap() {
         const lineColor = isLightMode ? `rgba(29, 112, 184, ${edgeOpacity})` : `rgba(34, 211, 238, ${edgeOpacity})`;
         ctx.strokeStyle = lineColor;
         ctx.stroke();
-
-        // Draw elegant, high-precision arrowheads showing data flow direction
-        const arrowColor = isLightMode ? "rgba(29, 112, 184, 0.65)" : "rgba(34, 211, 238, 0.55)";
-        const angle = Math.atan2(nodeB.y - midY, nodeB.x - midX);
-        const headLength = 5.5;
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(nodeB.x, nodeB.y);
-        ctx.lineTo(nodeB.x - headLength * Math.cos(angle - Math.PI / 7), nodeB.y - headLength * Math.sin(angle - Math.PI / 7));
-        ctx.lineTo(nodeB.x - headLength * Math.cos(angle + Math.PI / 7), nodeB.y - headLength * Math.sin(angle + Math.PI / 7));
-        ctx.closePath();
-        ctx.fillStyle = arrowColor;
-        ctx.fill();
-        ctx.restore();
 
         // 3. Draw Synaptic flow packets running across arches
         path.progress += path.speed;

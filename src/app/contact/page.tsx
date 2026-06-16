@@ -112,7 +112,7 @@ function AnimatedCounter({ value, className }: AnimatedCounterProps) {
 }
 
 interface OfficeLocation {
-  id: "alpharetta" | "auckland";
+  id: "alpharetta" | "noida";
   label: string;
   address: string;
   mapUrl: string;
@@ -126,10 +126,10 @@ const OFFICE_LOCATIONS: OfficeLocation[] = [
     mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3307.7215160867803!2d-84.34098932428586!3d34.05105267315754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f50aa671295a0d%3A0xe54e6378e91e5e6e!2s8000%20Avalon%20Blvd%2C%20Alpharetta%2C%20GA%2030009!5e0!3m2!1sen!2sus!4v1716668041539!5m2!1sen!2sus"
   },
   {
-    id: "auckland",
-    label: "WEST HARBOUR, AUCKLAND, NZ",
-    address: "9 Constable Lane, West Harbour, Auckland 0618, New Zealand",
-    mapUrl: "https://maps.google.com/maps?q=9%20Constable%20Lane%2C%20West%20Harbour%2C%20Auckland%200618%2C%20New%20Zealand&z=17&output=embed"
+    id: "noida",
+    label: "NOIDA, UTTAR PRADESH, IN",
+    address: "Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309",
+    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.046337583624!2d77.36531987549887!3d28.628574175666757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cf1a774902165%3A0x6b49048a1b321873!2siThum!5e0!3m2!1sen!2sin!4v1718530000000!5m2!1sen!2sin"
   }
 ];
 
@@ -205,34 +205,24 @@ export default function ContactPage() {
                 At the heart of S3B Global is a fusion of extraordinary people, deep expertise, and cutting-edge AI and cloud technologies. We guide clients through the intricacies of their digital journey, ensuring the fastest path to results.
               </p>
 
-              {/* Action button scrolling down to focus the form */}
-              <div className="pt-2">
-                <button
-                  onClick={() => {
-                    document.getElementById("contact-form-card")?.scrollIntoView({ behavior: "smooth" });
-                    setTimeout(() => {
-                      document.getElementById("first-name-input")?.focus();
-                    }, 500);
-                  }}
-                  className="relative inline-flex items-center justify-center px-6 py-3 rounded-full text-xs font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer uppercase tracking-widest"
-                >
-                  <span className="relative z-10 flex items-center space-x-2">
-                    <span>BOOK A CALL</span>
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
-                </button>
-              </div>
 
               {/* Physical Contact Details inline */}
               <div className="space-y-4 pt-6 border-t border-card-border/40 select-none">
                 <div className="flex items-start space-x-3 text-xs font-semibold">
                   <MapPin className="h-4.5 w-4.5 text-[#1d70b8] shrink-0 mt-0.5" />
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">Address:</span>
-                    <p className="leading-relaxed text-text-muted">
-                      8000 Avalon Boulevard Suites 100 And 200, Alpharetta, GA 30009, United States
-                    </p>
+                  <div className="space-y-3 text-xs font-semibold">
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">US Office Address:</span>
+                      <span className="leading-relaxed text-text-muted block">
+                        8000 Avalon Boulevard Suites 100 and 200, Alpharetta, GA 30009, United States
+                      </span>
+                    </div>
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">India Office Address:</span>
+                      <span className="leading-relaxed text-text-muted block">
+                        Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309
+                      </span>
+                    </div>
                   </div>
                 </div>
 

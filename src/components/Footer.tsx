@@ -29,9 +29,9 @@ export default function Footer() {
               <S3BLogoFull />
             </Link>
 
-            <p className="text-[15px] text-text-muted leading-relaxed max-w-xs font-semibold">
+            <span className="text-[15px] text-text-muted leading-relaxed max-w-xs font-semibold block">
               Accelerate your digital future with S3B Global&apos;s Cloud, AI & Integration expertise.
-            </p>
+            </span>
 
             <div className="space-y-2 pt-2 flex flex-col items-center md:items-start">
               <span className="text-[11px] font-mono font-bold tracking-widest text-brand-blue uppercase block">Follow us</span>
@@ -102,10 +102,19 @@ export default function Footer() {
               <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
                 ADDRESS
               </h4>
-              <div className="flex items-start justify-center md:justify-start text-[14px] text-text-muted font-normal">
-                <p className="leading-relaxed max-w-xs">
-                  8000 Avalon Boulevard Suites 100 And 200, Alpharetta, GA 30009, United States
-                </p>
+              <div className="space-y-4 text-[15px] text-text-muted font-semibold text-center md:text-left flex flex-col items-center md:items-start">
+                <div className="space-y-0.5">
+                  <span className="text-[11px] font-mono font-bold tracking-wider text-brand-orange uppercase block">US Office</span>
+                  <span className="leading-relaxed max-w-xs block">
+                    8000 Avalon Boulevard Suites 100 and 200, Alpharetta, GA 30009, United States
+                  </span>
+                </div>
+                <div className="space-y-0.5">
+                  <span className="text-[11px] font-mono font-bold tracking-wider text-brand-orange uppercase block">India Office</span>
+                  <span className="leading-relaxed max-w-xs block">
+                    Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309
+                  </span>
+                </div>
               </div>
             </div>
 

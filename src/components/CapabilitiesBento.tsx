@@ -29,9 +29,9 @@ export default function CapabilitiesBento() {
     {
       id: 1,
       number: "01",
-      title: "AI-Driven Agility",
-      subtitle: "Autonomous Agents & Scale",
-      description: "Our autonomous AI agents and automated workflows allow businesses to scale operations, improve efficiency, and verify results.",
+      title: "Elite Tech Expertise",
+      subtitle: "Certified Engineers & Architects",
+      description: "Our team of seasoned cloud architects, software engineers, and AI developers design and deliver scalable enterprise-grade software.",
       image: chooseAgility,
       color: "rgba(16, 185, 129, 1)", // Emerald
       glow: "rgba(16, 185, 129, 0.15)",
@@ -40,9 +40,9 @@ export default function CapabilitiesBento() {
     {
       id: 2,
       number: "02",
-      title: "Intelligent AI Solutions",
-      subtitle: "Repetitive Process Automation",
-      description: "We build customized AI agents and automation systems to automate repetitive enterprise processes, saving valuable resources.",
+      title: "Rapid ROI & Speed",
+      subtitle: "Frameworks & Accelerators",
+      description: "We leverage proprietary codebases, cloud migration assistants, and pre-built templates to launch solutions up to 4x faster.",
       image: chooseSolutions,
       color: "rgba(6, 182, 212, 1)", // Cyan
       glow: "rgba(6, 182, 212, 0.15)",
@@ -51,9 +51,9 @@ export default function CapabilitiesBento() {
     {
       id: 3,
       number: "03",
-      title: "Automation First",
-      subtitle: "Streamlined Enterprise Operations",
-      description: "From simple bots to sophisticated AI agent workflows, we streamline enterprise operations for maximum output.",
+      title: "Compliance & Security",
+      subtitle: "SOC 2, HIPAA & Data Integrity",
+      description: "Every database integration, pipeline, and cloud environment we engineer strictly adheres to global safety and compliance standards.",
       image: chooseAutomation,
       color: "rgba(245, 158, 11, 1)", // Amber
       glow: "rgba(245, 158, 11, 0.15)",
@@ -62,9 +62,9 @@ export default function CapabilitiesBento() {
     {
       id: 4,
       number: "04",
-      title: "Secure & Scalable AI",
-      subtitle: "Compliance, Safety & Scaling",
-      description: "Modern secure AI agent architectures and automated workflows ensure compliance, safety, and long-term scaling.",
+      title: "Always-On Operations",
+      subtitle: "Dedicated SLAs & Support",
+      description: "We provide proactive monitoring, system health checks, and 24/7 technical support to keep your operations running continuously.",
       image: chooseSecurity,
       color: "rgba(168, 85, 247, 1)", // Purple
       glow: "rgba(168, 85, 247, 0.15)",
@@ -111,20 +111,20 @@ export default function CapabilitiesBento() {
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border border-card-border backdrop-blur-md">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#1d70b8] animate-pulse" />
                 <span className="text-[10px] md:text-xs font-mono font-bold uppercase tracking-[0.2em] text-text-muted">
-                  FUTURE-READY AI AGENTS & WORKFLOWS
+                  ENTERPRISE DATA & ANALYTICS
                 </span>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={100}>
               <h2 className="text-3xl md:text-[54.4px] font-light tracking-tight leading-tight text-text-title">
-                Data Transformation
+                Data Modernization
               </h2>
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
               <p className="text-[16px] text-text-muted leading-relaxed max-w-2xl font-light">
-                We turn complex data and enterprise databases into streamlined, automated AI workflows. By choosing us, you deploy elite autonomous AI agents and cognitive technologies that maximize operational efficiency, improve ROI, and secure your competitive edge.
+                We convert legacy databases and fragmented datasets into unified, high-performance data platforms. Unlock real-time insights, guarantee data integrity, and build a scalable foundation for advanced business intelligence and machine learning.
               </p>
             </ScrollReveal>
           </div>
@@ -138,7 +138,7 @@ export default function CapabilitiesBento() {
               <span className="text-brand-blue animate-spin-slow text-2xl md:text-3xl select-none leading-none">✸</span>
             </h2>
             <p className="text-[16px] text-slate-800 dark:text-zinc-300 font-light font-serif italic max-w-2xl leading-relaxed text-center pt-2">
-              &ldquo;We help businesses grow and scale with custom autonomous AI agents, automated workflow routing, and smart AI solutions designed specifically for your needs.&rdquo;
+              &ldquo;We help businesses modernize, scale, and secure their digital environments with certified experts, compliance-driven frameworks, and dedicated SLA support.&rdquo;
             </p>
           </ScrollReveal>
 

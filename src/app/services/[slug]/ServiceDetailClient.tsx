@@ -901,13 +901,7 @@ function ServiceCanvas({ slug }: { slug: string }) {
     };
   }, [slug]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="w-full h-full block bg-transparent"
-      style={{ minHeight: "220px" }}
-    />
-  );
+  return null;
 }
 
 const TESTIMONIALS_LIST = [
@@ -1329,24 +1323,30 @@ const SERVICES_DATA: Record<string, {
         desc: "Ensure business continuity through proactive management, continuous optimization, and expert-led support that keeps innovation moving forward."
       }
     ],
-    solutionsTitle: "A.I.M. Methodology for Enterprise Transformation",
+    solutionsTitle: "C.O.R.E. METHODOLOGY FOR ENTERPRISE IT TRANSFORMATION",
     solutions: [
       {
-        title: "Advise",
-        desc: "Strategic planning for IT assets, licensing, and solutions to align with business goals.",
-        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>A</span>,
+        title: "Consult",
+        desc: "Strategic planning for IT architecture, licensing, and security to align with business goals.",
+        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>C</span>,
         items: []
       },
       {
-        title: "Implement",
-        desc: "Seamless design, deployment, and adoption for empowered end-users.",
-        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>I</span>,
+        title: "Orchestrate",
+        desc: "Seamless design, deployment, and integration of complex enterprise IT systems and workflows.",
+        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>O</span>,
         items: []
       },
       {
-        title: "Manage",
-        desc: "Ongoing support for platforms, users, and devices to ensure consistent performance.",
-        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>M</span>,
+        title: "Realize",
+        desc: "Delivering measurable value, optimized operations, and empowered end-users through reliable technology.",
+        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>R</span>,
+        items: []
+      },
+      {
+        title: "Expand",
+        desc: "Ongoing support, scaling, and continuous evolution of platforms to ensure consistent performance.",
+        icon: ({ className }: { className?: string }) => <span className={`font-mono text-xl font-bold ${className}`}>E</span>,
         items: []
       }
     ],
@@ -1508,9 +1508,6 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                     sizes="(max-w-768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute inset-0 z-10 pointer-events-auto">
-                    <ServiceCanvas slug={slug} />
-                  </div>
                 </div>
               </ScrollReveal>
             </div>
@@ -1524,7 +1521,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
               </h2>
             </ScrollReveal>
 
-            <div className="grid gap-8 md:gap-12 grid-cols-1 md:grid-cols-3 text-left items-stretch">
+            <div className={`grid gap-8 md:gap-12 grid-cols-1 ${activeService.solutions.length === 4 ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"} text-left items-stretch`}>
               {activeService.solutions.map((sol, index) => {
                 const Icon = sol.icon;
                 const isAIM = slug === "enterprise-services";
@@ -1539,7 +1536,11 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                           <div className="absolute left-8 bottom-4 w-32 h-32 rounded-full bg-gradient-to-tr from-accent-purple/15 via-indigo-500/5 to-transparent blur-2xl group-hover:scale-125 transition-transform duration-700 pointer-events-none" />
 
                           {/* Huge Letter with modern multi-color gradient */}
-                          <div className="text-[9.5rem] sm:text-[11.5rem] md:text-[13rem] font-extralight leading-none bg-gradient-to-br from-indigo-500 via-accent-purple to-pink-500 bg-clip-text text-transparent tracking-tighter transition-all duration-500 group-hover:scale-[1.03] group-hover:-translate-y-1.5 font-sans drop-shadow-[0_8px_24px_rgba(168,85,247,0.12)]">
+                          <div className={`font-extralight leading-none bg-gradient-to-br from-indigo-500 via-accent-purple to-pink-500 bg-clip-text text-transparent tracking-tighter transition-all duration-500 group-hover:scale-[1.03] group-hover:-translate-y-1.5 font-sans drop-shadow-[0_8px_24px_rgba(168,85,247,0.12)] ${
+                            activeService.solutions.length === 4 
+                              ? "text-[11rem] sm:text-[13rem] md:text-[12rem] lg:text-[14rem] xl:text-[16rem]" 
+                              : "text-[12rem] sm:text-[14rem] md:text-[15.5rem] lg:text-[17.5rem] xl:text-[19.5rem]"
+                          }`}>
                             {sol.title.charAt(0)}
                           </div>
                         </div>

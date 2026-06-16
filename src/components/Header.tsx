@@ -129,122 +129,122 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b border-card-border/45 ${
+      className={`fixed z-40 transition-all duration-500 ${
         isMobileMenuOpen
-          ? "bg-background py-4"
+          ? "top-0 left-0 right-0 w-full bg-background border-b border-card-border py-4 px-6"
           : isScrolled
-            ? "bg-panel-bg/75 backdrop-blur-md py-4"
-            : "bg-background/25 backdrop-blur-sm py-6"
+            ? "top-0 left-0 right-0 w-full bg-panel-bg/80 backdrop-blur-md border-b border-card-border/45 py-4 px-6 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:w-[92%] lg:max-w-6xl lg:rounded-full lg:border lg:shadow-[0_15px_35px_rgba(0,0,0,0.08)]"
+            : "top-0 left-0 right-0 w-full bg-background/25 backdrop-blur-sm border-b border-card-border/45 py-6 px-6 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:w-[92%] lg:max-w-6xl lg:rounded-full lg:border lg:shadow-[0_8px_20px_rgba(0,0,0,0.02)]"
       }`}
     >
-      <div className="w-full px-6 lg:px-12 flex items-center justify-between">
+      <div className="w-full flex items-center justify-between px-2 lg:px-4">
         {/* Futuristic Official Logo */}
         <Link href="/">
           <S3BLogoFull />
         </Link>
-
-        {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center space-x-10 text-[16px] font-semibold text-text-muted">
-          <Link
-            href="/"
-            className="relative py-1 transition-colors hover:text-text-title group"
-          >
-            Home
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link
-            href="/about"
-            className="relative py-1 transition-colors hover:text-text-title group"
-          >
-            About us
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </Link>
-
-          {/* Services Nav with Hover & Click Dropdown */}
-          <div
-            className="relative group py-1 services-dropdown-container"
-            onMouseEnter={() => {
-              if (!isTouchDevice) setIsServicesOpen(true);
-            }}
-            onMouseLeave={() => {
-              if (!isTouchDevice) setIsServicesOpen(false);
-            }}
-          >
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                if (isTouchDevice) {
-                  setIsServicesOpen(prev => !prev);
-                } else {
-                  setIsServicesOpen(true);
-                }
-              }}
-              className="flex items-center space-x-1 py-1 transition-colors hover:text-text-title cursor-pointer text-[16px] font-semibold text-text-muted select-none"
+ 
+        {/* Right side: Nav Links + Theme Toggle */}
+        <div className="hidden lg:flex items-center space-x-8">
+          {/* Desktop Navigation Links */}
+          <nav className="flex items-center space-x-10 text-[16px] font-semibold text-text-muted">
+            <Link
+              href="/"
+              className="relative py-1 transition-colors hover:text-text-title group"
             >
-              <span>Services</span>
-              <ChevronDown className={`h-4.5 w-4.5 transition-transform duration-300 ${isServicesOpen ? "rotate-180" : ""}`} />
-            </button>
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+              Home
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+            </Link>
+            <Link
+              href="/about"
+              className="relative py-1 transition-colors hover:text-text-title group"
+            >
+              About us
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+            </Link>
 
-            {/* Elegant Mega Menu Dropdown Panel */}
+            {/* Services Nav with Hover & Click Dropdown */}
             <div
-              className={`absolute top-full -left-32 pt-2 w-[640px] transition-all duration-300 text-left select-none z-50 ${isServicesOpen
-                  ? "opacity-100 translate-y-0 pointer-events-auto"
-                  : "opacity-0 -translate-y-2 pointer-events-none"
-                }`}
+              className="relative group py-1 services-dropdown-container"
+              onMouseEnter={() => {
+                if (!isTouchDevice) setIsServicesOpen(true);
+              }}
+              onMouseLeave={() => {
+                if (!isTouchDevice) setIsServicesOpen(false);
+              }}
             >
-              <div className="rounded-2xl bg-card-bg border border-card-border p-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] grid grid-cols-2 gap-2">
-                {servicesList.map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <Link
-                      key={idx}
-                      href={item.href}
-                      onClick={() => setIsServicesOpen(false)}
-                      className="group/item flex items-center gap-3 p-2.5 rounded-xl hover:bg-nav-hover-bg transition-all duration-300"
-                    >
-                      {/* Stylized Icon container */}
-                      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-300 group-hover/item:scale-105 ${item.color}`}>
-                        <Icon className="h-5.5 w-5.5" />
-                      </div>
-                      {/* Copy details */}
-                      <div>
-                        <h4 className="text-[16.5px] font-bold text-text-title group-hover/item:text-[#1d70b8] transition-colors leading-tight">
-                          {item.title}
-                        </h4>
-                      </div>
-                    </Link>
-                  );
-                })}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (isTouchDevice) {
+                    setIsServicesOpen(prev => !prev);
+                  } else {
+                    setIsServicesOpen(true);
+                  }
+                }}
+                className="flex items-center space-x-1 py-1 transition-colors hover:text-text-title cursor-pointer text-[16px] font-semibold text-text-muted select-none"
+              >
+                <span>Services</span>
+                <ChevronDown className={`h-4.5 w-4.5 transition-transform duration-300 ${isServicesOpen ? "rotate-180" : ""}`} />
+              </button>
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+
+              {/* Elegant Mega Menu Dropdown Panel */}
+              <div
+                className={`absolute top-full -left-32 pt-2 w-[640px] transition-all duration-300 text-left select-none z-50 ${isServicesOpen
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 -translate-y-2 pointer-events-none"
+                  }`}
+              >
+                <div className="rounded-2xl bg-card-bg border border-card-border p-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] grid grid-cols-2 gap-2">
+                  {servicesList.map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={idx}
+                        href={item.href}
+                        onClick={() => setIsServicesOpen(false)}
+                        className="group/item flex items-center gap-3 p-2.5 rounded-xl hover:bg-nav-hover-bg transition-all duration-300"
+                      >
+                        {/* Stylized Icon container */}
+                        <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-300 group-hover/item:scale-105 ${item.color}`}>
+                          <Icon className="h-5.5 w-5.5" />
+                        </div>
+                        {/* Copy details */}
+                        <div>
+                          <h4 className="text-[16.5px] font-bold text-text-title group-hover/item:text-[#1d70b8] transition-colors leading-tight">
+                            {item.title}
+                          </h4>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
 
-          <Link
-            href="/blog"
-            className="relative py-1 transition-colors hover:text-text-title group"
-          >
-            Blog
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link
-            href="/careers"
-            className="relative py-1 transition-colors hover:text-text-title group"
-          >
-            Careers
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link
-            href="/contact"
-            className="relative py-1 transition-colors hover:text-text-title group"
-          >
-            Contact us
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
-          </Link>
-        </nav>
+            <Link
+              href="/blog"
+              className="relative py-1 transition-colors hover:text-text-title group"
+            >
+              Blog
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+            </Link>
+            <Link
+              href="/careers"
+              className="relative py-1 transition-colors hover:text-text-title group"
+            >
+              Careers
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+            </Link>
+            <Link
+              href="/contact"
+              className="relative py-1 transition-colors hover:text-text-title group"
+            >
+              Contact us
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+            </Link>
+          </nav>
 
-        {/* Controls & CTA */}
-        <div className="hidden lg:flex items-center space-x-6">
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
@@ -257,19 +257,6 @@ export default function Header() {
             )}
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           </button>
-
-          {/* Book Consultation Button */}
-          <Link
-            href="/contact"
-            className="relative inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden"
-          >
-            <span className="relative z-10 flex items-center space-x-2">
-              <span>BOOK FREE CONSULTATION</span>
-              <ArrowRight className="h-4.5 w-4.5 group-hover:translate-x-1 transition-transform" />
-            </span>
-            {/* Hover Background Gradient Fill */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
-          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -358,18 +345,6 @@ export default function Header() {
               className="hover:text-text-title transition-colors text-left"
             >
               Contact us
-            </Link>
-            <Link
-              href="/contact"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="relative inline-flex items-center justify-center w-full px-5 py-3 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden text-center"
-            >
-              <span className="relative z-10 flex items-center space-x-2">
-                <span>BOOK FREE CONSULTATION</span>
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </span>
-              {/* Hover Background Gradient Fill */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#1d70b8] to-[#125492] dark:from-cyan-400 dark:to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
             </Link>
           </nav>
         </div>
