@@ -29,12 +29,12 @@ export default function Footer() {
               <S3BLogoFull />
             </Link>
 
-            <span className="text-[15px] text-text-muted leading-relaxed max-w-xs font-normal block">
+            <span className="text-[15px] text-black dark:text-zinc-300 leading-relaxed max-w-xs font-normal block">
               Accelerate your digital future with S3B Global&apos;s Cloud, AI & Integration expertise.
             </span>
 
             <div className="space-y-2 pt-2 flex flex-col items-center md:items-start">
-              <span className="text-[11px] font-mono font-bold tracking-widest text-brand-blue uppercase block">Follow us</span>
+              <span className="text-[11px] font-bold tracking-widest text-brand-blue uppercase block">Follow us</span>
               <div className="flex items-center justify-center md:justify-start space-x-2">
                 <a
                   href="https://www.linkedin.com/company/s3b-global/mycompany/"
@@ -50,10 +50,10 @@ export default function Footer() {
 
           {/* Column 2: Quick Links (lg:col-span-2) */}
           <div className="lg:col-span-2 space-y-5 text-center md:text-left flex flex-col items-center md:items-start">
-            <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
+            <h4 className="text-[16px] font-bold uppercase tracking-widest text-brand-blue">
               Quick Links
             </h4>
-            <ul className="space-y-3.5 text-[15px] text-text-muted font-normal">
+            <ul className="space-y-3.5 text-[15px] text-black dark:text-zinc-300 font-normal">
               <li>
                 <Link href="/" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Home</Link>
               </li>
@@ -74,10 +74,10 @@ export default function Footer() {
 
           {/* Column 3: SERVICES (lg:col-span-3) */}
           <div className="lg:col-span-3 space-y-5 text-center md:text-left flex flex-col items-center md:items-start">
-            <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
+            <h4 className="text-[16px] font-bold uppercase tracking-widest text-brand-blue">
               SERVICES
             </h4>
-            <ul className="space-y-3.5 text-[15px] text-text-muted font-normal">
+            <ul className="space-y-3.5 text-[15px] text-black dark:text-zinc-300 font-normal">
               <li>
                 <Link href="/services/ai-transformation" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">AI Transformation</Link>
               </li>
@@ -99,18 +99,18 @@ export default function Footer() {
           {/* Column 4: ADDRESS & CONTACT (lg:col-span-3) */}
           <div className="lg:col-span-3 space-y-6 text-center md:text-left flex flex-col items-center md:items-start">
             <div className="space-y-3 flex flex-col items-center md:items-start">
-              <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
+              <h4 className="text-[16px] font-bold uppercase tracking-widest text-brand-blue">
                 ADDRESS
               </h4>
-              <div className="space-y-4 text-[15px] text-text-muted font-normal text-center md:text-left flex flex-col items-center md:items-start">
+              <div className="space-y-4 text-[15px] text-black dark:text-zinc-300 font-normal text-center md:text-left flex flex-col items-center md:items-start">
                 <div className="space-y-0.5">
-                  <span className="text-[15px] font-mono tracking-wider text-black dark:text-white uppercase block">US Office</span>
+                  <span className="text-[15px] tracking-wider text-black dark:text-white uppercase block">US Office</span>
                   <span className="leading-relaxed max-w-xs block text-black dark:text-zinc-300">
                     8000 Avalon Boulevard Suites 100 and 200, Alpharetta, GA 30009, United States
                   </span>
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[15px] font-mono tracking-wider text-black dark:text-white uppercase block">India Office</span>
+                  <span className="text-[15px] tracking-wider text-black dark:text-white uppercase block">India Office</span>
                   <span className="leading-relaxed max-w-xs block text-black dark:text-zinc-300">
                     Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309
                   </span>
@@ -119,10 +119,10 @@ export default function Footer() {
             </div>
 
             <div className="space-y-3 pt-2 flex flex-col items-center md:items-start">
-              <h4 className="text-[16px] font-mono font-bold uppercase tracking-widest text-brand-blue">
+              <h4 className="text-[16px] font-bold uppercase tracking-widest text-brand-blue">
                 CONTACT
               </h4>
-              <div className="flex items-center justify-center md:justify-start space-x-2.5 text-[15px] text-text-muted font-normal font-sans">
+              <div className="flex items-center justify-center md:justify-start space-x-2.5 text-[15px] text-black dark:text-zinc-300 font-normal">
                 <Mail className="h-4.5 w-4.5 text-brand-blue shrink-0" />
                 <a href="mailto:info@s3bglobal.com" className="hover:text-brand-blue transition-colors break-all">
                   info@s3bglobal.com
@@ -136,10 +136,10 @@ export default function Footer() {
         {/* Footer bottom bar */}
         <div className="!mt-12 pt-6 border-t border-card-border flex flex-col md:flex-row items-center justify-start select-none">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-foreground/[0.03] border border-foreground/10 flex items-center justify-center text-xs font-mono font-black text-foreground shadow-sm shrink-0">
+            <div className="h-10 w-10 rounded-full bg-foreground/[0.03] border border-foreground/10 flex items-center justify-center text-xs font-black text-foreground shadow-sm shrink-0">
               S3B
             </div>
-            <span className="text-[13px] font-mono font-normal uppercase tracking-wider text-text-muted">
+            <span className="text-[13px] font-normal uppercase tracking-wider text-black dark:text-zinc-300">
               © 2026.S3B GLOBAL
             </span>
           </div>
