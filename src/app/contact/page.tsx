@@ -213,13 +213,13 @@ export default function ContactPage() {
                   <div className="space-y-3 text-xs font-semibold">
                     <div className="space-y-1">
                       <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">US Office Address:</span>
-                      <span className="leading-relaxed text-text-muted block">
+                      <span className="leading-relaxed text-black dark:text-zinc-300 block">
                         8000 Avalon Boulevard Suites 100 and 200, Alpharetta, GA 30009, United States
                       </span>
                     </div>
                     <div className="space-y-1">
                       <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">India Office Address:</span>
-                      <span className="leading-relaxed text-text-muted block">
+                      <span className="leading-relaxed text-black dark:text-zinc-300 block">
                         Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309
                       </span>
                     </div>
