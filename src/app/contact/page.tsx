@@ -571,45 +571,6 @@ export default function ContactPage() {
 
         </div>
 
-        {/* Section 5: Sleek Bottom CTA Section (GET IN TOUCH) */}
-        <div className="max-w-5xl mx-auto px-6 py-20 relative z-10">
-          <ScrollReveal className="always-dark rounded-[2.5rem] border border-white/[0.08] bg-gradient-to-br from-[#020813] via-[#0a1530] to-[#020813] text-white p-12 md:p-16 max-w-4xl mx-auto relative overflow-hidden shadow-[0_25px_60px_-15px_rgba(3,10,25,0.9)] text-center space-y-8 transition-transform duration-500 hover:scale-[1.01] group">
-            {/* Corner ambient glows */}
-            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(34,211,238,0.12)_0%,transparent_70%)] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(168,85,247,0.1)_0%,transparent_70%)] pointer-events-none" />
-            
-            <div className="space-y-4 max-w-2xl mx-auto relative z-10">
-              <h2 className="text-4xl md:text-5xl lg:text-[52px] font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent uppercase drop-shadow-sm font-sans">
-                GET IN TOUCH
-              </h2>
-              <p className="text-base md:text-lg text-zinc-300 leading-relaxed font-light max-w-md mx-auto">
-                Let&apos;s talk about your upcoming initiatives and how we can help.
-              </p>
-            </div>
-            
-            <div className="pt-2 relative z-10">
-              <button
-                onClick={() => {
-                  document.getElementById("contact-form-card")?.scrollIntoView({ behavior: "smooth" });
-                  setTimeout(() => {
-                    document.getElementById("first-name-input")?.focus();
-                  }, 500);
-                }}
-                className="relative inline-flex items-center justify-center px-10 py-4.5 rounded-full text-xs font-bold text-white border border-white/15 bg-white/5 backdrop-blur-md hover:border-cyan-400/80 shadow-[0_0_20px_rgba(255,255,255,0.03)] hover:shadow-[0_0_30px_rgba(34,211,238,0.22)] transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer uppercase tracking-[0.2em] font-sans"
-              >
-                <span className="relative z-10 flex items-center space-x-2">
-                  <span className="relative flex h-1.5 w-1.5 mr-1">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400"></span>
-                  </span>
-                  <span>GET IN TOUCH</span>
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform text-cyan-400" />
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/15 via-blue-600/15 to-purple-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-              </button>
-            </div>
-          </ScrollReveal>
-        </div>
 
       </main>
 

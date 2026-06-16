@@ -104,13 +104,13 @@ export default function Footer() {
               </h4>
               <div className="space-y-4 text-[15px] text-text-muted font-semibold text-center md:text-left flex flex-col items-center md:items-start">
                 <div className="space-y-0.5">
-                  <span className="text-[15px] font-mono font-bold tracking-wider text-brand-black uppercase block">US Office</span>
+                  <span className="text-[15px] font-mono font-bold tracking-wider text-black dark:text-white uppercase block">US Office</span>
                   <span className="leading-relaxed max-w-xs block text-black dark:text-zinc-300">
                     8000 Avalon Boulevard Suites 100 and 200, Alpharetta, GA 30009, United States
                   </span>
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[15px] font-mono font-bold tracking-wider text-brand-black uppercase block">India Office</span>
+                  <span className="text-[15px] font-mono font-bold tracking-wider text-black dark:text-white uppercase block">India Office</span>
                   <span className="leading-relaxed max-w-xs block text-black dark:text-zinc-300">
                     Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309
                   </span>
