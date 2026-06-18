@@ -533,7 +533,7 @@ export default function CareersPage() {
     setIsSubmitting(false);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !email.trim() || (!resumeUrl.trim() && !uploadedFile)) {
       setFormError("All marked fields (*) are required. Please upload a resume or provide a link.");
@@ -551,7 +551,40 @@ export default function CareersPage() {
     }
 
     setFormError("");
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("formType", "careers");
+      formData.append("jobTitle", selectedJobForModal?.title || "Unknown Job");
+      formData.append("fullName", fullName);
+      formData.append("email", email);
+      
+      if (uploadedFile) {
+        formData.append("resumeFile", uploadedFile);
+      } else {
+        formData.append("resumeUrl", resumeUrl);
+      }
+      
+      formData.append("notes", notes);
+
+      const response = await fetch("/api/submit-form/", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setIsSubmitted(true);
+      } else {
+        setFormError(result.error || "Failed to submit application. Please try again.");
+      }
+    } catch (err) {
+      console.error("Careers form submit error:", err);
+      setFormError("Connection error. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

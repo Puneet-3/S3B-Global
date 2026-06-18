@@ -32,6 +32,10 @@ export async function fetchWithRetry(url: string, options: RequestInit = {}, ret
 
 
 export async function getWordPressPosts(): Promise<BlogPost[]> {
+    // WordPress API temporarily bypassed for the first push/deployment (using static fallback)
+    return BLOG_POSTS;
+
+    /*
     try {
         const res = await fetchWithRetry(
             "https://s3bglobal.com/wp-json/wp/v2/posts?per_page=100&orderby=date&order=desc",
@@ -133,9 +137,18 @@ export async function getWordPressPosts(): Promise<BlogPost[]> {
         console.warn("Falling back to local BLOG_POSTS.");
         return BLOG_POSTS;
     }
+    */
 }
 
 export async function getWordPressPostBySlug(slug: string): Promise<BlogPost | null> {
+    // WordPress API temporarily bypassed for the first push/deployment (using static fallback)
+    const matchedStaticPost = BLOG_POSTS.find(p => {
+        const postSlug = p.slug || p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+        return postSlug === slug;
+    });
+    return matchedStaticPost || null;
+
+    /*
     try {
         const res = await fetchWithRetry(
             `https://s3bglobal.com/wp-json/wp/v2/posts?slug=${slug}`,
@@ -239,4 +252,5 @@ export async function getWordPressPostBySlug(slug: string): Promise<BlogPost | n
         });
         return matchedStaticPost || null;
     }
+    */
 }

@@ -1384,7 +1384,6 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
   const [error, setError] = useState("");
 
   // Testimonials Slider State & Handlers
@@ -1408,7 +1407,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) {
       setError("Please specify an email address.");
@@ -1420,26 +1419,33 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
     }
     setError("");
     setIsSubmitting(true);
-    setLogs([`[17:32:28] POST /api/v1/inquire?service=${slug} HTTP/1.1`]);
 
-    const traceLogs = [
-      `[info] Hostname: secure.s3b-global.com`,
-      `[crypt] Activating TLS 1.3 cryptographic handshake protocol...`,
-      `[crypt] AES-256-GCM package keyspace successfully established.`,
-      `[cloud] Syncing client data intake record: ${email}`,
-      `[database] Inserting secure transaction row in AWS US-East primary shards...`,
-      `[success] 201 Created. Handshake complete! SLA notification dispatched to engineers.`
-    ];
-
-    traceLogs.forEach((log, idx) => {
-      setTimeout(() => {
-        setLogs(prev => [...prev, log]);
-        if (idx === traceLogs.length - 1) {
-          setIsSubmitting(false);
-          setIsSubmitted(true);
-        }
-      }, (idx + 1) * 750);
-    });
+    try {
+      const response = await fetch("/api/submit-form/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formType: "service_inquiry",
+          data: {
+            email,
+            service: activeService.title || slug,
+          },
+        }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setIsSubmitted(true);
+      } else {
+        setError(result.error || "Failed to submit inquiry.");
+      }
+    } catch (err) {
+      console.error("Service form submission error:", err);
+      setError("Connection error. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -1814,14 +1820,12 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                     </p>
                   </div>
                 ) : isSubmitting ? (
-                  /* High-fidelity Inline Terminal Logging Panel */
-                  <div className="w-full rounded-xl border border-card-border bg-black/90 p-4 font-mono text-[9px] text-[#10b981] text-left space-y-1 shadow-inner h-[110px] overflow-y-auto select-none">
-                    {logs.map((log, idx) => (
-                      <div key={idx} className="leading-relaxed animate-fade-in">
-                        {log}
-                      </div>
-                    ))}
-                    <div className="w-1.5 h-3.5 bg-[#10b981] inline-block animate-pulse" />
+                  /* Premium loading spinner */
+                  <div className="py-6 flex flex-col items-center justify-center text-center space-y-4 animate-fade-in select-none">
+                    <div className="inline-block w-8 h-8 border-4 border-[#1d70b8]/30 border-t-[#1d70b8] dark:border-cyan-400/30 dark:border-t-cyan-400 rounded-full animate-spin" />
+                    <p className="text-text-muted font-mono text-xs uppercase tracking-wider animate-pulse">
+                      Submitting inquiry...
+                    </p>
                   </div>
                 ) : (
                   /* Inline Email Input Form */

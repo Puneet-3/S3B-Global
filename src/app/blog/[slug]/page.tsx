@@ -9,47 +9,28 @@ interface PageProps {
 
 export const dynamic = "force-dynamic";
 
-// 2. Generate Metadata — pulls Yoast SEO data directly from WordPress
+// 2. Generate Metadata — uses the mocked WordPress post loader (which uses static local posts)
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
 
   try {
-    const res = await fetchWithRetry(
-      `https://s3bglobal.com/wp-json/wp/v2/posts?slug=${slug}&_fields=title,excerpt,yoast_head_json`,
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        },
-        next: { revalidate: 3600 }
-      }
-    );
-
-    if (!res.ok) throw new Error();
-    const posts = await res.json();
-    if (!posts.length) throw new Error();
-
-    const post = posts[0];
-    const yoast = post.yoast_head_json;
+    const post = await getWordPressPostBySlug(slug);
+    if (!post) throw new Error();
 
     return {
-      title: yoast?.title || `${post.title?.rendered} - S3B Global`,
-      description: yoast?.description || post.excerpt?.rendered?.replace(/<[^>]*>/g, ""),
+      title: `${post.title} - S3B Global`,
+      description: post.excerpt,
       openGraph: {
-        title: yoast?.og_title || post.title?.rendered,
-        description: yoast?.og_description || "",
-        images: yoast?.og_image?.[0]?.url
-          ? [{ url: yoast.og_image[0].url }]
-          : [],
+        title: post.title,
+        description: post.excerpt,
+        images: post.image ? [{ url: post.image }] : [],
         type: "article",
-        publishedTime: yoast?.article_published_time,
       },
       twitter: {
         card: "summary_large_image",
-        title: yoast?.og_title || post.title?.rendered,
-        description: yoast?.og_description || "",
-        images: yoast?.og_image?.[0]?.url
-          ? [yoast.og_image[0].url]
-          : [],
+        title: post.title,
+        description: post.excerpt,
+        images: post.image ? [post.image] : [],
       }
     };
   } catch {

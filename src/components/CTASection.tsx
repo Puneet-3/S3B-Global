@@ -6,16 +6,44 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 export default function CTASection() {
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setEmail("");
-      setIsSubmitted(false);
-    }, 3000);
+    
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("/api/submit-form/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formType: "newsletter",
+          data: {
+            email,
+          },
+        }),
+      });
+      
+      const result = await response.json();
+      if (result.success) {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setEmail("");
+          setIsSubmitted(false);
+        }, 3000);
+      } else {
+        alert(result.error || "Failed to subscribe. Please try again.");
+      }
+    } catch (err) {
+      console.error("Newsletter submission error:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -65,18 +93,18 @@ export default function CTASection() {
                       placeholder="* Enter your work email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      disabled={isSubmitted}
+                      disabled={isSubmitted || isSubmitting}
                       className="w-full px-6 py-4 rounded-full border border-slate-200 bg-slate-100/90 text-sm font-normal text-text-title placeholder-text-muted/75 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all disabled:opacity-50"
                     />
                   </div>
                   <button
                     type="submit"
-                    disabled={isSubmitted}
+                    disabled={isSubmitted || isSubmitting}
                     className="relative inline-flex items-center justify-center w-full px-8 py-4 rounded-full text-sm font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer disabled:opacity-50"
                   >
                     <span className="relative z-10 flex items-center justify-center space-x-2">
-                      <span>{isSubmitted ? "APPLYING..." : "APPLY NOW"}</span>
-                      {!isSubmitted && (
+                      <span>{isSubmitted ? "APPLIED!" : isSubmitting ? "APPLYING..." : "APPLY NOW"}</span>
+                      {!isSubmitted && !isSubmitting && (
                         <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       )}
                     </span>

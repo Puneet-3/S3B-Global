@@ -112,7 +112,7 @@ export default function Footer() {
                 <div className="space-y-0.5">
                   <span className="text-[15px] tracking-wider text-black dark:text-white uppercase block">India Office</span>
                   <span className="leading-relaxed max-w-xs block text-black dark:text-zinc-300">
-                    Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309
+                    B, 36, Sector 67 Rd, Block B, Sector 67, Noida, Uttar Pradesh 201301
                   </span>
                 </div>
               </div>

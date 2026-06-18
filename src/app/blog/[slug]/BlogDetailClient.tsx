@@ -144,7 +144,8 @@ export default function BlogDetailClient({ slug, initialPost }: BlogDetailClient
       try {
         const blogSlug = slug || "";
 
-        // 1. Fetch from S3B Global WordPress API by slug
+        // Client-side WordPress fetch bypassed for the first push/deployment
+        /*
         const res = await fetch(`https://s3bglobal.com/wp-json/wp/v2/posts?slug=${blogSlug}`);
         if (res.ok) {
           const wpPosts = await res.json();
@@ -214,6 +215,7 @@ export default function BlogDetailClient({ slug, initialPost }: BlogDetailClient
             return;
           }
         }
+        */
 
         // 2. Fallback: Search static BLOG_POSTS locally by generating slug dynamically
         const matchedStaticPost = BLOG_POSTS.find(p => {

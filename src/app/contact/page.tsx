@@ -128,7 +128,7 @@ const OFFICE_LOCATIONS: OfficeLocation[] = [
   {
     id: "noida",
     label: "NOIDA, UTTAR PRADESH, IN",
-    address: "Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309",
+    address: "B, 36, Sector 67 Rd, Block B, Sector 67, Noida, Uttar Pradesh 201301",
     mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.046337583624!2d77.36531987549887!3d28.628574175666757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cf1a774902165%3A0x6b49048a1b321873!2siThum!5e0!3m2!1sen!2sin!4v1718530000000!5m2!1sen!2sin"
   }
 ];
@@ -148,11 +148,11 @@ export default function ContactPage() {
   const [comments, setComments] = useState("");
 
   // Submit states
-  const [isSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!firstName.trim() || !lastName.trim() || !email.trim() || !comments.trim()) {
       setFormError("All marked fields (*) are required.");
@@ -164,7 +164,38 @@ export default function ContactPage() {
     }
 
     setFormError("");
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/submit-form/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formType: "contact",
+          data: {
+            firstName,
+            lastName,
+            email,
+            telephone,
+            comments,
+          },
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setIsSubmitted(true);
+      } else {
+        setFormError(result.error || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      console.error("Form submit error:", err);
+      setFormError("Connection error. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -220,7 +251,7 @@ export default function ContactPage() {
                     <div className="space-y-1">
                       <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">India Office Address:</span>
                       <span className="leading-relaxed text-black dark:text-zinc-300 block">
-                        Plot No. 40, Sector 62 Road, Noida, Uttar Pradesh 201309
+                        B, 36, Sector 67 Rd, Block B, Sector 67, Noida, Uttar Pradesh 201301
                       </span>
                     </div>
                   </div>

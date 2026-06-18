@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   // output: 'export',  ← REMOVED (was blocking server features)
@@ -21,6 +22,13 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
+  experimental: {
+    cpus: 2,
+    workerThreads: false,
   },
 };
 
