@@ -39,8 +39,8 @@ export async function POST(request: Request) {
     const host = process.env.SMTP_HOST || "smtp.gmail.com";
     const port = parseInt(process.env.SMTP_PORT || "465");
     const secure = port === 465;
-    const user = process.env.SMTP_USER || "s3bglobal.dev@gmail.com";
-    const pass = process.env.SMTP_PASS || "ywtgagtgzynhlvrc";
+    const user = process.env.SMTP_USER || "";
+    const pass = process.env.SMTP_PASS || "";
     const contactEmail = process.env.CONTACT_EMAIL || "leadenquiry@s3bglobal.com";
     const fromEmail = process.env.SMTP_FROM || user;
 
