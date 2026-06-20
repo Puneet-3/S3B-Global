@@ -35,13 +35,13 @@ export async function POST(request: Request) {
       data = json.data;
     }
 
-    // Configure Nodemailer transporter using environment variables
+    // Configure Nodemailer transporter using environment variables with hardcoded production fallbacks
     const host = process.env.SMTP_HOST || "smtp.gmail.com";
     const port = parseInt(process.env.SMTP_PORT || "465");
     const secure = port === 465;
-    const user = process.env.SMTP_USER || "";
-    const pass = process.env.SMTP_PASS || "";
-    const contactEmail = process.env.CONTACT_EMAIL || "puneetpanwar144@gmail.com";
+    const user = process.env.SMTP_USER || "s3bglobal.dev@gmail.com";
+    const pass = process.env.SMTP_PASS || "ywtgagtgzynhlvrc";
+    const contactEmail = process.env.CONTACT_EMAIL || "leadenquiry@s3bglobal.com";
     const fromEmail = process.env.SMTP_FROM || user;
 
     // If SMTP credentials aren't configured yet, log the submission and return success (so form works in sandbox/dev)

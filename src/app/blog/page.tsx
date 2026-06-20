@@ -8,8 +8,6 @@ export const metadata: Metadata = {
   description: "Stay informed on current trends in the IT world. Discover our latest software engineering milestones, full-stack development tutorials, digital marketing insights, and AI capabilities.",
 };
 
-export const dynamic = "force-dynamic";
-
 export default async function Page() {
   // Fetch WP blog posts on the server
   const posts = await getWordPressPosts();

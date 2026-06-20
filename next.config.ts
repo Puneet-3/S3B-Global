@@ -2,14 +2,14 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  // output: 'export',  ← REMOVED (was blocking server features)
+  // Deployed on Vercel — no 'output: export' needed (API routes require server)
   trailingSlash: true,
   images: {
     unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "s3bglobal.com",      // ← ADDED for blog images
+        hostname: "s3bglobal.com",
       },
       {
         protocol: "https",

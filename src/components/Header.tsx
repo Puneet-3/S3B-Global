@@ -129,15 +129,15 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed z-40 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 w-full z-40 transition-all duration-500 ${
         isMobileMenuOpen
-          ? "top-0 left-0 right-0 w-full bg-background border-b border-card-border py-4 px-6"
+          ? "bg-background border-b border-card-border py-4 px-6"
           : isScrolled
-            ? "top-0 left-0 right-0 w-full bg-panel-bg/80 backdrop-blur-md border-b border-card-border/45 py-4 px-6 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:w-[92%] lg:max-w-6xl lg:rounded-full lg:border lg:shadow-[0_15px_35px_rgba(0,0,0,0.08)]"
-            : "top-0 left-0 right-0 w-full bg-background/25 backdrop-blur-sm border-b border-card-border/45 py-6 px-6 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:w-[92%] lg:max-w-6xl lg:rounded-full lg:border lg:shadow-[0_8px_20px_rgba(0,0,0,0.02)]"
+            ? "bg-panel-bg/80 backdrop-blur-md border-b border-card-border/45 py-4 px-6 shadow-[0_15px_35px_rgba(0,0,0,0.08)]"
+            : "bg-background/25 backdrop-blur-sm border-b border-card-border/45 py-6 px-6 shadow-[0_8px_20px_rgba(0,0,0,0.02)]"
       }`}
     >
-      <div className="w-full flex items-center justify-between px-2 lg:px-4">
+      <div className="max-w-7xl mx-auto w-full flex items-center justify-between px-2 lg:px-4">
         {/* Futuristic Official Logo */}
         <Link href="/">
           <S3BLogoFull />

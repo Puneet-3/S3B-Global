@@ -12,32 +12,39 @@ export default function CTASection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    
+
     setIsSubmitting(true);
-    
+
     try {
-      const response = await fetch("/api/submit-form/", {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
+
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          formType: "newsletter",
-          data: {
-            email,
+          service_id: serviceId,
+          template_id: templateId,
+          user_id: publicKey,
+          template_params: {
+            subject: `[Newsletter Signup] S3B Global Website`,
+            from_name: "S3B Global Newsletter Form",
+            email: email,
+            message: `New subscription request from: ${email}`,
           },
         }),
       });
-      
-      const result = await response.json();
-      if (result.success) {
+
+      if (response.ok) {
         setIsSubmitted(true);
         setTimeout(() => {
           setEmail("");
           setIsSubmitted(false);
         }, 3000);
       } else {
-        alert(result.error || "Failed to subscribe. Please try again.");
+        const errorText = await response.text();
+        alert(errorText || "Failed to subscribe. Please try again.");
       }
     } catch (err) {
       console.error("Newsletter submission error:", err);

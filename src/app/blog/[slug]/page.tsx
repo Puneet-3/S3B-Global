@@ -2,12 +2,17 @@ import React from "react";
 import { Metadata } from "next";
 import BlogDetailClient from "./BlogDetailClient";
 import { getWordPressPostBySlug, fetchWithRetry } from "../lib/getPosts";
+import { BLOG_POSTS } from "../postsData";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return BLOG_POSTS.map((post) => ({
+    slug: post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+  }));
+}
 
 // 2. Generate Metadata — uses the mocked WordPress post loader (which uses static local posts)
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

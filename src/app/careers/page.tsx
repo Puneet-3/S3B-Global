@@ -4,21 +4,21 @@ import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import { 
-  Search, 
-  Briefcase, 
-  MapPin, 
-  Activity, 
-  Sparkles, 
-  Cpu, 
-  Database, 
-  Users, 
-  Workflow, 
-  X, 
-  Send, 
-  CheckCircle2, 
-  AlertCircle, 
-  Lock, 
+import {
+  Search,
+  Briefcase,
+  MapPin,
+  Activity,
+  Sparkles,
+  Cpu,
+  Database,
+  Users,
+  Workflow,
+  X,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Lock,
   FileText,
   ArrowRight,
   Upload,
@@ -460,30 +460,30 @@ export default function CareersPage() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDept, setSelectedDept] = useState<string>("All");
-  
+
   // Compute filtered jobs dynamically on render to satisfy react-hooks guidelines
   const filteredJobs = (() => {
     let results = JOBS_DATA;
-    
+
     // 1. Department filter
     if (selectedDept !== "All") {
       results = results.filter(job => job.department === selectedDept);
     }
-    
+
     // 2. Search query filter
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
-      results = results.filter(job => 
+      results = results.filter(job =>
         job.title.toLowerCase().includes(query) ||
         job.skills.some(skill => skill.toLowerCase().includes(query)) ||
         job.experience.toLowerCase().includes(query) ||
         job.location.toLowerCase().includes(query)
       );
     }
-    
+
     return results;
   })();
-  
+
   // Modal states for applying
   const [selectedJobForModal, setSelectedJobForModal] = useState<Job | null>(null);
   const [fullName, setFullName] = useState("");
@@ -493,7 +493,7 @@ export default function CareersPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
-  
+
   // File Upload states & refs
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -554,30 +554,36 @@ export default function CareersPage() {
     setIsSubmitting(true);
 
     try {
-      const formData = new FormData();
-      formData.append("formType", "careers");
-      formData.append("jobTitle", selectedJobForModal?.title || "Unknown Job");
-      formData.append("fullName", fullName);
-      formData.append("email", email);
-      
-      if (uploadedFile) {
-        formData.append("resumeFile", uploadedFile);
-      } else {
-        formData.append("resumeUrl", resumeUrl);
-      }
-      
-      formData.append("notes", notes);
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
 
-      const response = await fetch("/api/submit-form/", {
+      const templateParams: Record<string, string> = {
+        subject: `[Job Application] S3B Global Website - ${selectedJobForModal?.title || "Unknown Job"} from ${fullName}`,
+        from_name: "S3B Global Careers Form",
+        name: fullName,
+        email: email,
+        notes: notes,
+        jobTitle: selectedJobForModal?.title || "Unknown Job",
+        resumeUrl: uploadedFile ? uploadedFile.name : resumeUrl,
+      };
+
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: serviceId,
+          template_id: templateId,
+          user_id: publicKey,
+          template_params: templateParams,
+        }),
       });
 
-      const result = await response.json();
-      if (result.success) {
+      if (response.ok) {
         setIsSubmitted(true);
       } else {
-        setFormError(result.error || "Failed to submit application. Please try again.");
+        const errorText = await response.text();
+        setFormError(errorText || "Failed to submit application. Please try again.");
       }
     } catch (err) {
       console.error("Careers form submit error:", err);
@@ -589,7 +595,7 @@ export default function CareersPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-white transition-colors duration-300">
-      
+
       {/* 1. Global Navigation Header */}
       <Header />
 
@@ -601,7 +607,7 @@ export default function CareersPage() {
         <div className="absolute bottom-0 right-0 w-[350px] h-[350px] rounded-full bg-accent-purple/3 blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
 
         <div className="max-w-7xl mx-auto px-6 space-y-16">
-          
+
           {/* Section 1: Hero Header */}
           <ScrollReveal className="text-center max-w-4xl mx-auto space-y-6">
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-card-bg border border-card-border shadow-sm">
@@ -626,19 +632,19 @@ export default function CareersPage() {
           {/* Section 2: Search & Categorical Department Filters */}
           <ScrollReveal delay={100} className="w-full space-y-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 max-w-5xl mx-auto bg-card-bg/40 border border-card-border p-5 rounded-2xl backdrop-blur-md">
-              
+
               {/* Dynamic search bar */}
               <div className="relative w-full md:max-w-md">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/40" />
-                <input 
-                  type="text" 
-                  placeholder="Search jobs by title, skills, experience..." 
+                <input
+                  type="text"
+                  placeholder="Search jobs by title, skills, experience..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
                 />
                 {searchQuery && (
-                  <button 
+                  <button
                     onClick={() => setSearchQuery("")}
                     className="absolute right-3.5 top-1/2 -translate-y-1/2 text-text-muted/40 hover:text-text-title transition-colors"
                   >
@@ -661,11 +667,10 @@ export default function CareersPage() {
                   <button
                     key={idx}
                     onClick={() => setSelectedDept(dept)}
-                    className={`px-5 py-2.5 rounded-full border text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer select-none ${
-                      isActive 
+                    className={`px-5 py-2.5 rounded-full border text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer select-none ${isActive
                         ? "bg-gradient-to-r from-emerald-400 to-cyan-400 border-transparent text-[#041018] shadow-[0_4px_12px_rgba(34,211,238,0.25)] scale-[1.02]"
                         : "bg-card-bg border-card-border text-text-muted hover:border-card-border-hover hover:bg-card-bg-hover hover:text-text-title"
-                    }`}
+                      }`}
                   >
                     {dept}
                   </button>
@@ -718,7 +723,7 @@ export default function CareersPage() {
                       {/* Skills Tags list */}
                       <div className="flex flex-wrap gap-1.5 pt-1">
                         {job.skills.map((skill, sIdx) => (
-                          <span 
+                          <span
                             key={sIdx}
                             className="text-[14px] font-light text-text-muted/80 bg-slate-100/80 dark:bg-black/20 border border-slate-200 dark:border-card-border px-2 py-0.5 rounded"
                           >
@@ -753,7 +758,7 @@ export default function CareersPage() {
               <p className="text-[14px] text-text-muted max-w-sm mx-auto leading-relaxed font-light">
                 Try searching for other developer technologies or reset your department filters to browse all active careers.
               </p>
-              <button 
+              <button
                 onClick={() => {
                   setSearchQuery("");
                   setSelectedDept("All");
@@ -772,7 +777,7 @@ export default function CareersPage() {
       {selectedJobForModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
           <div className="w-full max-w-lg bg-card-bg border border-card-border rounded-2xl backdrop-blur-md shadow-2xl p-6 md:p-8 space-y-6 text-left relative overflow-hidden animate-scale-up">
-            
+
             {/* Background design blobbing */}
             <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-primary/5 blur-[40px] pointer-events-none -z-10" />
 
@@ -787,7 +792,7 @@ export default function CareersPage() {
                   {selectedJobForModal.title}
                 </h3>
               </div>
-              <button 
+              <button
                 onClick={() => setSelectedJobForModal(null)}
                 className="p-1.5 rounded-full border border-card-border bg-card-bg hover:bg-primary/5 text-text-muted hover:text-primary transition-all cursor-pointer"
               >
@@ -825,8 +830,8 @@ export default function CareersPage() {
               <form onSubmit={handleFormSubmit} className="space-y-4">
                 <div className="space-y-1 text-left">
                   <label className="text-[9px] font-mono font-bold text-text-muted block uppercase select-none">Full Name *</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     placeholder="e.g. John Doe"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
@@ -836,8 +841,8 @@ export default function CareersPage() {
 
                 <div className="space-y-1 text-left">
                   <label className="text-[9px] font-mono font-bold text-text-muted block uppercase select-none">Email Address *</label>
-                  <input 
-                    type="email" 
+                  <input
+                    type="email"
                     placeholder="e.g. hello@s3b-global.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -849,17 +854,17 @@ export default function CareersPage() {
                   <div className="flex items-center justify-between select-none">
                     <label className="text-[9px] font-mono font-bold text-text-muted block uppercase">Resume / CV *</label>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 gap-3">
                     {!uploadedFile ? (
-                      <div 
+                      <div
                         onClick={() => fileInputRef.current?.click()}
                         className="border border-dashed border-card-border hover:border-[#1d70b8]/60 dark:hover:border-cyan-400/60 bg-slate-100/40 dark:bg-black/10 rounded-lg p-3 flex flex-col items-center justify-center gap-1 cursor-pointer transition-all duration-300 group"
                       >
                         <Upload className="h-4.5 w-4.5 text-text-muted/40 group-hover:text-[#1d70b8] dark:group-hover:text-cyan-400 transition-colors" />
                         <span className="text-[10px] font-bold text-text-title">Upload PDF, DOCX (Max 5MB)</span>
                         <span className="text-[8px] text-text-muted/40 font-mono">or click to browse</span>
-                        <input 
+                        <input
                           type="file"
                           ref={fileInputRef}
                           onChange={handleFileChange}
@@ -876,7 +881,7 @@ export default function CareersPage() {
                             <p className="text-[8px] text-text-muted/50 font-mono">{(uploadedFile.size / 1024 / 1024).toFixed(2)} MB</p>
                           </div>
                         </div>
-                        <button 
+                        <button
                           type="button"
                           onClick={handleRemoveFile}
                           className="p-1 rounded-full hover:bg-foreground/5 text-text-muted hover:text-red-400 transition-colors cursor-pointer"
@@ -896,8 +901,8 @@ export default function CareersPage() {
 
                         <div className="relative">
                           <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-text-muted/40" />
-                          <input 
-                            type="text" 
+                          <input
+                            type="text"
                             placeholder="e.g. https://drive.google.com/file/..."
                             value={resumeUrl}
                             onChange={(e) => setResumeUrl(e.target.value)}
@@ -911,7 +916,7 @@ export default function CareersPage() {
 
                 <div className="space-y-1 text-left">
                   <label className="text-[9px] font-mono font-bold text-text-muted block uppercase select-none">Cover Notes</label>
-                  <textarea 
+                  <textarea
                     rows={3}
                     placeholder="Briefly state your primary skill sets or background achievements..."
                     value={notes}
@@ -927,7 +932,7 @@ export default function CareersPage() {
                   </div>
                 )}
 
-                 {/* Secure warning indicators */}
+                {/* Secure warning indicators */}
                 <div className="flex items-center justify-between text-[8px] font-mono font-bold text-text-muted/50 pt-2 uppercase select-none">
                   <span className="flex items-center space-x-1">
                     <Lock className="h-3 w-3 text-text-muted/40 shrink-0" />
@@ -938,14 +943,14 @@ export default function CareersPage() {
 
                 {/* Form Buttons */}
                 <div className="pt-2 flex items-center justify-end space-x-3 select-none">
-                  <button 
+                  <button
                     type="button"
                     onClick={() => setSelectedJobForModal(null)}
                     className="px-4.5 py-2.5 rounded-lg border border-card-border bg-card-bg text-xs font-semibold text-text-muted hover:bg-card-bg-hover hover:text-text-title transition-all cursor-pointer"
                   >
                     Cancel
                   </button>
-                  <button 
+                  <button
                     type="submit"
                     className="relative inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-bold bg-transparent border border-[#1d70b8]/40 dark:border-cyan-400/40 hover:border-[#1d70b8] dark:hover:border-cyan-400 text-[#1d70b8] dark:text-cyan-400 hover:text-white dark:hover:text-[#050505] shadow-[0_0_12px_rgba(29,112,184,0.08)] dark:shadow-[0_0_15px_rgba(34,211,238,0.12)] hover:shadow-lg transition-all duration-300 group hover:-translate-y-0.5 overflow-hidden cursor-pointer"
                   >

@@ -5,12 +5,12 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import { 
-  MapPin, 
-  Mail, 
-  ArrowRight, 
-  CheckCircle2, 
-  AlertCircle, 
+import {
+  MapPin,
+  Mail,
+  ArrowRight,
+  CheckCircle2,
+  AlertCircle,
   Eye,
   Hexagon,
   Zap
@@ -56,10 +56,10 @@ function AnimatedCounter({ value, className }: AnimatedCounterProps) {
         if (!isIntersecting.current) return;
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        
+
         // Easing function: easeOutQuad
         const easedProgress = progress * (2 - progress);
-        
+
         setCount(easedProgress * numericPart);
 
         if (progress < 1) {
@@ -167,28 +167,33 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/submit-form/", {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
+
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          formType: "contact",
-          data: {
-            firstName,
-            lastName,
-            email,
-            telephone,
-            comments,
+          service_id: serviceId,
+          template_id: templateId,
+          user_id: publicKey,
+          template_params: {
+            subject: `[Contact Form] S3B Global Website - from ${firstName} ${lastName}`,
+            from_name: "S3B Global Contact Form",
+            name: `${firstName} ${lastName}`,
+            email: email,
+            telephone: telephone,
+            message: comments,
           },
         }),
       });
 
-      const result = await response.json();
-      if (result.success) {
+      if (response.ok) {
         setIsSubmitted(true);
       } else {
-        setFormError(result.error || "Something went wrong. Please try again.");
+        const errorText = await response.text();
+        setFormError(errorText || "Something went wrong. Please try again.");
       }
     } catch (err) {
       console.error("Form submit error:", err);
@@ -200,13 +205,13 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-white transition-colors duration-300">
-      
+
       {/* 1. Global Navigation Header */}
       <Header />
 
       {/* Main Page Layout */}
       <main className="flex-1 w-full pt-24 md:pt-28 bg-background text-foreground transition-colors duration-300">
-        
+
         {/* Subtle light-blue/purple background glow overlay */}
         <div
           className="absolute inset-0 pointer-events-none select-none"
@@ -218,7 +223,7 @@ export default function ContactPage() {
         {/* Section 1: Unified Hero + Form Grid (Top Section) */}
         <div className="max-w-7xl mx-auto px-6 pt-12 md:pt-16 pb-20 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
-            
+
             {/* Left Column: Headline, copy, and secondary CTA (7 columns) */}
             <ScrollReveal className="lg:col-span-7 text-left space-y-6 lg:pr-8 flex flex-col justify-center items-start">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-card-bg/60 border border-card-border shadow-sm">
@@ -227,11 +232,11 @@ export default function ContactPage() {
                   CONTACT US
                 </span>
               </div>
-              
+
               <h1 className="text-3xl md:text-4xl lg:text-[48px] font-semibold tracking-tight leading-[1.15] text-[#0f294a] dark:text-white">
                 S3B Global helps businesses <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1d70b8] to-cyan-400 dark:from-cyan-400 dark:to-purple-400 font-semibold">automate, scale, and innovate.</span>
               </h1>
-              
+
               <p className="text-[15px] md:text-[16px] text-text-muted leading-relaxed font-light">
                 At the heart of S3B Global is a fusion of extraordinary people, deep expertise, and cutting-edge AI and cloud technologies. We guide clients through the intricacies of their digital journey, ensuring the fastest path to results.
               </p>
@@ -274,7 +279,7 @@ export default function ContactPage() {
             {/* Right Column: Contact Form Panel (5 columns) */}
             <ScrollReveal delay={150} className="lg:col-span-5 bg-card-bg border border-card-border p-8 md:p-10 lg:p-12 rounded-3xl backdrop-blur-md shadow-sm text-left relative overflow-hidden transition-all duration-300 hover:shadow-md flex flex-col justify-center">
               <div id="contact-form-card" className="absolute -top-20" />
-              
+
               {isSubmitted ? (
                 <div className="py-12 flex flex-col items-center justify-center text-center space-y-4 animate-fade-in select-none">
                   <div className="w-14 h-14 rounded-full bg-[#10b981]/15 border border-[#10b981]/40 flex items-center justify-center text-[#10b981] shadow animate-bounce">
@@ -313,9 +318,9 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5">
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-semibold text-text-title block">First Name <span className="text-red-500">*</span></label>
-                      <input 
+                      <input
                         id="first-name-input"
-                        type="text" 
+                        type="text"
                         placeholder="First name here"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
@@ -324,8 +329,8 @@ export default function ContactPage() {
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-semibold text-text-title block">Last Name <span className="text-red-500">*</span></label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         placeholder="Last name here"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
@@ -338,8 +343,8 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5">
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-semibold text-text-title block">Email Address <span className="text-red-500">*</span></label>
-                      <input 
-                        type="email" 
+                      <input
+                        type="email"
                         placeholder="Add email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -348,8 +353,8 @@ export default function ContactPage() {
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-semibold text-text-title block">Telephone</label>
-                      <input 
-                        type="tel" 
+                      <input
+                        type="tel"
                         placeholder="Telephone"
                         value={telephone}
                         onChange={(e) => setTelephone(e.target.value)}
@@ -361,7 +366,7 @@ export default function ContactPage() {
                   {/* Comments Question textarea */}
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-semibold text-text-title block">Comments / Questions <span className="text-red-500">*</span></label>
-                    <textarea 
+                    <textarea
                       rows={6}
                       placeholder="Tell us about your project or business goals"
                       value={comments}
@@ -403,7 +408,7 @@ export default function ContactPage() {
             <div className="text-[10px] font-mono font-medium tracking-[0.25em] text-text-muted/60 text-center uppercase pb-6">
               Our Clients
             </div>
-            
+
             {/* Infinite Marquee Loop */}
             <div className="relative w-full overflow-hidden py-1">
               <div className="flex animate-marquee whitespace-nowrap">
@@ -449,7 +454,7 @@ export default function ContactPage() {
 
         {/* Section 3: Why S3B Global / How We Can Help */}
         <div className="max-w-5xl mx-auto px-6 py-20 space-y-16 relative z-10">
-          
+
           <ScrollReveal className="space-y-12 text-center">
             <div className="space-y-4">
               <div className="inline-flex items-center space-x-2.5 px-4.5 py-2 rounded-full bg-card-bg border border-card-border shadow-sm">
@@ -539,7 +544,7 @@ export default function ContactPage() {
 
         {/* Section 4: Locations */}
         <div className="max-w-5xl mx-auto px-6 py-20 space-y-12 border-t border-card-border/40 relative z-10">
-          
+
           <ScrollReveal className="space-y-4 text-center">
             <div className="inline-flex items-center space-x-2.5 px-4.5 py-2 rounded-full bg-card-bg border border-card-border shadow-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
@@ -562,11 +567,10 @@ export default function ContactPage() {
                   <button
                     key={loc.id}
                     onClick={() => setActiveOffice(loc)}
-                    className={`px-5 py-3 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer select-none flex-1 text-center ${
-                      isActive
+                    className={`px-5 py-3 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer select-none flex-1 text-center ${isActive
                         ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-[#041018] shadow-[0_4px_12px_rgba(34,211,238,0.25)] scale-[1.01]"
                         : "text-text-muted hover:text-text-title hover:bg-card-bg border border-transparent"
-                    }`}
+                      }`}
                   >
                     {loc.label}
                   </button>
@@ -593,7 +597,7 @@ export default function ContactPage() {
                   referrerPolicy="no-referrer-when-downgrade"
                   className="filter contrast-[0.9] saturate-[0.95]"
                 />
-                
+
                 {/* Visual Glassmorphic Border Overlay */}
                 <div className="absolute inset-0 border border-card-border rounded-2xl pointer-events-none" />
               </div>
