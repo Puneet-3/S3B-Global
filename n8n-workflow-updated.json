@@ -1,0 +1,95 @@
+{
+  "name": "S3B Global Contact Form Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contact-form",
+        "responseMode": "onReceived",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [200, 0],
+      "id": "c0741905-14c5-4c2b-a713-3dbf943d45ae",
+      "name": "Webhook",
+      "webhookId": "2ce335f9-49e2-4490-b19d-b484041f3790"
+    },
+    {
+      "parameters": {
+        "fromEmail": "s3bglobal.dev@gmail.com",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "=Thank you {{ $json.body.name }} - S3B Global",
+        "emailType": "html",
+        "html": "=<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 25px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;\">\n  <h2 style=\"color: #1d70b8; margin-top: 0;\">Thank You for Reaching Out!</h2>\n  <p>Hi {{ $json.body.name }},</p>\n  <p>We have received your message and our team is already reviewing it. One of our technology consultants will contact you within the next 12 business hours.</p>\n  <p>For your records, here is a summary of your message:</p>\n  <blockquote style=\"background-color: #f8fafc; border-left: 4px solid #1d70b8; padding: 15px; margin: 20px 0; color: #334155; font-style: italic; border-radius: 4px;\">{{ $json.body.message }}</blockquote>\n  <p>If you have any urgent questions, please feel free to reply to this email directly.</p>\n  <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 25px 0 15px 0;\" />\n  <p style=\"font-size: 13px; color: #475569; font-weight: bold; margin: 0;\">S3B Global Team</p>\n</div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.2,
+      "position": [480, -100],
+      "id": "2fcbc764-ce76-4c99-a164-958d288385ce",
+      "name": "Send Thank You Email",
+      "credentials": {
+        "smtp": {
+          "id": "CONFIGURE_IN_N8N",
+          "name": "Gmail SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "s3bglobal.dev@gmail.com",
+        "toEmail": "leadenquiry@s3bglobal.com",
+        "subject": "=[New Lead] S3B Global Website - {{ $json.body.name }}",
+        "emailType": "html",
+        "html": "=<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 25px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;\">\n  <h2 style=\"color: #1d70b8; border-bottom: 2px solid #1d70b8; padding-bottom: 10px; margin-top: 0;\">New Website Submission</h2>\n  <p style=\"margin: 5px 0;\"><strong>Submission Date:</strong> {{ $now.format('MMMM dd, yyyy HH:mm') }} UTC</p>\n  <hr style=\"border: 0; border-top: 1px dashed #cbd5e1; margin: 20px 0;\" />\n  <table style=\"width: 100%; border-collapse: collapse;\">\n    <tr style=\"border-bottom: 1px solid #f1f5f9;\"><td style=\"padding: 12px 10px; font-weight: bold; color: #475569;\">Name</td><td style=\"padding: 12px 10px; color: #0f172a;\">{{ $json.body.name }}</td></tr>\n    <tr style=\"border-bottom: 1px solid #f1f5f9;\"><td style=\"padding: 12px 10px; font-weight: bold; color: #475569;\">Email</td><td style=\"padding: 12px 10px; color: #0f172a;\">{{ $json.body.email }}</td></tr>\n    <tr style=\"border-bottom: 1px solid #f1f5f9;\"><td style=\"padding: 12px 10px; font-weight: bold; color: #475569;\">Phone</td><td style=\"padding: 12px 10px; color: #0f172a;\">{{ $json.body.phone }}</td></tr>\n    <tr><td style=\"padding: 12px 10px; font-weight: bold; color: #475569; vertical-align: top;\">Message</td><td style=\"padding: 12px 10px; color: #0f172a; white-space: pre-wrap;\">{{ $json.body.message }}</td></tr>\n  </table>\n  <hr style=\"border: 0; border-top: 1px solid #1d70b8; margin: 25px 0 15px 0;\" />\n  <p style=\"font-size: 11px; color: #64748b; text-align: center; margin: 0;\">This email was sent automatically from the S3B Global Website.</p>\n</div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.2,
+      "position": [480, 100],
+      "id": "4851c514-e61b-4daf-a7fd-54b2f9abc4af",
+      "name": "Send Admin Notification",
+      "credentials": {
+        "smtp": {
+          "id": "CONFIGURE_IN_N8N",
+          "name": "Gmail SMTP"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send Thank You Email",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Admin Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "d672688e-4639-4a8d-828b-94dfe9c943d2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "46ef834c39e35b9c581131d2c5efe2185c0e6347b278ec5a1c065ac0ef067676"
+  },
+  "id": "VZPaPSVIAh4H3U3u",
+  "tags": []
+}

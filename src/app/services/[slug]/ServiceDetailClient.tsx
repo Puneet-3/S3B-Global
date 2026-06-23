@@ -1421,23 +1421,18 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
     setIsSubmitting(true);
 
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
+      const n8nWebhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "";
+      if (!n8nWebhookUrl) {
+        throw new Error("Email proxy URL is not configured.");
+      }
 
-      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const response = await fetch(n8nWebhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          template_params: {
-            subject: `[Service Inquiry] S3B Global Website - ${activeService.title || slug}`,
-            from_name: "S3B Global Service Inquiry Form",
-            email: email,
-            message: `Service Inquiry for: ${activeService.title || slug} from: ${email}`,
-          },
+          email: email,
+          name: "Service Inquirer",
+          message: `Service Inquiry for: ${activeService.title || slug} from: ${email}`,
         }),
       });
 
@@ -1449,7 +1444,8 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
       }
     } catch (err) {
       console.error("Service form submission error:", err);
-      setError("Connection error. Please try again later.");
+      const msg = err instanceof Error ? err.message : "Connection error. Please try again later.";
+      setError(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -1550,8 +1546,8 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
 
                           {/* Huge Letter with modern multi-color gradient */}
                           <div className={`font-extralight leading-none bg-gradient-to-br from-indigo-500 via-accent-purple to-pink-500 bg-clip-text text-transparent tracking-tighter transition-all duration-500 group-hover:scale-[1.03] group-hover:-translate-y-1.5 font-sans drop-shadow-[0_8px_24px_rgba(168,85,247,0.12)] ${activeService.solutions.length === 4
-                              ? "text-[11rem] sm:text-[13rem] md:text-[12rem] lg:text-[14rem] xl:text-[16rem]"
-                              : "text-[12rem] sm:text-[14rem] md:text-[15.5rem] lg:text-[17.5rem] xl:text-[19.5rem]"
+                            ? "text-[11rem] sm:text-[13rem] md:text-[12rem] lg:text-[14rem] xl:text-[16rem]"
+                            : "text-[12rem] sm:text-[14rem] md:text-[15.5rem] lg:text-[17.5rem] xl:text-[19.5rem]"
                             }`}>
                             {sol.title.charAt(0)}
                           </div>
@@ -1820,9 +1816,9 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                     <div className="w-10 h-10 rounded-full bg-[#10b981]/15 border border-[#10b981]/40 flex items-center justify-center text-[#10b981] shadow-md">
                       <CheckCircle2 className="h-5 w-5" />
                     </div>
-                    <h3 className="text-sm font-bold text-text-title">Inquiry Safely Routed!</h3>
+                    <h3 className="text-sm font-bold text-text-title">Transformation Starts Here!</h3>
                     <p className="text-[10px] text-text-muted leading-relaxed font-medium">
-                      Our system architect will reach out at **{email}** within 12 business hours.
+                      Our system architect will reach out at <span className="font-bold text-text-title">{email}</span> within 12 business hours.
                     </p>
                   </div>
                 ) : isSubmitting ? (

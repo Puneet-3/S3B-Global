@@ -13,7 +13,8 @@ import {
   AlertCircle,
   Eye,
   Hexagon,
-  Zap
+  Zap,
+  Phone
 } from "lucide-react";
 
 const PARTNERS_LIST = [
@@ -144,7 +145,7 @@ export default function ContactPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [telephone, setTelephone] = useState("");
+  const [phone, setPhone] = useState("");
   const [comments, setComments] = useState("");
 
   // Submit states
@@ -154,7 +155,7 @@ export default function ContactPage() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!firstName.trim() || !lastName.trim() || !email.trim() || !comments.trim()) {
+    if (!firstName.trim() || !lastName.trim() || !email.trim() || !comments.trim() || !phone.trim()) {
       setFormError("All marked fields (*) are required.");
       return;
     }
@@ -167,25 +168,19 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
+      const n8nWebhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "";
+      if (!n8nWebhookUrl) {
+        throw new Error("Email proxy URL is not configured.");
+      }
 
-      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const response = await fetch(n8nWebhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          template_params: {
-            subject: `[Contact Form] S3B Global Website - from ${firstName} ${lastName}`,
-            from_name: "S3B Global Contact Form",
-            name: `${firstName} ${lastName}`,
-            email: email,
-            telephone: telephone,
-            message: comments,
-          },
+          email: email,
+          name: `${firstName} ${lastName}`,
+          phone: phone,
+          message: comments,
         }),
       });
 
@@ -197,7 +192,8 @@ export default function ContactPage() {
       }
     } catch (err) {
       console.error("Form submit error:", err);
-      setFormError("Connection error. Please try again later.");
+      const msg = err instanceof Error ? err.message : "Connection error. Please try again later.";
+      setFormError(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -266,11 +262,11 @@ export default function ContactPage() {
                   <Mail className="h-4.5 w-4.5 text-[#1d70b8] shrink-0 mt-0.5" />
                   <div className="space-y-1">
                     <span className="text-[10px] font-bold text-[#0f2d59] dark:text-text-title block">Email:</span>
-                    <p className="leading-relaxed text-text-muted">
-                      <a href="mailto:info@s3bglobal.com" className="hover:text-primary transition-colors text-text-muted">
+                    <span className="leading-relaxed text-black dark:text-zinc-300 block">
+                      <a href="mailto:info@s3bglobal.com" className="hover:text-primary transition-colors text-black dark:text-zinc-300">
                         info@s3bglobal.com
                       </a>
-                    </p>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -287,7 +283,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-xl font-semibold text-text-title">Message Sent!</h3>
                   <p className="text-xs text-text-muted max-w-sm leading-relaxed font-medium">
-                    Thank you, **{firstName}**. Your message has been successfully received. We will get in touch with you within 12 business hours.
+                    Thank you, <span className="font-bold text-text-title">{firstName}</span>. Your message has been successfully received. We will get in touch with you within 12 business hours.
                   </p>
                   <button
                     onClick={() => {
@@ -295,7 +291,7 @@ export default function ContactPage() {
                       setFirstName("");
                       setLastName("");
                       setEmail("");
-                      setTelephone("");
+                      setPhone("");
                       setComments("");
                     }}
                     className="px-5 py-2.5 rounded-full bg-[#1d70b8] hover:bg-blue-600 text-white font-sans font-bold text-xs shadow transition-all cursor-pointer"
@@ -352,12 +348,12 @@ export default function ContactPage() {
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-semibold text-text-title block">Telephone</label>
+                      <label className="text-[10px] font-semibold text-text-title block">Phone<span className="text-red-500">*</span></label>
                       <input
                         type="tel"
-                        placeholder="Telephone"
-                        value={telephone}
-                        onChange={(e) => setTelephone(e.target.value)}
+                        placeholder="Phone"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         className="w-full px-3.5 py-3 rounded-lg border bg-slate-100/90 dark:bg-black/20 text-xs font-semibold text-text-title placeholder-text-muted/75 focus:outline-none transition-all border-slate-200 dark:border-card-border focus:border-[#1d70b8]"
                       />
                     </div>
@@ -568,8 +564,8 @@ export default function ContactPage() {
                     key={loc.id}
                     onClick={() => setActiveOffice(loc)}
                     className={`px-5 py-3 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer select-none flex-1 text-center ${isActive
-                        ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-[#041018] shadow-[0_4px_12px_rgba(34,211,238,0.25)] scale-[1.01]"
-                        : "text-text-muted hover:text-text-title hover:bg-card-bg border border-transparent"
+                      ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-[#041018] shadow-[0_4px_12px_rgba(34,211,238,0.25)] scale-[1.01]"
+                      : "text-text-muted hover:text-text-title hover:bg-card-bg border border-transparent"
                       }`}
                   >
                     {loc.label}

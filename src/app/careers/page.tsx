@@ -554,28 +554,18 @@ export default function CareersPage() {
     setIsSubmitting(true);
 
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
+      const n8nWebhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "";
+      if (!n8nWebhookUrl) {
+        throw new Error("Email proxy URL is not configured.");
+      }
 
-      const templateParams: Record<string, string> = {
-        subject: `[Job Application] S3B Global Website - ${selectedJobForModal?.title || "Unknown Job"} from ${fullName}`,
-        from_name: "S3B Global Careers Form",
-        name: fullName,
-        email: email,
-        notes: notes,
-        jobTitle: selectedJobForModal?.title || "Unknown Job",
-        resumeUrl: uploadedFile ? uploadedFile.name : resumeUrl,
-      };
-
-      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const response = await fetch(n8nWebhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          template_params: templateParams,
+          email: email,
+          name: fullName,
+          message: `Job Title: ${selectedJobForModal?.title || "Unknown Job"}\nName: ${fullName}\nEmail: ${email}\nNotes: ${notes || "N/A"}\nResume/CV: ${uploadedFile ? uploadedFile.name : resumeUrl}`,
         }),
       });
 
@@ -587,7 +577,8 @@ export default function CareersPage() {
       }
     } catch (err) {
       console.error("Careers form submit error:", err);
-      setFormError("Connection error. Please try again later.");
+      const msg = err instanceof Error ? err.message : "Connection error. Please try again later.";
+      setFormError(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -808,7 +799,7 @@ export default function CareersPage() {
                 </div>
                 <h4 className="text-[24px] font-bold text-text-title">Application Submitted!</h4>
                 <p className="text-[14px] text-text-muted leading-relaxed font-light max-w-sm">
-                  Thank you, **{fullName}**. Your application has been successfully received. S3B Human Resources will review your details and contact you within 48 business hours.
+                  Thank you, <span className="font-bold text-text-title">{fullName}</span>. Your application has been successfully received. S3B Human Resources will review your details and contact you within 48 business hours.
                 </p>
                 <button
                   onClick={() => setSelectedJobForModal(null)}

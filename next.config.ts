@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  // Deployed on Vercel — no 'output: export' needed (API routes require server)
+  // Static export for Hostinger — all form handling is done by n8n Cloud webhooks
+  output: "export",
   trailingSlash: true,
   images: {
     unoptimized: true,
