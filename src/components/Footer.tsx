@@ -58,7 +58,7 @@ export default function Footer() {
                 <Link href="/" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Home</Link>
               </li>
               <li>
-                <Link href="/about" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">About us</Link>
+                <Link href="/about-us" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">About us</Link>
               </li>
               <li>
                 <Link href="/#services" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Services</Link>
@@ -67,7 +67,7 @@ export default function Footer() {
                 <Link href="/blog" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Blog</Link>
               </li>
               <li>
-                <Link href="/contact" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Contact Us</Link>
+                <Link href="/contact-us" className="inline-block hover:text-brand-blue hover:translate-x-1 transition-all duration-300">Contact Us</Link>
               </li>
             </ul>
           </div>

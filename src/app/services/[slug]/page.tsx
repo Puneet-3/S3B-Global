@@ -6,6 +6,8 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamicParams = false;
+
 // 1. Pre-render static paths for high performance and zero Next.js routing warnings
 export async function generateStaticParams() {
   return [

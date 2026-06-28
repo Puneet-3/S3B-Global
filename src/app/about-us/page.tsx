@@ -1,0 +1,576 @@
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ScrollReveal from "@/components/ScrollReveal";
+import CTASection from "@/components/CTASection";
+import {
+  Globe,
+  TrendingUp,
+  Eye,
+  Target
+} from "lucide-react";
+
+// Interactive global map canvas representing S3B Edge node handshakes
+function GlobalNetworkMap() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Load high-fidelity world map background image
+    const mapImg = new Image();
+    mapImg.src = "/world-map-v2.png";
+    let mapLoaded = false;
+    mapImg.onload = () => {
+      mapLoaded = true;
+    };
+
+    let animationFrameId: number;
+    let time = 0;
+
+    let transform = { scale: 1, offsetX: 0, offsetY: 0 };
+
+    const handleResize = () => {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+
+      const scale = Math.min(rect.width / 400, rect.height / 240);
+      const offsetX = (rect.width - 400 * scale) / 2;
+      const offsetY = (rect.height - 240 * scale) / 2;
+
+      transform = { scale, offsetX, offsetY };
+      ctx.scale(dpr, dpr);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    // 10-City connection map node coordinates (aligned to high-fidelity background image)
+    const nodes = [
+      { name: "Alpharetta", label: "Alpharetta, GA (USA)", x: 106, y: 111, r: 4.5, pulsePhase: Math.PI / 5 },
+      { name: "Noida", label: "Noida, UP (India)", x: 278, y: 116, r: 4.5, pulsePhase: Math.PI / 3 }
+    ];
+
+    // Highly connected transit tracks with arrow indications
+    const networkPaths: Array<{ from: number; to: number; progress: number; speed: number }> = [];
+
+    // Pre-calculate continental world outline dots inside shapes to completely eliminate 60fps flickering noise
+    const staticDots: { x: number; y: number }[] = [];
+    const continentalDots = [
+      { cx: 75, cy: 70, rx: 45, ry: 25, dotCount: 35 },
+      { cx: 125, cy: 155, rx: 25, ry: 40, dotCount: 22 },
+      { cx: 220, cy: 65, rx: 75, ry: 35, dotCount: 50 },
+      { cx: 195, cy: 140, rx: 25, ry: 45, dotCount: 26 },
+      { cx: 325, cy: 175, rx: 35, ry: 20, dotCount: 28 }
+    ];
+
+    continentalDots.forEach(c => {
+      for (let a = 0; a < c.dotCount; a++) {
+        const theta = Math.random() * Math.PI * 2;
+        const radX = Math.sqrt(Math.random()) * c.rx;
+        const radY = Math.sqrt(Math.random()) * c.ry;
+        const dx = c.cx + radX * Math.cos(theta);
+        const dy = c.cy + radY * Math.sin(theta);
+        staticDots.push({ x: dx, y: dy });
+      }
+    });
+
+    const runFrame = () => {
+      time += 0.015;
+      const isLightMode = document.documentElement.classList.contains("light-mode");
+
+      // Clear entire canvas safely by resetting transform
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+
+      // Apply scaled centering transform
+      ctx.save();
+      ctx.translate(transform.offsetX, transform.offsetY);
+      ctx.scale(transform.scale, transform.scale);
+
+      // Draw high-fidelity world map background image aligned with canvas nodes coordinate space (fully clear opacity)
+      if (mapLoaded) {
+        ctx.save();
+        ctx.globalAlpha = isLightMode ? 0.90 : 0.80;
+        if (isLightMode) {
+          ctx.filter = "invert(1) hue-rotate(180deg)";
+        }
+        ctx.drawImage(mapImg, 0, 0, 400, 240);
+        ctx.restore();
+      }
+
+      // 1. Draw stylized geometric background map outlines (Latitude / Longitude grids)
+      ctx.strokeStyle = isLightMode ? "rgba(15, 23, 42, 0.012)" : "rgba(255, 255, 255, 0.006)";
+      ctx.lineWidth = 0.8;
+      ctx.setLineDash([2, 5]); // High-tech dotted/dashed grid lines
+
+      // Draw horizontal grids
+      for (let y = 30; y < 220; y += 30) {
+        ctx.beginPath();
+        ctx.moveTo(15, y);
+        ctx.lineTo(385, y);
+        ctx.stroke();
+      }
+      ctx.setLineDash([]); // Reset line dash for normal borders
+
+      // 2. Draw curved connection arches representing secure VPN networks
+      ctx.lineWidth = isLightMode ? 1.2 : 1.0;
+      networkPaths.forEach(path => {
+        const nodeA = nodes[path.from];
+        const nodeB = nodes[path.to];
+
+        ctx.beginPath();
+        ctx.moveTo(nodeA.x, nodeA.y);
+
+        // Midpoint with curve offset (create natural arching look)
+        const midX = (nodeA.x + nodeB.x) / 2;
+        const midY = (nodeA.y + nodeB.y) / 2 - 25;
+        ctx.quadraticCurveTo(midX, midY, nodeB.x, nodeB.y);
+
+        const edgeOpacity = isLightMode ? 0.45 : 0.35;
+        const lineColor = isLightMode ? `rgba(29, 112, 184, ${edgeOpacity})` : `rgba(34, 211, 238, ${edgeOpacity})`;
+        ctx.strokeStyle = lineColor;
+        ctx.stroke();
+
+        // 3. Draw Synaptic flow packets running across arches
+        path.progress += path.speed;
+        if (path.progress >= 1.0) {
+          path.progress = 0;
+        }
+
+        // Quadratic bezier formula to compute running package coordinate
+        const t = path.progress;
+        const px = (1 - t) * (1 - t) * nodeA.x + 2 * (1 - t) * t * midX + t * t * nodeB.x;
+        const py = (1 - t) * (1 - t) * nodeA.y + 2 * (1 - t) * t * midY + t * t * nodeB.y;
+
+        ctx.save();
+        ctx.fillStyle = isLightMode ? "rgba(29, 112, 184, 0.95)" : "rgba(34, 211, 238, 0.95)";
+        ctx.shadowColor = ctx.fillStyle as string;
+        ctx.shadowBlur = 6;
+        ctx.beginPath();
+        ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      // 4. Draw edge nodes with pulsing halos
+      nodes.forEach(node => {
+        // Safe, positive-only pulse calculation to prevent negative radius issues and overlapping clutter
+        const pulse = 1.5 + (Math.sin(time * 2.2 + node.pulsePhase) + 1.0) * 2.5;
+
+        ctx.beginPath();
+        ctx.fillStyle = isLightMode ? "rgba(29, 112, 184, 0.95)" : "rgba(34, 211, 238, 0.95)";
+        ctx.arc(node.x, node.y, node.r * (isLightMode ? 1.15 : 1.0), 0, Math.PI * 2);
+        ctx.fill();
+
+        // Glowing radar waves
+        ctx.beginPath();
+        ctx.strokeStyle = isLightMode ? "rgba(29, 112, 184, 0.3)" : "rgba(34, 211, 238, 0.25)";
+        ctx.lineWidth = 1.0;
+        ctx.arc(node.x, node.y, node.r + pulse, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Draw outlined, high-readability typographic label next to the node (aligned dynamically)
+        ctx.save();
+        ctx.font = "bold 8px system-ui, -apple-system, sans-serif";
+
+        // Prevent overlap or text clipping by aligning left-side or edge cities differently
+        const isLeftAligned = node.name === "San Francisco" || node.name === "Auckland";
+        ctx.textAlign = isLeftAligned ? "right" : "left";
+        const textX = isLeftAligned ? node.x - 8 : node.x + 8;
+
+        // Setup shadow/outline for extreme readability on any background
+        ctx.strokeStyle = isLightMode ? "rgba(255, 255, 255, 0.9)" : "rgba(15, 23, 42, 0.9)";
+        ctx.lineWidth = 2.5;
+        ctx.strokeText(node.name, textX, node.y + 3);
+
+        // Fill text
+        ctx.fillStyle = isLightMode ? "rgba(15, 23, 42, 0.9)" : "rgba(248, 250, 252, 0.95)";
+        ctx.fillText(node.name, textX, node.y + 3);
+        ctx.restore();
+      });
+
+      ctx.restore();
+      animationFrameId = requestAnimationFrame(runFrame);
+    };
+
+    animationFrameId = requestAnimationFrame(runFrame);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="w-full h-full block bg-transparent"
+      style={{ minHeight: "220px" }}
+    />
+  );
+}
+
+// 5-Step process overview segments
+const PROCESS_STEPS = [
+  { id: "01", name: "Discover", desc: "Business goals & AI Agent opportunities" },
+  { id: "02", name: "Define", desc: "AI strategies, agent workflows & planning" },
+  { id: "03", name: "Design", desc: "UX/UI for AI & automated architectures" },
+  { id: "04", name: "Develop", desc: "AI agent & automated digital workflows" },
+  { id: "05", name: "Deliver", desc: "AI model testing, launch & optimization" }
+];
+
+interface AnimatedCounterProps {
+  value: string;
+}
+
+function AnimatedCounter({ value }: AnimatedCounterProps) {
+  const [count, setCount] = useState(0);
+  const elementRef = useRef<HTMLHeadingElement>(null);
+  const isIntersecting = useRef(false);
+
+  const numericPart = parseFloat(value.replace(/[^0-9.]/g, "")) || 0;
+  const suffix = value.replace(/[0-9.]/g, "");
+  const isDecimal = value.includes(".");
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    let animationFrameId: number;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    const startAnimationLoop = () => {
+      let startTimestamp: number | null = null;
+      const duration = 1500; // 1.5 seconds count animation
+
+      const step = (timestamp: number) => {
+        if (!isIntersecting.current) return;
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+
+        // Easing function: easeOutQuad
+        const easedProgress = progress * (2 - progress);
+
+        setCount(easedProgress * numericPart);
+
+        if (progress < 1) {
+          animationFrameId = window.requestAnimationFrame(step);
+        } else {
+          // Animation reached target value, wait 3 seconds and restart the loop
+          timeoutId = setTimeout(() => {
+            if (isIntersecting.current) {
+              startAnimationLoop();
+            }
+          }, 3000);
+        }
+      };
+
+      animationFrameId = window.requestAnimationFrame(step);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          isIntersecting.current = true;
+          startAnimationLoop();
+        } else {
+          isIntersecting.current = false;
+          // Clear any running animation loop or timeout on scroll out
+          cancelAnimationFrame(animationFrameId);
+          clearTimeout(timeoutId);
+          setCount(0); // Reset to 0 when out of view
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(animationFrameId);
+      clearTimeout(timeoutId);
+    };
+  }, [numericPart]);
+
+  const displayValue = isDecimal ? count.toFixed(1) : Math.round(count).toString();
+
+  return (
+    <h3 ref={elementRef} className="text-[28px] font-light text-text-title tracking-tight leading-none tabular-nums">
+      {displayValue}{suffix}
+    </h3>
+  );
+}
+
+export default function AboutPage() {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  useEffect(() => {
+    document.title = "About Us - S3B Global";
+
+    const checkTheme = () => {
+      setIsDarkMode(!document.documentElement.classList.contains("light-mode"));
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="flex flex-col min-h-screen bg-background font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-white transition-colors duration-300">
+
+      {/* 1. Navigation Header */}
+      <Header />
+
+      {/* Main Content Area */}
+      <main className="flex-1 w-full pt-28 md:pt-36 pb-20 relative">
+        {/* Background Visual Accents */}
+        <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full bg-brand-blue/3 blur-[130px] pointer-events-none -z-10 animate-pulse-slow" />
+        <div className="absolute top-[40%] left-0 w-[400px] h-[400px] rounded-full bg-brand-green/3 blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
+        <div className="absolute bottom-0 right-0 w-[350px] h-[350px] rounded-full bg-brand-orange/3 blur-[130px] pointer-events-none -z-10 animate-pulse-slow" />
+
+        <div className="max-w-7xl mx-auto px-6 space-y-24">
+
+          {/* Section 1: Hero Block */}
+          <ScrollReveal className="text-center max-w-4xl mx-auto space-y-6">
+            <h1 className="text-3xl sm:text-4xl md:text-[54.4px] font-light text-text-title tracking-tight leading-[1.1] md:leading-none">
+              About Us
+            </h1>
+
+            <p className="text-[16px] text-text-muted leading-relaxed max-w-3xl mx-auto font-light">
+              We engineer autonomous AI agents, automated digital workflows, cloud solutions, and cognitive AI technologies to help businesses scale and automate operations.
+            </p>
+          </ScrollReveal>
+
+          {/* Section 2: Company Overview & Global Connection Map */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-5xl mx-auto">
+
+            {/* Left Column (7 columns) */}
+            <ScrollReveal className="lg:col-span-7 text-left space-y-6">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-card-bg border border-card-border shadow-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1d70b8] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#1d70b8]"></span>
+                </span>
+                <span className="text-[10px] md:text-xs font-mono font-normal uppercase tracking-wider text-text-muted">
+                  GLOBAL TECHNOLOGY PARTNER
+                </span>
+              </div>
+
+              <h2 className="text-3xl md:text-[54.4px] font-light text-text-title tracking-tight leading-tight">
+                Scalable AI Agents, Automated Workflows & Cognitive AI Solutions.
+              </h2>
+
+              <p className="text-[16px] text-text-muted leading-relaxed font-light">
+                At S3B Global, we engineer autonomous AI agents, intelligent digital workflows, cloud scaling, and cognitive automation systems that help businesses improve operational efficiency, automate workflows, and scale globally.
+              </p>
+
+              <p className="text-[16px] text-text-muted leading-relaxed font-light">
+                With deep expertise across AI agent development, automated workflow systems, cloud architecture, and enterprise IT services, we empower organizations to automate complex tasks and lead the AI transformation.
+              </p>
+            </ScrollReveal>
+
+            {/* Right Column (5 columns) */}
+            <ScrollReveal delay={150} className="lg:col-span-5">
+              <div className="liquid-glass-glowing bg-card-bg/40 border-card-border p-5 rounded-2xl aspect-[4/3] flex items-center justify-center relative overflow-hidden group select-none shadow-md">
+                <div className="absolute inset-0 z-10">
+                  <GlobalNetworkMap />
+                </div>
+
+                {/* Visual compass layout overlay */}
+                <div className="absolute top-4 left-4 z-10 font-mono text-[8px] font-bold text-text-muted/40 uppercase tracking-widest flex items-center space-x-1">
+                  <Globe className="h-3 w-3 animate-spin-slow" />
+                  <span>S3B GLOBAL EDGE GATEWAYS</span>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          {/* Section 3: Engineered for Performance & 5-Step Process */}
+          <div className="space-y-16 max-w-5xl mx-auto">
+            <ScrollReveal className="text-center max-w-3xl mx-auto space-y-6">
+              <h2 className="text-3xl md:text-[54.4px] font-light text-text-title tracking-tight">
+                Intelligent AI Agents & Workflow Automation.
+              </h2>
+
+              <p className="text-[16px] text-text-muted leading-relaxed font-light">
+                All of our autonomous AI agents, automated workflows, and cognitive digital systems are custom-built to help businesses automate operations and lead their industry.
+              </p>
+
+              {/* Anchors path */}
+              <div className="flex items-center justify-center space-x-4 font-mono text-[15px] font-normal text-[#1d70b8] uppercase tracking-wider select-none">
+                <span className="hover:text-primary transition-colors">From AI Strategy to Autonomous Agent Workflows</span>
+              </div>
+            </ScrollReveal>
+
+            {/* Horizontal steps flow matching reference layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5 select-none">
+              {PROCESS_STEPS.map((step, idx) => (
+                <ScrollReveal
+                  key={idx}
+                  delay={idx * 80}
+                  className="liquid-glass-glowing bg-card-bg/35 border border-card-border p-5 rounded-2xl flex flex-col justify-between items-center text-center hover:-translate-y-0.5"
+                >
+                  <div className="space-y-3">
+                    <span className="text-[16px] font-mono font-bold text-primary/80 block">{step.id}</span>
+                    <h4 className="text-[24px] font-bold text-text-title tracking-tight leading-tight">{step.name}</h4>
+                    <p className="text-[14px] text-text-muted leading-relaxed font-light">
+                      {step.desc}
+                    </p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 4: Vision & Mission Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto select-none">
+
+            {/* Card 1: Our Vision */}
+            <ScrollReveal
+              className="rounded-2xl border border-card-border bg-vision-card-bg p-8 text-left space-y-4 relative overflow-hidden group hover:border-[#1d70b8]/40 hover:shadow-md transition-all duration-300"
+              style={{ borderColor: isDarkMode ? "rgba(29, 112, 184, 0.35)" : undefined }}
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-gradient-to-br from-[#1d70b8]/20 to-transparent -z-10" />
+
+              <div className="flex items-center space-x-3">
+                <div className="p-2.5 rounded-lg bg-[#1d70b8]/10 border border-[#1d70b8]/20 text-[#1d70b8]">
+                  <Eye className="h-5 w-5" />
+                </div>
+                <h3 className="text-[24px] font-bold text-text-title tracking-tight">Our Vision</h3>
+              </div>
+              <p className="text-[14px] text-text-muted leading-relaxed font-light">
+                To be the leading global technology partner for autonomous AI agents, intelligent workflow automation, and cognitive enterprise systems.
+              </p>
+            </ScrollReveal>
+
+            {/* Card 2: Our Mission */}
+            <ScrollReveal
+              delay={100}
+              className="rounded-2xl border border-card-border bg-vision-card-bg p-8 text-left space-y-4 relative overflow-hidden group hover:border-brand-green/40 hover:shadow-md transition-all duration-300"
+              style={{ borderColor: isDarkMode ? "rgba(16, 185, 129, 0.35)" : undefined }}
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-gradient-to-br from-brand-green/20 to-transparent -z-10" />
+
+              <div className="flex items-center space-x-3">
+                <div className="p-2.5 rounded-lg bg-brand-green/10 border border-brand-green/20 text-brand-green">
+                  <Target className="h-5 w-5" />
+                </div>
+                <h3 className="text-[24px] font-bold text-text-title tracking-tight">Our Mission</h3>
+              </div>
+              <p className="text-[14px] text-text-muted leading-relaxed font-light">
+                To empower businesses through AI agent deployment, automated workflow engineering, cloud-scale systems, and end-to-end cognitive automation.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          {/* Section 5: Growth Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-5xl mx-auto">
+
+            {/* Left Column: Growth SVG Chart (5 columns) */}
+            <ScrollReveal className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-[360px] aspect-[4/3] relative p-5 bg-card-bg/40 border border-card-border rounded-2xl backdrop-blur-md flex items-end justify-between shadow-md select-none">
+
+                {/* 4 Colored vertical charts bars */}
+                <div className="w-10 bg-gradient-to-t from-[#f59e0b] to-[#d97706] rounded-t-lg transition-all duration-1000 h-[22%]" style={{ animationDelay: "100ms" }} />
+                <div className="w-10 bg-gradient-to-t from-[#1d70b8] to-[#1e40af] rounded-t-lg transition-all duration-1000 h-[48%]" style={{ animationDelay: "300ms" }} />
+                <div className="w-10 bg-gradient-to-t from-[#10b981] to-[#047857] rounded-t-lg transition-all duration-1000 h-[72%]" style={{ animationDelay: "500ms" }} />
+                <div className="w-10 bg-gradient-to-t from-[#4ade80] to-[#16a34a] rounded-t-lg transition-all duration-1000 h-[92%]" style={{ animationDelay: "700ms" }} />
+
+                {/* Upward neon green arrow mapping curve */}
+                <svg className="absolute inset-0 w-full h-full text-[#10b981] pointer-events-none" viewBox="0 0 360 270">
+                  <path
+                    d="M 50,225 C 110,210 180,135 285,55"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    className="drop-shadow-[0_0_8px_rgba(16,185,129,0.7)]"
+                  />
+                  {/* Arrowhead */}
+                  <polygon points="280,48 295,50 288,65" fill="currentColor" />
+                </svg>
+
+                <div className="absolute top-4 left-4 font-mono text-[8px] font-bold text-text-muted/40 uppercase tracking-widest flex items-center space-x-1">
+                  <TrendingUp className="h-3.5 w-3.5 text-[#10b981]" />
+                  <span>S3B ACCELERATED GROWTH RATE</span>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Right Column: Copy Block (7 columns) */}
+            <ScrollReveal delay={150} className="lg:col-span-7 text-left space-y-6">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-card-bg border border-card-border shadow-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]"></span>
+                </span>
+                <span className="text-[10px] md:text-xs font-mono font-bold uppercase tracking-wider text-text-muted">
+                  OUR APPROACH
+                </span>
+              </div>
+
+              <h2 className="text-3xl md:text-[54.4px] font-light text-text-title tracking-tight leading-tight">
+                AI Agent & Automated Workflow Innovation.
+              </h2>
+
+              <p className="text-[16px] text-text-muted leading-relaxed font-light">
+                We design and configure custom AI agents, automated workflow networks, and cognitive database integrations to accelerate growth.
+              </p>
+
+              <p className="text-[16px] text-text-muted leading-relaxed font-light">
+                Our performance metrics focus on AI deployment speeds, workflow automation efficiency, cloud scaling capabilities, and agent accuracy.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          {/* Section 6: Key Performance Metrics */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto select-none">
+            {[
+              { label: "Years of Experience", val: "8+" },
+              { label: "PoC Annually", val: "110 +" },
+              { label: "Service Satisfaction", val: "97.4 %" },
+              { label: "Global Reach", val: "100%" }
+            ].map((metric, idx) => (
+              <ScrollReveal
+                key={idx}
+                delay={idx * 100}
+                className="liquid-glass-glowing bg-card-bg/35 border border-card-border p-6 rounded-2xl flex flex-col justify-between items-center text-center hover:-translate-y-0.5"
+              >
+                <div className="space-y-2">
+                  {/* Glowing Blue dot indicators */}
+                  <div className="flex items-center justify-center space-x-1.5 pb-1 select-none">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#1d70b8] animate-ping" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
+                  </div>
+
+                  <span className="text-[14px] font-mono font-light text-text-muted/65 uppercase tracking-wider block">
+                    {metric.label}
+                  </span>
+
+                  <AnimatedCounter value={metric.val} />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+        </div>
+
+        {/* Section 7: Sleek Page CTA Section */}
+        <CTASection />
+      </main>
+
+      {/* 3. Global Sitemap Footer */}
+      <Footer />
+    </div>
+  );
+}

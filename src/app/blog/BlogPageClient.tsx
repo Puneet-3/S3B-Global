@@ -170,30 +170,37 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
                       className="group liquid-glass-glowing bg-card-bg/30 border border-card-border/60 rounded-[2rem] flex flex-col justify-between hover:-translate-y-1 hover:border-card-border-hover/80 hover:shadow-xl text-left relative overflow-hidden transition-all duration-500"
                     >
                       {/* Premium Image Header */}
-                      <Link
-                        href={postUrl}
-                        className="relative w-full aspect-[16/9] overflow-hidden bg-black/10 border-b border-card-border/20 block"
-                      >
-                        <Image
-                          src={post.image}
-                          alt={post.title}
-                          fill
-                          unoptimized
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent opacity-60 pointer-events-none" />
-                        <span className="absolute top-4 right-4 text-[9px] font-mono font-medium uppercase tracking-widest text-text-title bg-background/85 border border-card-border/80 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
-                          {post.category}
-                        </span>
-                      </Link>
+                      {post.image && (
+                        <Link
+                          href={postUrl}
+                          className="relative w-full aspect-[16/9] overflow-hidden bg-black/10 border-b border-card-border/20 block"
+                        >
+                          <Image
+                            src={post.image}
+                            alt={post.title}
+                            fill
+                            unoptimized
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent opacity-60 pointer-events-none" />
+                          <span className="absolute top-4 right-4 text-[9px] font-mono font-medium uppercase tracking-widest text-text-title bg-background/85 border border-card-border/80 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
+                            {post.category}
+                          </span>
+                        </Link>
+                      )}
 
                       <div className="p-5 md:p-6 flex-1 flex flex-col justify-between space-y-5">
                         <div className="space-y-4">
                           {/* Blog Header row */}
-                          <div className="flex items-start justify-between space-x-3">
+                          <div className="flex items-center justify-between space-x-3">
                             <div className={`p-2.5 rounded-xl ${post.accent} border border-white/[0.04] shrink-0`}>
                               <Icon className="h-4.5 w-4.5" />
                             </div>
+                            {!post.image && (
+                              <span className="text-[9px] font-mono font-medium uppercase tracking-widest text-text-title bg-card-bg border border-card-border px-3 py-1 rounded-full shadow-sm">
+                                {post.category}
+                              </span>
+                            )}
                           </div>
 
                           {/* Blog Info */}

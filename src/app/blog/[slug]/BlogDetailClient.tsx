@@ -308,18 +308,20 @@ export default function BlogDetailClient({ slug, initialPost }: BlogDetailClient
               </ScrollReveal>
 
               {/* Featured Image */}
-              <ScrollReveal delay={100}>
-                <div className="relative w-full h-[250px] sm:h-[400px] md:h-[480px] rounded-[2rem] overflow-hidden bg-black/10 border border-card-border/30 shadow-md">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    unoptimized
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                </div>
-              </ScrollReveal>
+              {post.image && (
+                <ScrollReveal delay={100}>
+                  <div className="relative w-full h-[250px] sm:h-[400px] md:h-[480px] rounded-[2rem] overflow-hidden bg-black/10 border border-card-border/30 shadow-md">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      unoptimized
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                </ScrollReveal>
+              )}
 
               {/* Content body */}
               <ScrollReveal delay={150} className="prose dark:prose-invert max-w-none pt-4">

@@ -13,14 +13,40 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "S3B Global | Next-Gen AI & Cloud Automation Solutions",
+  metadataBase: new URL("https://s3bglobal.com"),
+  title: {
+    default: "S3B Global | Next-Gen AI & Cloud Automation Solutions",
+    template: "%s | S3B Global",
+  },
   description: "S3B Global is your premier technology partner specializing in custom AI-powered innovations, cloud migration, modern web systems, and high-fidelity UI/UX design. Energy. Speed. Solution for Business.",
   keywords: ["AI Automation", "Cloud Architecture", "Custom Web Development", "UI/UX Design", "eCommerce Systems", "Enterprise Solutions"],
   authors: [{ name: "S3B Global" }],
   icons: {
-    icon: "/icon.png",
+    icon: "/s3b-logo-icon.png",
     shortcut: "/favicon.ico",
-    apple: "/icon.png",
+    apple: "/s3b-logo-icon.png",
+  },
+  openGraph: {
+    title: "S3B Global | Next-Gen AI & Cloud Automation Solutions",
+    description: "S3B Global is your premier technology partner specializing in custom AI-powered innovations, cloud migration, modern web systems, and high-fidelity UI/UX design.",
+    url: "https://s3bglobal.com",
+    siteName: "S3B Global",
+    images: [
+      {
+        url: "/s3b-logo-dark.png",
+        width: 1200,
+        height: 630,
+        alt: "S3B Global Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "S3B Global | Next-Gen AI & Cloud Automation Solutions",
+    description: "S3B Global is your premier technology partner specializing in custom AI-powered innovations, cloud migration, modern web systems, and high-fidelity UI/UX design.",
+    images: ["/s3b-logo-dark.png"],
   },
 };
 

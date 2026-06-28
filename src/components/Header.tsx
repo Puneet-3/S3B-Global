@@ -155,7 +155,7 @@ export default function Header() {
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
             <Link
-              href="/about"
+              href="/about-us"
               className="relative py-1 transition-colors hover:text-text-title group"
             >
               About us
@@ -237,7 +237,7 @@ export default function Header() {
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
             <Link
-              href="/contact"
+              href="/contact-us"
               className="relative py-1 transition-colors hover:text-text-title group"
             >
               Contact us
@@ -292,7 +292,7 @@ export default function Header() {
               Home
             </Link>
             <Link
-              href="/about"
+              href="/about-us"
               onClick={() => setIsMobileMenuOpen(false)}
               className="hover:text-text-title transition-colors text-left"
             >
@@ -340,7 +340,7 @@ export default function Header() {
               Careers
             </Link>
             <Link
-              href="/contact"
+              href="/contact-us"
               onClick={() => setIsMobileMenuOpen(false)}
               className="hover:text-text-title transition-colors text-left"
             >

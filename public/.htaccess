@@ -1,0 +1,2 @@
+# Serve the custom Next.js 404 page for 404 errors
+ErrorDocument 404 /404.html

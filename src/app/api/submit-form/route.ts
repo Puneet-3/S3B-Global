@@ -126,7 +126,7 @@ export async function POST(request: Request) {
             <h2 style="color: #1d70b8; margin-top: 0; font-size: 22px;">Thanks for Subscribing!</h2>
             <p>Hi,</p>
             <p>Thank you for subscribing to the S3B Global newsletter. We're excited to share our latest insights on AI, cloud transformation, enterprise software engineering, and digital marketing with you.</p>
-            <p>If you have any questions or want to discuss a project, feel free to reply directly to this email or visit our <a href="https://s3bglobal.com/contact/" style="color: #1d70b8; text-decoration: none; font-weight: bold;">Contact Page</a>.</p>
+            <p>If you have any questions or want to discuss a project, feel free to reply directly to this email or visit our <a href="https://s3bglobal.com/contact-us/" style="color: #1d70b8; text-decoration: none; font-weight: bold;">Contact Page</a>.</p>
             <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 25px 0 15px 0;" />
             <p style="font-size: 13px; color: #475569; font-weight: bold; margin: 0;">S3B Global Team</p>
           </div>

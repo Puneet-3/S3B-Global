@@ -16,9 +16,9 @@ graph TD
     %% Main Sections
     Services["Services (/services/[slug])"]
     Blog["Blog Hub (/blog/)"]
-    About["About Us (/about/)"]
+    About["About Us (/about-us/)"]
     Careers["Careers (/careers/)"]
-    Contact["Contact (/contact/)"]
+    Contact["Contact (/contact-us/)"]
     
     Home --> Services
     Home --> Blog
@@ -68,12 +68,12 @@ The following table maps the public URL paths to their corresponding Next.js com
 | Route Path | Next.js File Path | Build Type | Description | Primary SEO Focus |
 | :--- | :--- | :--- | :--- | :--- |
 | `/` | `src/app/page.tsx` | Static | Company Landing & Hero Section | Brand, Core Competencies |
-| `/about/` | `src/app/about/page.tsx` | Static | Corporate Profile & Milestones | Team Trust & Mission |
+| `/about-us/` | `src/app/about-us/page.tsx` | Static | Corporate Profile & Milestones | Team Trust & Mission |
 | `/services/[slug]/` | `src/app/services/[slug]/page.tsx` | SSG (Static) | Specialized Services Detail | Service keywords (SOC 2, AI) |
 | `/blog/` | `src/app/blog/page.tsx` | Static | Blog Landing & Category Feed | Thought Leadership Hub |
 | `/blog/[slug]/` | `src/app/blog/[slug]/page.tsx` | SSG (Static) | Tech Articles & Insights | Long-tail search terms |
 | `/careers/` | `src/app/careers/page.tsx` | Static | Open Roles & Core Values | Employer Branding |
-| `/contact/` | `src/app/contact/page.tsx` | Static | Lead Capture & Location Details | Conversions & Contact Info |
+| `/contact-us/` | `src/app/contact-us/page.tsx` | Static | Lead Capture & Location Details | Conversions & Contact Info |
 
 > [!NOTE]
-> All URLs use a **trailing slash** (e.g., `/about/`) as configured by `trailingSlash: true` in the [next.config.ts](file:///c:/Users/punee/.gemini/antigravity/scratch/s3b-global-website/next.config.ts) file. This matches the static hosting deployment.
+> All URLs use a **trailing slash** (e.g., `/about-us/`) as configured by `trailingSlash: true` in the [next.config.ts](file:///c:/Users/punee/.gemini/antigravity/scratch/s3b-global-website/next.config.ts) file. This matches the static hosting deployment.
